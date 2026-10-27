@@ -1,0 +1,33 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=20mm,top=27mm,bottom=20mm,headheight=25pt,footskip=8mm]{geometry}
+\input{estilo.tex}
+\hypersetup{pdftitle={Atividades do minicurso Do transistor ao chip}}
+\begin{document}
+\titulo{Atividades · aula 1}{Do silício ao MOSFET}
+Nome: \hrulefill\quad Data: \rule{24mm}{.4pt}
+
+\caixa{1 · Materiais e portadores}{a) Qual o portador majoritário em silício tipo P? E em tipo N?\\b) Por que ``tipo N'' não significa carga líquida negativa?\\c) Que cargas permanecem na região de depleção da junção PN?\\d) Que polarização reduz a barreira da junção?}
+\vspace{23mm}
+\caixa{2 · Calcule antes de decidir}{Use apenas neste exercício: $\VDD=1{,}2$ V e $V_{TN}=|V_{TP}|=0{,}4$ V constantes. Modele os transistores como chaves ideais. Preencha as diferenças de tensão e o estado.}
+\renewcommand{\arraystretch}{1.8}
+\begin{tabularx}{\linewidth}{lXXll}\toprule Tipo & $V_G$ & $V_S$ & $V_{GS}$ ou $V_{SG}$ & Estado\\\midrule
+NMOS & 0 V & 0 V & \rule{24mm}{.3pt} & \rule{24mm}{.3pt}\\
+PMOS & 0,2 V & 1,2 V & & \\
+NMOS & 1,2 V & 1,0 V & & \\
+PMOS & 1,2 V & 1,2 V & & \\\bottomrule\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\vspace{4mm}
+\caixa{3 · Explique pelo caminho elétrico}{a) No inversor CMOS, $A=0$. Qual transistor conduz e qual é a saída?\\b) Se o PMOS for retirado, quem garante saída alta quando o NMOS corta?\\c) Por que uma chave aberta não garante tensão zero?}
+\vfill\small Os valores são didáticos e não especificam uma tecnologia de fabricação. Escreva suas justificativas no verso, se necessário.
+\newpage
+\titulo{Atividades · aula 2}{Do MOSFET às portas lógicas}
+\caixa{4 · Construa e confira}{a) Desenhe NAND2: quatro transistores, entradas A/B, saída Y, alimentação e GND.\\b) Destaque o caminho ativo para A=1 e B=0.\\c) Transforme o desenho em NOR2 e explique a mudança das duas redes.}
+\vspace{33mm}
+\textbf{Complete as duas tabelas:}\par
+\begin{tabularx}{\linewidth}{ccXXXX}\toprule A & B & NAND: subida ativa? & NAND: Y & NOR: descida ativa? & NOR: Y\\\midrule
+0&0&&&&\\[4mm]0&1&&&&\\[4mm]1&0&&&&\\[4mm]1&1&&&&\\[4mm]\bottomrule\end{tabularx}
+\caixa{5 · Estenda para três entradas}{Desenhe uma NAND3. Quantos transistores são necessários? Em quais combinações a saída é zero?}
+\vspace{17mm}
+\caixa{6 · Explique sem decorar}{a) Dois NMOS em série geram condição AND de condução. Por que a saída é NAND?\\b) Por que copiar a rede NMOS em série para PMOS em série falha com entradas 01?\\c) Como obter NOT usando uma NAND de duas entradas?\\d) Por que uma porta CMOS real consome energia ao comutar?}
+\vfill\small Extensão opcional: construa $Y=\overline{AB+C}$ e confira as oito combinações de entrada.
+\end{document}

@@ -1,0 +1,28 @@
+# Compilação e entregas geradas
+/build/
+/pdfs/
+*.zip
+*.aux
+*.log
+*.nav
+*.snm
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+__pycache__/
+
+# Materiais de consulta e dados pessoais locais
+/fontes/
+/template_original/
+CV_*.pdf
+LECTURE_logic_gate.pdf
+figures_course_digital_design.pdf
+card_minicurso_semicondutores_3_dias.pdf
+Template_Beamer_UFC*.zip
+
+# Arquivos do sistema/editor
+.DS_Store
+*.swp
+*~

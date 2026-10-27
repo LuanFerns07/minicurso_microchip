@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=20mm,top=27mm,bottom=20mm,headheight=25pt,footskip=8mm]{geometry}
+\input{estilo.tex}
+\hypersetup{pdftitle={Guia dos facilitadores do minicurso Do transistor ao chip}}
+\begin{document}
+\titulo{Guia dos facilitadores}{Planejamento e condução · três encontros de 1h30}
+\caixa{Escopo desta versão}{Aulas 1 e 2 desenvolvidas, com notas por slide e atividades. Encerramento da aula 3 desenvolvido como roadmap. A parte prática no Virtuoso está reservada para elaboração posterior. O planejamento original com protoboard foi adaptado à orientação dos facilitadores.}
+\textbf{Público assumido.} Estudantes iniciantes, com noções de tensão e corrente; não se exige experiência com semicondutores, linguagens de hardware ou ferramentas de projeto. O slide 7 da aula 1 oferece uma revisão curta de circuitos.
+
+\textbf{Objetivo de saída.} Ao final da parte teórica, o participante deve interpretar NMOS/PMOS no modelo de chave, construir NOT/NAND/NOR em CMOS e justificar uma tabela verdade a partir dos caminhos elétricos. O roadmap amplia a visão dos campos de estudo sem exigir domínio desses temas.
+
+\textbf{Condução sugerida.} Um facilitador apresenta enquanto o outro recolhe dúvidas e acompanha as duplas. Luan pode relacionar as portas a RTL e arquitetura; Luiz pode conectar os dispositivos à analógica, simulação e layout. A divisão é uma sugestão didática, sem impor exclusividade de temas.
+
+\textbf{Aula 1 · 90 minutos.}
+\begin{center}\small\begin{tabularx}{\linewidth}{lXl}\toprule Minutos & Conteúdo e intenção & Slides\\\midrule
+0--10 & Abertura, mini-fichas, sequência e diagnóstico & 1--6\\
+10--30 & Circuitos, portadores, dopagem e transporte & 7--14\\
+30--40 & Junção PN, diodo e verificação rápida & 15--17\\
+40--45 & Pausa & 18\\
+45--65 & MOSFET: canal, corpo, critérios e dimensões & 19--28\\
+65--80 & Complementaridade, inversor e integração & 29--35\\
+80--90 & Atividade, correção e pergunta para a aula 2 & 36--37\\\bottomrule\end{tabularx}\end{center}
+Slide 38: referências para consulta. A formação de canal, as dimensões e os regimes de operação ampliam a explicação conceitual; não se pretende derivar equações de corrente neste encontro. Na última atividade, usar cerca de 6 minutos para resolução, 2 para correção e 2 para fechamento. A revisão de circuitos do slide 7 antecede o tema materiais no mesmo bloco de 20 minutos.
+
+\textbf{Aula 2 · 90 minutos.}
+\begin{center}\small\begin{tabularx}{\linewidth}{lXl}\toprule Minutos & Conteúdo e intenção & Slides\\\midrule
+0--10 & Retomada, níveis lógicos e notação booleana & 1--6\\
+10--25 & Inversor, margens, transição, atraso e consumo & 7--14\\
+25--45 & Redes, NAND e exemplos de funcionamento/erros & 15--22\\
+45--50 & Pausa & 23\\
+50--65 & NOR, três entradas, De Morgan e receita & 24--30\\
+65--80 & Atividade em duplas e correção & 31\\
+80--90 & Composição, carga, previsão e fechamento & 32--38\\\bottomrule\end{tabularx}\end{center}
+Os slides de margens, atraso e potência oferecem exemplos resolvidos para apoiar a exposição; evitar derivar modelos adicionais ao vivo. Slide 39: referências. Slides 40--42: apêndice opcional (AOI21 e XOR); não acrescentar ao encontro de 90 minutos. Se a turma já dominar a base, substituir parte da revisão. Se o ritmo estiver apertado, explicar a NOT e uma identidade de De Morgan e deixar as demais construções universais para consulta.
+\newpage
+\titulo{Como acompanhar a aprendizagem}{Perguntas, evidências e equívocos frequentes}
+\textbf{Na aula 1, procure estas evidências:}
+\begin{itemize}\item O participante calcula $V_{GS}$ ou $V_{SG}$ antes de decidir se conduz.
+\item Distingue material dopado de material com carga líquida.
+\item Explica que a porta controla por campo e que a corrente principal circula pelo canal.
+\item Distingue nó flutuante de nível lógico zero.\end{itemize}
+\textbf{Na aula 2, procure estas evidências:}
+\begin{itemize}\item Identifica um caminho completo, e não apenas um transistor ligado.
+\item Desenha a rede PMOS dual da NMOS e mantém as mesmas entradas correspondentes.
+\item Justifica as quatro linhas de NAND/NOR e a extensão NAND3.
+\item Distingue baixo consumo estático de energia de comutação.\end{itemize}
+\caixa{Atividade da aula 2 · 15 minutos}{8 minutos de desenho e tabelas; 4 minutos de troca entre duplas; 3 minutos de correção coletiva. Use as folhas \texttt{exercicios.pdf} e \texttt{gabarito.pdf}. Se houver um erro, peça para a dupla apontar de onde vem a carga da saída naquele estado.}
+\textbf{Equívocos que merecem correção imediata.}
+\begin{description}[style=nextline]
+\item[``Porta alta sempre liga NMOS.''] A condição é uma diferença entre porta e fonte; o exemplo com fonte a 1,0 V demonstra isso.
+\item[``NMOS em série implementa AND na saída.''] A condição AND liga a rede de descida e leva a saída a zero: o resultado é NAND.
+\item[``Sem corrente, a tensão é zero.''] Uma capacitância pode manter carga. Sem referência ativa, um nó pode ficar flutuante.
+\item[``CMOS não consome energia.''] O modelo ideal estável não tem caminho direto; a comutação carrega capacitâncias e o circuito real tem fugas.
+\item[``Saturação significa chave ideal fechada.''] As regiões elétricas do MOSFET não são sinônimos dos estados da chave ideal. Um transistor digital atravessa diferentes regimes durante uma transição.
+\end{description}
+\textbf{Limites assumidos.} MOSFETs de enriquecimento, modelo planar conceitual e lógica CMOS estática complementar. Os corpos NMOS ficam em GND e os corpos/poços PMOS em $\VDD$ no modelo bulk introdutório. Os critérios por nível de entrada são abstrações para análise lógica; em pilhas, nós internos e tensões de fonte precisam de análise elétrica para estimar correntes e tempos.
+
+\textbf{Exemplos quantitativos.} $\VDD=1{,}2$ V e limiares de 0,4 V são valores exclusivamente didáticos. Curvas e equivalentes RC são qualitativos, sem dados de PDK ou resultados de simulação. A expressão $P\approx\alpha C_L\VDD^2f$ representa a parcela capacitiva; $\alpha$ conta eventos 0$\rightarrow$1 por ciclo.
+\newpage
+\titulo{Encerramento da aula 3}{Um roadmap após a futura prática}
+\textbf{Reserva de tempo.} Usar até 20 minutos finais para os slides de encerramento; reservar os 70 minutos anteriores à prática que será planejada depois. Não há roteiro do Virtuoso, escolha de PDK, comandos, dimensões ou condições de simulação nesta versão.
+\begin{center}\small\begin{tabularx}{\linewidth}{lXl}\toprule Minutos do fechamento & Conteúdo & Slides\\\midrule
+0--3 & Retomada e mapa das áreas & 1--2\\
+3--11 & Cinco trilhas, com cerca de 1,5 min por trilha & 3--7\\
+11--15 & Exemplo de sistema e áreas transversais & 8--9\\
+15--18 & Plano de estudos e fontes & 10--11\\
+18--20 & Escolha de um primeiro projeto e despedida & 12\\\bottomrule\end{tabularx}\end{center}
+Para um fechamento de 15 minutos, sintetizar cada trilha em uma pergunta e um projeto; distribuir o mapa de uma página para a leitura posterior. A sequência é um mapa de possibilidades, não uma exigência de escolher carreira durante o curso.
+
+\textbf{Trilhas e conexões.} Digital se conecta à arquitetura de computadores por registradores, unidades de execução e memória. Analógica se conecta a sinais mistos por conversores e interfaces. RF exige base analógica, sinais e eletromagnetismo. Microeletrônica é o campo que abrange essas trilhas; todas se apoiam em dispositivos, modelos e processos.
+
+\textbf{Mini-fichas para apresentação oral.}
+\caixa{Luan F. Nogueira}{Percurso em Engenharia Elétrica na UFC e em microeletrônica na Polytech Montpellier. Experiência com IA embarcada, FPGA e projeto/verificação RTL; no imec, trabalhou com integração de microscaling MXFP4 ao acelerador Gemmini RISC-V em Scala. Sua experiência ajuda a ligar portas lógicas, sistemas digitais e arquitetura de aceleradores.}
+\caixa{Luiz F. de Melo Soares}{Percurso em Engenharia Elétrica na UFC e no programa ISMIN da École des Mines de Saint-Étienne. Experiência no CPPM com projeto de amplificador operacional CMOS em 65 nm: dimensionamento, simulações, layout e verificações DRC/LVS/PEX. Sua experiência ajuda a ligar MOSFET, circuitos analógicos e implementação física.}
+Os dados vêm dos currículos fornecidos. Não se presume titulação concluída ou vínculo profissional atual. As mini-fichas não reproduzem telefone, endereço ou outros dados pessoais dos currículos.
+
+\textbf{Créditos e referências.} Desenvolvimento do minicurso: Luan F. Nogueira e Luiz F. de Melo Soares. Identidade visual: \textit{Template Beamer UFC}, de Maurício Moreira Neto, usando a classe original e a mesma proporção 4:3 (128 × 96 mm). Fontes-base: PDFs de Fathi Salem e J.-M. Dutertre; card original de planejamento; currículos fornecidos. Complementos on-line estão identificados nos slides. Não se atribui autoria dos materiais de referência aos facilitadores.
+\end{document}

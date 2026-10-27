@@ -1,0 +1,66 @@
+% Modelo Beamer UFC original de Maurício Moreira Neto.
+\documentclass{libs/ufc_format}
+\usepackage{amsmath,amssymb,booktabs,tikz,circuitikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
+% A geometria 4:3 e todos os elementos do tema vêm da classe ORIGINAL.
+% Não substituir fundo, logo, cabeçalho, rodapé, fontes ou blocos do template.
+\hypersetup{pdflang=pt-BR}
+\usepackage{adjustbox}
+\newcommand{\VDD}{V_{\mathrm{DD}}}
+\newcommand{\GND}{\mathrm{GND}}
+\newcommand{\fonte}[1]{\par\vspace{1mm}{\tiny\color{blue_theme}#1\par}}
+\newcommand{\ideia}[1]{\begin{block}{Ideia-chave}#1\end{block}}
+\newcommand{\pergunta}[1]{\begin{exampleblock}{Para discutir}#1\end{exampleblock}}
+\newcommand{\duas}[2]{\begin{columns}[T,onlytextwidth]\begin{column}{.48\textwidth}#1\end{column}\begin{column}{.48\textwidth}#2\end{column}\end{columns}}
+\newcommand{\topico}[2]{\begin{block}{#1}#2\end{block}}
+\newcommand{\capa}[2]{\subtitle{#1\\[1mm]{\small #2}}\begin{frame}{}\maketitle\end{frame}}
+% Redimensiona somente diagramas e tabelas que excedam a largura de texto.
+\tikzset{caixa/.style={draw=blue_theme,fill=blue_theme!5,rounded corners=2pt,align=center,minimum height=9mm,font=\small},seta/.style={-{Latex},thick,blue_theme}}
+\ctikzset{transistors/scale=.78}
+\newcommand{\inversor}{%
+\begin{circuitikz}[scale=.85,transform shape]
+\node[pmos] (p) at (0,1.3) {};\node[nmos] (n) at (0,-1.1) {};
+\draw (p.S) -- (0,2.2) node[above]{$\VDD$};
+\draw (p.D) -- (n.D);\draw (0,.1) to[short,*-] (1.35,.1) node[right]{$Y$};
+\draw (n.S) -- (0,-2) node[ground]{};
+\draw (p.G) -- (-1.4,1.3) -- (-1.4,-1.1) -- (n.G);
+\draw (-1.4,.1) to[short,*-] (-2.05,.1) node[left]{$A$};
+\node[right] at (.25,1.3) {PMOS};\node[right] at (.25,-1.1) {NMOS};
+\end{circuitikz}}
+\newcommand{\nandcircuito}{%
+\begin{circuitikz}[scale=.68,transform shape]
+\node[pmos] (pa) at (-1.2,1.7) {};\node[pmos] (pb) at (1.4,1.7) {};
+\node[nmos] (na) at (0,-.7) {};\node[nmos] (nb) at (0,-2.3) {};
+\draw (pa.S) -- (-1.2,2.6) -- (1.4,2.6) -- (pb.S);\node[above] at (.1,2.6) {$\VDD$};
+\draw (pa.D) -- (-1.2,.5) -- (1.4,.5) -- (pb.D);
+\draw (0,.5) -- (na.D);\draw (na.S) -- (nb.D);\draw (nb.S) -- (0,-3.15) node[ground]{};
+\draw (1.4,.5) to[short,*-] (2.15,.5) node[right]{$Y$};
+\draw (pa.G) node[left]{$A$};\draw (pb.G) node[left]{$B$};\draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};
+\end{circuitikz}}
+\newcommand{\norcircuito}{%
+\begin{circuitikz}[scale=.68,transform shape]
+\node[pmos] (pa) at (0,2) {};\node[pmos] (pb) at (0,.4) {};
+\node[nmos] (na) at (-1.2,-1.8) {};\node[nmos] (nb) at (1.4,-1.8) {};
+\draw (pa.S) -- (0,2.85) node[above]{$\VDD$};\draw (pa.D) -- (pb.S);\draw (pb.D) -- (0,-.6);
+\draw (na.D) -- (-1.2,-.6) -- (1.4,-.6) -- (nb.D);
+\draw (1.4,-.6) to[short,*-] (2.15,-.6) node[right]{$Y$};
+\draw (na.S) -- (-1.2,-2.8) -- (1.4,-2.8) -- (nb.S);\draw (0,-2.8) node[ground]{};
+\draw (pa.G) node[left]{$A$};\draw (pb.G) node[left]{$B$};\draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};
+\end{circuitikz}}
+\newcommand{\aoi}{%
+\begin{circuitikz}[scale=.64,transform shape]
+\node[pmos] (pa) at (-1.3,2) {};\node[pmos] (pb) at (1.3,2) {};\node[pmos] (pc) at (0,.4) {};
+\draw (pa.S) -- (-1.3,2.8) -- (1.3,2.8) -- (pb.S);\node[above] at (0,2.8) {$\VDD$};
+\draw (pa.D) -- (-1.3,1.2) -- (1.3,1.2) -- (pb.D);\draw (0,1.2) -- (pc.S);
+\draw (pc.D) -- (0,-.4) -- (2.2,-.4) node[right]{$Y$};
+\node[nmos] (na) at (-1.3,-1.3) {};\node[nmos] (nb) at (-1.3,-2.9) {};\node[nmos] (nc) at (1.3,-2.1) {};
+\draw (na.D) -- (-1.3,-.4) -- (1.3,-.4) -- (nc.D);\draw (na.S) -- (nb.D);
+\draw (nb.S) -- (-1.3,-3.75) -- (1.3,-3.75) -- (nc.S);\draw (0,-3.75) node[ground]{};
+\draw (pa.G) node[left]{$A$};\draw (pb.G) node[left]{$B$};\draw (pc.G) node[left]{$C$};
+\draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};\draw (nc.G) node[left]{$C$};
+\end{circuitikz}}
+\author[L. Nogueira / L. Soares]{\texorpdfstring{Luan F. Nogueira\\Luiz F. de Melo Soares}{Luan F. Nogueira e Luiz F. de Melo Soares}}
+\institute[UFC]{\department{Minicurso de Microeletrônica}\\\ufc}
+\date{SEELECT}
+\setbeamertemplate{note page}{\vspace{2mm}{\large\bfseries\color{blue_theme}Notas dos facilitadores}\par\vspace{1mm}{\small\insertshorttitle\quad •\quad Slide \insertframenumber}\par\vspace{3mm}\hrule\vspace{3mm}\small\insertnote}
+\ifdefined\Notas\setbeameroption{show notes}\fi

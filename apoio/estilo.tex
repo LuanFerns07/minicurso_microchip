@@ -1,0 +1,22 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{helvet,amsmath,amssymb,booktabs,array,tabularx,enumitem,graphicx,xcolor,tcolorbox,fancyhdr,hyperref,tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\renewcommand{\familydefault}{\sfdefault}
+\definecolor{azul}{RGB}{0,83,134}
+\definecolor{ouro}{RGB}{206,177,68}
+\hypersetup{pdflang=pt-BR,colorlinks=true,urlcolor=azul,linkcolor=azul,pdfauthor={Luan F. Nogueira e Luiz F. de Melo Soares}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{azul}DO TRANSISTOR AO CHIP}
+\fancyhead[R]{\includegraphics[height=7mm]{../slides/libs/emblemufc.pdf}}
+\fancyfoot[L]{\scriptsize Luan F. Nogueira • Luiz F. de Melo Soares}
+\fancyfoot[R]{\scriptsize\thepage}
+\renewcommand{\headrulewidth}{.4pt}
+\setlength{\headheight}{25pt}
+\newcommand{\titulo}[2]{{\LARGE\color{azul}\bfseries #1}\par{\large #2}\par\vspace{2mm}}
+\newcommand{\caixa}[2]{\begin{tcolorbox}[colback=azul!4,colframe=azul,title={#1},fonttitle=\bfseries,boxrule=.5pt,arc=1mm]#2\end{tcolorbox}}
+\newcommand{\VDD}{V_{\mathrm{DD}}}

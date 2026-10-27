@@ -1,0 +1,446 @@
+\input{comum.tex}
+\title[Aula 2 • Lógica CMOS]{\huge\textbf{Do transistor ao chip}}
+\begin{document}
+\capa{Aula 2 · Do MOSFET às portas lógicas}{Redes complementares • NOT, NAND e NOR • 1h30}
+\note{Começar retomando o desenho de dois NMOS em série proposto ao final da aula 1. Nesta aula, a turma deve justificar cada linha das tabelas por caminhos elétricos.}
+
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+\note{Apresentar os blocos da aula. A faixa superior do template indica a seção em andamento.}
+
+
+\section{Inversor}
+\begin{frame}{Recuperando a ideia de complementaridade}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccc}\toprule Entrada no inversor & PMOS & NMOS\\\midrule
+0 & Ligado & Cortado\\[2mm]1 & Cortado & Ligado\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{4mm}\pergunta{Quem fornece carga à saída? Quem a retira? O que ocorre se os dois caminhos ficarem abertos?}
+\fonte{Modelo ideal de chave com entradas nos trilhos. Corpo NMOS em GND; corpo PMOS em $\VDD$.}
+\end{frame}
+\note{PMOS carrega; NMOS descarrega; ambos abertos deixam a saída flutuante. Corpo de cada dispositivo omitido nos esquemas de três terminais. Fontes internas de redes em série não estão necessariamente fixas nos trilhos.}
+
+\begin{frame}{Roteiro dos 90 minutos}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lr}\toprule Etapa & Tempo\\\midrule
+Retomada e leitura dos níveis lógicos & 10 min\\
+Inversor: caminhos, transição e consumo & 15 min\\
+Redes em série/paralelo e construção da NAND & 20 min\\
+Pausa & 5 min\\
+Construção da NOR e dualidade & 15 min\\
+Atividade: redes e tabelas verdade & 15 min\\
+Universalidade e ligação com a prática & 10 min\\\bottomrule\end{tabular}\end{adjustbox}
+\end{frame}
+\note{O desafio AOI21 e a porta XOR estão em um apêndice opcional após as referências. Não somar esses tópicos aos 90 minutos; substituir parte da revisão apenas se a turma já dominar NAND/NOR.}
+
+\begin{frame}{Bits são uma interpretação de tensões}
+\duas{\topico{Modelo lógico}{\textbf{0}: faixa de tensões baixas.\\[2mm]\textbf{1}: faixa de tensões altas.\\[2mm]Há uma faixa intermediária sem nível lógico garantido.}}{\topico{Modelo elétrico}{A tensão varia continuamente.\\[2mm]As faixas aceitas dependem da tecnologia, alimentação e condições de operação.}}
+\ideia{Para analisar tabelas verdade, usamos entradas estáveis próximas de GND e $\VDD$.}
+\end{frame}
+\note{Não existe tensão universal que represente 1 em todo circuito. Explicar VIL e VIH apenas se necessário: maior entrada baixa garantida e menor entrada alta garantida. Os limites não são automaticamente VDD/2.}
+
+\begin{frame}{Da linguagem lógica às combinações de entrada}
+\small
+
+\begin{itemize}
+\item $\overline A$: negação (NOT); troca 0 por 1 e 1 por 0.
+\item $A\cdot B$: conjunção (AND); vale 1 quando ambas as entradas são 1.
+\item $A+B$: disjunção (OR); vale 1 quando pelo menos uma entrada é 1.
+\end{itemize}
+\begin{center}\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccccc}\toprule A&B&$AB$&$A+B$&$\overline{AB}$\\\midrule
+0&0&0&0&1\\0&1&0&1&1\\1&0&0&1&1\\1&1&1&1&0\\\bottomrule\end{tabular}\end{adjustbox}\end{center}
+\ideia{Com $n$ entradas binárias, a tabela completa tem $2^n$ combinações. O símbolo $+$ representa OR, não soma aritmética.}
+\end{frame}
+\note{Revisão curta de álgebra booleana. Distinguir soma lógica de soma binária com transporte: 1 OR 1 é 1. Fazer a turma ler ao menos uma linha da tabela antes de retornar aos caminhos elétricos.}
+
+
+\begin{frame}{Inversor: o esquema e a função}
+\duas{\centering\inversor}{\[Y=\overline{A}\]
+\begin{itemize}\item PMOS entre $\VDD$ e a saída.
+\item NMOS entre a saída e GND.
+\item Portas recebem a mesma entrada.
+\item Drenos compartilham o nó de saída.\end{itemize}
+\topico{Dois transistores}{Um caminho para subir; outro para descer.}}
+\fonte{Esquema didático; corpos omitidos, ligados aos trilhos correspondentes.}
+\end{frame}
+\note{Localizar cada nó. A entrada não se conecta diretamente à saída: controla duas portas isoladas. Manter referência de terra comum.}
+
+\begin{frame}{Inversor: examine os dois estados estáveis}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccccc}\toprule $A$ & PMOS & NMOS & Caminho ativo & $Y$\\\midrule
+0 & Ligado & Cortado & $\VDD\rightarrow Y$ & 1\\[2mm]
+1 & Cortado & Ligado & $Y\rightarrow\GND$ & 0\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{4mm}\ideia{Em cada estado estável ideal, uma rede conduz e a outra bloqueia.}
+\pergunta{Existe um caminho condutor completo de $\VDD$ a GND em alguma dessas duas linhas?}
+\end{frame}
+\note{Resposta: não no modelo ideal estável. Não antecipar isso como consumo zero em operação real: fugas e comutação serão explicadas a seguir.}
+
+\begin{frame}{O inversor também tem uma curva elétrica}
+\duas{\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[x=3.6cm,y=3.2cm,font=\small]
+\draw[->] (0,0)--(1.25,0) node[right]{$V_A/\VDD$};
+\draw[->] (0,0)--(0,1.25) node[above]{$V_Y/\VDD$};
+\draw[very thick,blue_theme] (0,1)--(.22,.98) .. controls (.43,.96) and (.46,.8) .. (.5,.5) .. controls (.54,.2) and (.6,.04) .. (.78,.02)--(1,0);
+\draw[dashed] (1,0)--(1,1)--(0,1);\node[below] at (0,0){0};\node[below] at (1,0){1};\node[left] at (0,1){1};
+\end{tikzpicture}\end{adjustbox}}{\topico{Nos extremos}{A saída se aproxima dos trilhos.}
+\topico{Na região de transição}{Pequena variação na entrada pode causar grande variação na saída. Ambos os dispositivos podem conduzir.}}
+\fonte{Curva qualitativa normalizada; não é resultado de simulação nem especificação de tecnologia.}
+\end{frame}
+\note{Não afirmar que o ponto de comutação é sempre VDD/2. Ele depende de tamanhos, modelos e alimentação. Uma porta combinacional não é um elemento de memória; evitar confundir transição com metastabilidade de uma bascula.}
+
+\begin{frame}{Níveis garantidos e margem de ruído}
+
+\begin{itemize}
+\item $V_{IL}$: maior tensão de entrada garantida como nível baixo.
+\item $V_{IH}$: menor tensão de entrada garantida como nível alto.
+\item $V_{OL}$ e $V_{OH}$: limites garantidos de saída baixa e alta, respectivamente.
+\end{itemize}
+As margens indicam quanto ruído pode ser tolerado entre a saída de uma porta e a entrada da próxima:
+\[NM_L=V_{IL}-V_{OL}\qquad NM_H=V_{OH}-V_{IH}.\]
+\topico{Entre $V_{IL}$ e $V_{IH}$}{O nível lógico de entrada não é garantido. Esses limites dependem do circuito e não devem ser confundidos com o limiar de um transistor isolado.}
+\end{frame}
+\note{NM é noise margin, margem de ruído. VOL é limite superior da saída baixa; VOH é limite inferior da saída alta. Considerar condições especificadas de carga, alimentação e processo. Diferenciar limiar MOS, ponto de comutação do inversor e limites lógicos.}
+
+
+\begin{frame}{Comutar exige carregar e descarregar capacitâncias}
+\duas{\centering\begin{adjustbox}{max width=\linewidth}\begin{circuitikz}[scale=.9]
+\draw (0,2) node[above]{$\VDD$} to[R,l=$R_{\mathrm{eq}}$] (0,0) to[short,*-] (2,0) node[right]{$Y$};
+\draw (1,0) to[C,l=$C_L$] (1,-2) node[ground]{};
+\end{circuitikz}\end{adjustbox}}{\topico{A carga da saída}{Inclui portas seguintes, fios e capacitâncias dos dispositivos.}
+\topico{Atraso de propagação}{A saída não muda instantaneamente. Como aproximação: $t_p\propto R_{\mathrm{eq}}C_L$.}}
+\fonte{Equivalente RC qualitativo da subida; na descida, a rede NMOS descarrega $C_L$.}
+\end{frame}
+\note{O resistor representa a condução equivalente do PMOS, não um resistor explícito na célula. O transistor é não linear; RC é uma aproximação. Maior carga geralmente aumenta o atraso.}
+
+\begin{frame}{Como medir o atraso de um inversor}
+
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[x=1cm,y=.65cm,font=\small]
+\draw[->] (0,0)--(9.5,0) node[right]{$t$};\node[left] at (0,3){$A$};\node[left] at (0,1){$Y$};
+\draw[blue_theme,very thick] (0,2.4)--(1.4,2.4)--(1.8,3.5)--(5.7,3.5)--(6.1,2.4)--(9,2.4);
+\draw[red,very thick] (0,1.4)--(2.2,1.4)--(2.9,.3)--(6.6,.3)--(7.4,1.4)--(9,1.4);
+\draw[dashed] (0,2.95)--(9,2.95);\draw[dashed] (0,.85)--(9,.85);
+\draw[dotted] (1.6,3.7)--(1.6,-.5);\draw[dotted] (2.55,1.65)--(2.55,-.5);
+\draw[dotted] (5.9,3.7)--(5.9,-.5);\draw[dotted] (7,1.65)--(7,-.5);
+\draw[<->] (1.6,-.3)--node[below]{$t_{pHL}$}(2.55,-.3);\draw[<->] (5.9,-.3)--node[below]{$t_{pLH}$}(7,-.3);
+\end{tikzpicture}\end{adjustbox}\par
+\begin{itemize}\item $t_{pHL}$: atraso para a saída ir de alto para baixo.
+\item $t_{pLH}$: atraso para a saída ir de baixo para alto.
+\item Uma convenção comum usa as passagens por 50\% da alimentação.\end{itemize}
+\fonte{Formas de onda qualitativas; os tempos de subida e descida também podem ser diferentes.}
+\end{frame}
+\note{HL e LH descrevem a mudança da saída, não a da entrada. As linhas horizontais tracejadas representam os níveis de 50\% em cada sinal deslocado verticalmente. Atraso é diferente do tempo que uma única borda leva para subir ou descer.}
+
+
+\begin{frame}{Baixo consumo estático não significa consumo nulo}
+\duas{\topico{Em repouso}{No modelo ideal: sem caminho contínuo entre alimentação e terra.\\[2mm]No dispositivo real: correntes de fuga.}}{\topico{Durante transições}{Carga e descarga de capacitâncias.\\[2mm]Pode haver corrente direta temporária enquanto NMOS e PMOS conduzem juntos.}}
+\[P_{\mathrm{din}}\approx\alpha C_L\VDD^2 f\]
+\fonte{$\alpha$: número médio de eventos 0$\rightarrow$1 por ciclo; $f$: frequência de referência. Parcela capacitiva, sem incluir fuga e corrente direta.}
+\end{frame}
+\note{A expressão é uma estimativa da componente capacitiva. Definir atividade como eventos de carga por ciclo evita ambiguidade com fator 1/2. Não prometer redução arbitrária da alimentação: há limites de atraso e funcionamento.}
+
+\begin{frame}{Exemplo resolvido: atividade, carga e potência}
+
+Considere apenas a parcela capacitiva, com valores didáticos:
+\[C_L=10\,\mathrm{fF},\quad\VDD=1{,}2\,\mathrm V,\quad f=100\,\mathrm{MHz},\quad\alpha=0{,}1.\]
+\begin{align*}
+P_{\mathrm{din}}&\approx\alpha C_L\VDD^2f\\
+&=0{,}1\times10\times10^{-15}\times1{,}2^2\times100\times10^6\\
+&=1{,}44\times10^{-7}\,\mathrm W=0{,}144\,\mu\mathrm W.
+\end{align*}
+\begin{itemize}\item Dobrar a carga ou a atividade dobra essa estimativa.
+\item A tensão aparece ao quadrado, mas reduzi-la também afeta o atraso e os limites de operação.\end{itemize}
+\fonte{$\alpha=0{,}1$ significa, em média, um evento 0$\rightarrow$1 a cada dez ciclos de referência. Não inclui fuga ou corrente direta transitória.}
+\end{frame}
+\note{Conferir unidades com a turma: fF é 10 elevado a menos 15 farad e MHz é 10 elevado a 6 hertz. A potência é de uma carga didática, não de um chip inteiro. Evitar comparar esses valores a uma tecnologia real.}
+
+
+\section{NAND}
+\begin{frame}{Como generalizar o inversor? Duas redes}
+\duas{\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[node distance=6mm]
+\node (v) {$\VDD$};
+\node[caixa,text width=4cm,below=of v] (p) {\textbf{Rede de subida · PMOS}\\PUN: \textit{pull-up network}};
+\node[below=of p] (y) {$Y$};
+\node[caixa,text width=4cm,below=of y] (n) {\textbf{Rede de descida · NMOS}\\PDN: \textit{pull-down network}};
+\node[below=of n] (g) {GND};
+\draw[thick](v)--(p);\draw[thick](p)--(y);\draw[thick](y)--(n);\draw[thick](n)--(g);\draw[->](y)--++(2,0);
+\end{tikzpicture}\end{adjustbox}}{\vspace{2mm}\begin{itemize}\item A rede de descida define \textbf{quando $Y=0$}.
+\item A rede de subida define \textbf{quando $Y=1$}.
+\item Para entradas binárias estáveis, uma deve conduzir e a outra bloquear.\end{itemize}}
+\end{frame}
+\note{PUN e PDN são os termos que a turma encontrará nas referências. Usar sempre a tradução durante a aula. A regra se aplica à lógica CMOS estática complementar em estudo.}
+
+\begin{frame}{Série e paralelo descrevem condições de condução}
+\duas{\topico{NMOS em série}{\centering\begin{adjustbox}{max width=\linewidth}\begin{circuitikz}[scale=.65,transform shape]
+\node[nmos] (a) at (0,1) {};\node[nmos] (b) at (0,-.6) {};
+\draw (a.D)--(0,1.8) node[above]{$Y$};\draw (a.S)--(b.D);\draw (b.S)--(0,-1.4) node[ground]{};
+\draw (a.G) node[left]{$A$};\draw (b.G) node[left]{$B$};
+\end{circuitikz}\end{adjustbox}\\Caminho completo se $A\cdot B=1$.}}{\topico{NMOS em paralelo}{\centering\begin{adjustbox}{max width=\linewidth}\begin{circuitikz}[scale=.65,transform shape]
+\node[nmos] (a) at (-1.2,0) {};\node[nmos] (b) at (1.2,0) {};
+\draw (a.D)--(-1.2,1)--(1.2,1)--(b.D);\node[above] at (0,1){$Y$};
+\draw (a.S)--(-1.2,-1)--(1.2,-1)--(b.S);\draw (0,-1) node[ground]{};
+\draw (a.G) node[left]{$A$};\draw (b.G) node[left]{$B$};
+\end{circuitikz}\end{adjustbox}\\Caminho completo se $A+B=1$.}}
+\end{frame}
+\note{Essas expressões descrevem o caminho até GND, não o valor da saída. Quando o caminho conduz, a saída vai a 0. Redes NMOS isoladas não garantem nível alto.}
+
+\begin{frame}{Construindo NAND: comece pela condição de saída zero}
+\[Y=\overline{A\cdot B}\qquad\Longrightarrow\qquad Y=0\ \text{somente se}\ A=B=1\]
+\begin{enumerate}\item Precisamos de um caminho até GND que dependa de \textbf{A e B}.
+\item Colocamos dois NMOS em \textbf{série}.
+\item A saída deve subir quando \textbf{A ou B} forem zero.
+\item Colocamos dois PMOS em \textbf{paralelo}.
+\end{enumerate}
+\ideia{A rede de descida implementa a condição $AB$. A saída implementa sua negação.}
+\end{frame}
+\note{Perguntar por que não se pode copiar a conexão em série para a rede PMOS. Preparar a discussão da dualidade, sem depender de memorização.}
+
+\begin{frame}{NAND CMOS de duas entradas · quatro transistores}
+\duas{\centering\nandcircuito}{\vspace{3mm}\topico{Rede de subida}{PMOS em paralelo.\\Conduz se $\overline{A}+\overline{B}=1$.}
+\topico{Rede de descida}{NMOS em série.\\Conduz se $A\cdot B=1$.}
+\[Y=\overline{AB}\]}
+\fonte{Cada letra identifica uma entrada de porta comum aos dispositivos correspondentes. Corpos ligados aos trilhos.}
+\end{frame}
+\note{Mostrar as conexões de saída, alimentação e terra. Não há contato elétrico entre porta e canal. A linha da saída conecta as duas redes.}
+
+\begin{frame}{NAND: percorra todas as combinações}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccclc}\toprule $A$ & $B$ & PMOS ativos & Caminho completo até GND & $Y$\\\midrule
+0 & 0 & A e B & Não & 1\\[2mm]
+0 & 1 & A & Não & 1\\[2mm]
+1 & 0 & B & Não & 1\\[2mm]
+1 & 1 & Nenhum & Sim & 0\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{4mm}\pergunta{Quando $A=0$ e $B=1$, um dos NMOS pode conduzir. Por que a saída continua alta?}
+\end{frame}
+\note{A série exige os dois dispositivos; falta caminho completo. A rede PMOS fornece caminho de carga. Em uma pilha, tensões de nós internos dependem do estado; o modelo ideal identifica conectividade da rede.}
+
+\begin{frame}{NAND com entradas 10: uma leitura completa}
+
+\duas{\centering\nandcircuito}{\small
+\begin{enumerate}
+\item $A=1$: PMOS A bloqueia; NMOS A está habilitado no modelo de chave.
+\item $B=0$: PMOS B conduz; NMOS B bloqueia.
+\item A série NMOS está interrompida, apesar de A estar alto.
+\item O PMOS B liga a saída à alimentação: $Y=1$.
+\end{enumerate}}
+\ideia{O critério é o caminho completo. Um transistor habilitado, sozinho, não garante que uma rede inteira conduza.}
+\end{frame}
+\note{Apontar fisicamente o ramo B na rede PMOS e a interrupção na série NMOS. Habilitado é uma descrição de controle lógico; tensões internas de uma pilha podem exigir análise elétrica mais detalhada.}
+
+
+\begin{frame}{Um erro de construção: as duas redes em série}
+\duas{\topico{Rede NMOS em série}{Conduz apenas com $A=B=1$.}
+\topico{Rede PMOS também em série}{Conduziria apenas com $A=B=0$.}}{\topico{O que ocorre com $A=0$, $B=1$?}{O caminho de descida está aberto.\\[2mm]O caminho de subida também está aberto.\\[2mm]\textbf{A saída fica flutuante.}}}
+\ideia{Em CMOS estático complementar, as redes precisam ser duais.}
+\end{frame}
+\note{Com A=1 e B=0 o defeito é equivalente. Não chamar saída flutuante de 0 ou 1. Carga anterior não estabelece uma porta combinacional confiável.}
+
+\begin{frame}{Outro erro: copiar paralelo nas duas redes}
+\small
+
+Suponha NMOS em paralelo \textbf{e} PMOS em paralelo, recebendo A e B.
+\begin{center}\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccccc}\toprule A&B&Subida&Descida&Consequência\\\midrule
+0&0&Ativa&Bloqueada&Saída alta\\0&1&Ativa&Ativa&Caminho direto\\1&0&Ativa&Ativa&Caminho direto\\1&1&Bloqueada&Ativa&Saída baixa\\\bottomrule\end{tabular}\end{adjustbox}\end{center}
+\topico{Entradas diferentes}{Um PMOS e um NMOS conduzem em ramos distintos, formando caminho contínuo entre $\VDD$ e GND. A saída não é garantida pelo modelo lógico ideal.}
+\ideia{Dualidade evita nós flutuantes e caminhos diretos entre trilhos.}
+\end{frame}
+\note{No circuito real, a tensão de saída e a corrente dependeriam das características dos dispositivos. Não afirmar que a saída é automaticamente zero, um ou metade da alimentação. Comparar esse erro com a cópia de série, que deixa a saída flutuante em 01 e 10.}
+
+
+\begin{frame}{Pausa · 5 minutos}
+\vspace{5mm}{\Large\color{blue_theme}Na volta: como descarregar a saída quando A ou B forem altos?}
+\end{frame}
+\note{Pausa. A pergunta conduz à NOR, sem entregar apenas uma regra para decorar.}
+
+\section{NOR}
+\begin{frame}{Construindo NOR: saída zero com qualquer entrada alta}
+\[Y=\overline{A+B}\qquad\Longrightarrow\qquad Y=0\ \text{se}\ A=1\ \text{ou}\ B=1\]
+\begin{enumerate}\item Precisamos de dois caminhos alternativos até GND.
+\item Colocamos dois NMOS em \textbf{paralelo}.
+\item A saída só deve subir quando \textbf{ambas} as entradas forem zero.
+\item Colocamos dois PMOS em \textbf{série}.\end{enumerate}
+\end{frame}
+\note{Retomar a regra: paralelo na descida é condição OR de condução, portanto NOR na saída.}
+
+\begin{frame}{NOR CMOS de duas entradas · quatro transistores}
+\duas{\centering\norcircuito}{\vspace{3mm}\topico{Rede de subida}{PMOS em série.\\Conduz se $\overline{A}\cdot\overline{B}=1$.}
+\topico{Rede de descida}{NMOS em paralelo.\\Conduz se $A+B=1$.}
+\[Y=\overline{A+B}\]}
+\fonte{Modelo de lógica CMOS estática complementar; corpos omitidos e ligados aos trilhos.}
+\end{frame}
+\note{Comparar com a NAND: trocar série por paralelo mantendo os tipos de dispositivo nos respectivos trilhos. Apontar o nó interno da série PMOS.}
+
+\begin{frame}{NOR: percorra todas as combinações}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{cclcc}\toprule $A$ & $B$ & Caminho completo até $\VDD$ & NMOS ativos & $Y$\\\midrule
+0 & 0 & Sim & Nenhum & 1\\[2mm]
+0 & 1 & Não & B & 0\\[2mm]
+1 & 0 & Não & A & 0\\[2mm]
+1 & 1 & Não & A e B & 0\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{4mm}\pergunta{Se apenas B for alto, qual caminho fixa a saída em zero?}
+\end{frame}
+\note{NMOS B sozinho completa o caminho até GND. Na rede PMOS em série, o dispositivo B bloqueia a conexão à alimentação.}
+
+\begin{frame}{NAND e NOR lado a lado}
+\centering\small\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lll}\toprule & NAND & NOR\\\midrule
+Função & $\overline{AB}$ & $\overline{A+B}$\\[2mm]
+Rede NMOS & Série & Paralelo\\[2mm]
+Rede PMOS & Paralelo & Série\\[2mm]
+Saída alta & Ao menos uma entrada baixa & Todas as entradas baixas\\[2mm]
+Saída baixa & Todas as entradas altas & Ao menos uma entrada alta\\[2mm]
+Transistores (2 entradas) & 4 & 4\\\bottomrule\end{tabular}\end{adjustbox}
+\ideia{O arranjo dos transistores define a função lógica.}
+\end{frame}
+\note{Contagem em CMOS estático complementar com entradas A e B disponíveis. Contagem não determina, sozinha, área ou velocidade.}
+
+\begin{frame}{Três entradas: como estender a construção}
+
+\duas{\topico{NAND3}{\[Y=\overline{ABC}\]
+Três NMOS em série e três PMOS em paralelo. A saída é zero apenas em 111.}}{\topico{NOR3}{\[Y=\overline{A+B+C}\]
+Três NMOS em paralelo e três PMOS em série. A saída é um apenas em 000.}}
+\begin{itemize}\item Ambas usam seis transistores no modelo estático complementar.
+\item Mais entradas podem aumentar a pilha de dispositivos em série.
+\item Uma pilha maior pode exigir mais cuidado com atraso e dimensionamento.\end{itemize}
+\fonte{Fan-in é o número de entradas de uma porta. Não implica que portas com mais entradas tenham o mesmo atraso.}
+\end{frame}
+\note{Deixar a atividade explorar o desenho NAND3, embora a contagem já esteja explicada. O objetivo agora é aplicar e conferir. Não deduzir atrasos apenas pelo número de transistores: tamanhos e carga também importam.}
+
+
+\begin{frame}{De Morgan explica a dualidade}
+\[\overline{A\cdot B}=\overline{A}+\overline{B}\qquad
+\overline{A+B}=\overline{A}\cdot\overline{B}\]
+\begin{enumerate}\item Desenhe a condição de condução da rede NMOS.
+\item Para a rede PMOS, troque \textbf{série por paralelo} e vice-versa.
+\item Mantenha as mesmas entradas nas portas correspondentes.
+\item Verifique todas as combinações binárias.\end{enumerate}
+\fonte{Receita para redes duais de CMOS estático complementar; não substitui a verificação elétrica.}
+\end{frame}
+\note{As inversões surgem da condução de PMOS com entrada baixa. Não inserir inversores nas portas ao trocar NMOS por PMOS. Expressões mais gerais podem precisar de entradas complementares disponíveis.}
+
+\begin{frame}{Roteiro para projetar e conferir uma porta}
+\begin{enumerate}\item Escreva a função desejada $Y$ e encontre a condição $\overline{Y}$.
+\item Construa a rede de descida: AND vira série; OR vira paralelo.
+\item Construa a rede de subida dual com PMOS.
+\item Em cada entrada estável: há caminho para exatamente um trilho?
+\item Confirme a tabela verdade e conte os transistores.\end{enumerate}
+\ideia{Ambas as redes abertas: saída flutuante. Ambas conduzindo: caminho direto de $\VDD$ a GND.}
+\end{frame}
+\note{A condição de exatamente um caminho vale para entradas binárias estáveis e a abstração ideal. Durante transições reais pode haver condução simultânea temporária.}
+
+\begin{frame}{Atividade em duplas · redes antes da resposta}
+\begin{enumerate}\item Desenhe a NAND de duas entradas e complete sua tabela verdade.
+\item Destaque os caminhos ativos para $A=1$, $B=0$.
+\item Transforme o desenho em uma NOR, explicando a mudança das duas redes.
+\item Estenda a NAND para três entradas: quando $Y=0$? Quantos transistores são necessários?
+\end{enumerate}
+\pergunta{Troquem os desenhos: a outra dupla deve validar cada combinação sem consultar a fórmula.}
+\end{frame}
+\note{15 minutos: 8 de construção, 4 de troca e 3 de correção. Para NAND3: três NMOS em série, três PMOS em paralelo; seis transistores; saída 0 apenas em 111. Gabarito escrito no apoio.}
+
+\section{Composição}
+\begin{frame}{Da NAND para NOT, AND e OR}
+Se $N(A,B)=\overline{AB}$, então:
+\vspace{2mm}\begin{align*}
+\text{NOT:}\quad &\overline{A}=N(A,A)\\[2mm]
+\text{AND:}\quad &AB=N\bigl(N(A,B),N(A,B)\bigr)\\[2mm]
+\text{OR:}\quad &A+B=N\bigl(N(A,A),N(B,B)\bigr)
+\end{align*}
+\ideia{NAND é universal: combinações de NANDs permitem implementar qualquer função booleana.}
+\end{frame}
+\note{Derivar a OR com De Morgan. Universal não significa implementação de menor área. NOT com NAND de entradas unidas usa 4 transistores na célula NAND; um inversor dedicado usa 2.}
+
+\begin{frame}{AND e OR: acrescentar uma inversão}
+\duas{\topico{AND}{NAND seguida de inversor.\\[2mm]$X=\overline{AB}$\\$Y=\overline{X}=AB$\\[2mm]4 + 2 = \textbf{6 transistores}.}}{\topico{OR}{NOR seguida de inversor.\\[2mm]$X=\overline{A+B}$\\$Y=\overline{X}=A+B$\\[2mm]4 + 2 = \textbf{6 transistores}.}}
+\vspace{2mm}\fonte{Implementações didáticas com células estáticas separadas de duas entradas; outras topologias podem usar contagens diferentes.}
+\end{frame}
+\note{A inversão natural vem da relação entre condição de descarga e saída. Não generalizar que qualquer função CMOS tem obrigatoriamente uma saída invertida; composições e entradas complementadas ampliam as possibilidades.}
+
+\begin{frame}{Da função à composição: uma AND em dois estágios}
+
+\centering\begin{adjustbox}{max width=\linewidth}\begin{circuitikz}
+\node[nand port] (n) at (0,0) {};\node[not port] (i) at (3,0) {};
+\draw (n.in 1)--++(-.7,0) node[left]{$A$};\draw (n.in 2)--++(-.7,0) node[left]{$B$};
+\draw (n.out)--node[above]{$X=\overline{AB}$}(i.in);\draw (i.out)--++(.7,0) node[right]{$Y=AB$};
+\end{circuitikz}\end{adjustbox}\par\vspace{2mm}
+\begin{enumerate}\item A NAND calcula $X=\overline{AB}$.
+\item O inversor calcula $Y=\overline X=AB$.
+\item Para $A=B=1$: a primeira saída é 0 e a saída final é 1.
+\end{enumerate}
+\topico{Consequência elétrica}{O nó X precisa carregar a entrada do inversor. A composição introduz um nó intermediário e o atraso de dois estágios.}
+\end{frame}
+\note{Os símbolos representam células cujas implementações em transistor a turma já conhece. Evitar afirmar que dois estágios são sempre mais lentos que qualquer implementação alternativa: a comparação depende do projeto. A contagem desta composição é 4+2=6.}
+
+
+\begin{frame}{A NOR também é universal}
+Se $R(A,B)=\overline{A+B}$, então:
+\begin{align*}
+\text{NOT:}\quad &\overline{A}=R(A,A)\\[2mm]
+\text{OR:}\quad &A+B=R\bigl(R(A,B),R(A,B)\bigr)\\[2mm]
+\text{AND:}\quad &AB=R\bigl(R(A,A),R(B,B)\bigr)
+\end{align*}
+\pergunta{Qual identidade de De Morgan aparece na construção da AND?}
+\end{frame}
+\note{Resposta: AB é a negação de (A negado + B negado). Comparar com a construção dual usando NAND. Se o tempo apertar, deixar as duas últimas identidades para consulta e preservar a conexão com a prática.}
+
+\begin{frame}{Uma porta também é carga para a anterior}
+
+\begin{itemize}
+\item A saída de uma porta pode alimentar várias entradas: essa quantidade é chamada \textit{fan-out}.
+\item Cada entrada acrescenta capacitância, mesmo sem grande corrente contínua de porta.
+\item Fios e difusões também contribuem para a carga total.
+\end{itemize}
+\[C_L\approx C_{\mathrm{fios}}+C_{\text{difusões}}+\sum C_{\mathrm{entradas}}.\]
+\topico{Compromisso de projeto}{Aumentar transistores pode fornecer mais corrente, mas também aumenta capacitâncias. O projeto precisa equilibrar área, atraso e energia.}
+\end{frame}
+\note{Tratar a soma como um equivalente aproximado; as capacitâncias podem depender de tensão e acoplamento. Fan-out é uma contagem, e a carga elétrica depende também do tamanho de cada entrada. Conectar esta observação às dimensões W e L da aula 1.}
+
+
+\begin{frame}{O que já podemos prever para a prática no Virtuoso}
+\begin{itemize}\item O estado estável esperado para cada combinação de entradas.
+\item O caminho que carrega ou descarrega a saída.
+\item A inversão lógica e a existência de atraso nas transições.
+\item A necessidade de alimentação, referência e conexões corretas dos corpos.
+\end{itemize}
+\vspace{2mm}\ideia{Primeiro prever o comportamento pelo circuito; depois comparar a previsão com a simulação.}
+\fonte{Ponte conceitual para a aula 3. O roteiro de uso do Virtuoso não faz parte deste material.}
+\end{frame}
+\note{Não apresentar comandos, PDK ou parâmetros de simulação ainda. O objetivo é levar hipóteses verificáveis para o laboratório futuro, não preparar a aula prática.}
+
+\begin{frame}{Verificação de saída · explique sem decorar}
+\begin{enumerate}\item Por que dois NMOS em série levam à NAND, e não à AND, na saída?
+\item Em uma NOR com entradas 01, qual rede conduz?
+\item Por que a rede PMOS não pode ser uma cópia da rede NMOS?
+\item Por que uma porta CMOS real consome energia ao comutar?
+\end{enumerate}
+\vspace{2mm}\pergunta{Escolha uma pergunta e responda apontando um caminho elétrico ou uma carga armazenada.}
+\end{frame}
+\note{1 Condição AND descarrega a saída, produzindo sua negação. 2 Rede NMOS, ramo B. 3 Precisa garantir complementaridade; cópia pode deixar saída flutuante. 4 Capacitâncias são carregadas/descarregadas; há também fugas e corrente direta transitória.}
+
+\begin{frame}{Referências e créditos · aula 2}
+\small\begin{itemize}\item Fathi Salem. \textit{ECE 410: VLSI Design}. Material fornecido: p. 2.20--2.40 (redes, inversor, NAND/NOR e De Morgan).
+\item J.-M. Dutertre. \textit{Digital Design (Introduction to)}, 2022. Material fornecido: fig. 16--30 (inversor), 39--46 (redes e portas).
+\item Steve Ward. \href{https://computationstructures.org/notes/cmos/notes.html}{\textit{Computation Structures}, cap. 6: CMOS}. Consulta complementar sobre redes duais.
+\item MIT OpenCourseWare. \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{6.004 — Computation Structures}. CMOS, lógica combinacional e hierarquia digital.
+\item Identidade visual: Maurício Moreira Neto, \textit{Template Beamer UFC}. Modelo original 4:3 e diagramas didáticos próprios.\end{itemize}
+\end{frame}
+\note{Encerrar aqui a apresentação principal. As três páginas seguintes são aprofundamento opcional e não são necessárias ao objetivo de NAND/NOR.}
+
+\appendix
+\section{Extensões}
+\begin{frame}{Aprofundamento opcional · uma porta complexa}
+\duas{\centering\aoi}{\vspace{3mm}\[Y=\overline{AB+C}\]
+\topico{Rede de descida}{A em série com B; esse ramo em paralelo com C.}
+\topico{Rede de subida}{A em paralelo com B; esse conjunto em série com C.}
+\small AOI21: AND--OR com inversão.\\Três NMOS + três PMOS.}
+\fonte{Extensão opcional. Topologia redesenhada; referência: Salem, p. 2.33--2.39.}
+\end{frame}
+\note{Usar apenas se a turma já domina a receita. Condição de descarga AB+C; condução PMOS (A negado + B negado) vezes C negado. Se C=1, a saída é 0 independentemente de A e B.}
+
+\begin{frame}{Aprofundamento opcional · XOR com quatro NANDs}
+\duas{\topico{Combinação de portas}{\begin{align*}T&=N(A,B)\\U&=N(A,T)\\V&=N(B,T)\\Y&=N(U,V)\end{align*}}}{\topico{Função resultante}{\[Y=A\oplus B\]
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccc}\toprule A & B & Y\\\midrule0&0&0\\0&1&1\\1&0&1\\1&1&0\\\bottomrule\end{tabular}\end{adjustbox}}}
+\fonte{16 transistores com quatro células NAND2 de quatro transistores. É uma implementação possível, não uma contagem mínima universal.}
+\end{frame}
+\note{Não supor que basta uma única rede série/paralelo de entradas não complementadas para XOR. A composição resolve a função e demonstra universalidade.}
+
+\begin{frame}{Aprofundamento opcional · confira a AOI21}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{ccccc}\toprule A & B & C & $AB+C$ & $Y$\\\midrule
+0&0&0&0&1\\0&0&1&1&0\\0&1&0&0&1\\0&1&1&1&0\\
+1&0&0&0&1\\1&0&1&1&0\\1&1&0&1&0\\1&1&1&1&0\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{2mm}\pergunta{Encontre na rede PMOS os três casos que produzem $Y=1$.}
+\end{frame}
+\note{Casos 000, 010 e 100. Em todos, C=0 permite condução do PMOS C e A=0 ou B=0 fecha um ramo do paralelo.}
+\end{document}

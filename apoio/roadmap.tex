@@ -1,0 +1,43 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[landscape,margin=12mm,top=19mm,bottom=15mm,headheight=25pt,footskip=8mm]{geometry}
+\input{estilo.tex}
+\hypersetup{pdftitle={Roadmap de estudos em microeletrônica}}
+\begin{document}
+\titulo{Para onde seguir na microeletrônica?}{Mapa de estudos · encerramento da aula 3}
+\caixa{Uma base compartilhada}{Circuitos elétricos $\rightarrow$ semicondutores e MOSFET $\rightarrow$ CMOS e portas lógicas $\rightarrow$ simulação e análise de resultados. Acrescente matemática, sinais e sistemas, programação e documentação ao longo do percurso.}
+\begingroup
+\tcbset{height=8cm,before upper=\raggedright}
+\begin{minipage}[t]{.19\linewidth}\vspace{0pt}
+\caixa{Digital}{\textbf{Objetivo}\\Implementar funções em hardware.\par
+\textbf{Caminho}\\Lógica combinacional\\$\downarrow$\\Registradores e estados\\$\downarrow$\\HDL/RTL e verificação\\$\downarrow$\\Síntese e análise temporal\par
+\textbf{Primeiro projeto}\\ULA de 4 bits com testes automáticos.}
+\end{minipage}\hfill
+\begin{minipage}[t]{.19\linewidth}\vspace{0pt}
+\caixa{Analógica}{\textbf{Objetivo}\\Processar sinais contínuos.\par
+\textbf{Caminho}\\Polarização do MOSFET\\$\downarrow$\\Pequenos sinais\\$\downarrow$\\Realimentação e ruído\\$\downarrow$\\Variações e layout\par
+\textbf{Primeiro projeto}\\Fonte comum: ganho e excursão de saída.}
+\end{minipage}\hfill
+\begin{minipage}[t]{.19\linewidth}\vspace{0pt}
+\caixa{Sinais mistos}{\textbf{Objetivo}\\Conectar analógico e digital.\par
+\textbf{Caminho}\\Base analógica e digital\\$\downarrow$\\Amostragem e quantização\\$\downarrow$\\ADCs e DACs\\$\downarrow$\\Integração e verificação\par
+\textbf{Primeiro projeto}\\Modelo de ADC de 3 bits e erro de quantização.}
+\end{minipage}\hfill
+\begin{minipage}[t]{.19\linewidth}\vspace{0pt}
+\caixa{RF integrada}{\textbf{Objetivo}\\Transmitir e receber sinais.\par
+\textbf{Caminho}\\Analógica e sinais\\$\downarrow$\\Eletromagnetismo\\$\downarrow$\\Impedâncias e parâmetros S\\$\downarrow$\\Ruído e circuitos de RF\par
+\textbf{Primeiro projeto}\\Rede LC de casamento: frequência e perdas.}
+\end{minipage}\hfill
+\begin{minipage}[t]{.19\linewidth}\vspace{0pt}
+\caixa{Arquitetura}{\textbf{Objetivo}\\Organizar a computação.\par
+\textbf{Caminho}\\ULA e registradores\\$\downarrow$\\Instruções e processador\\$\downarrow$\\Pipeline e memória\\$\downarrow$\\Paralelismo e aceleradores\par
+\textbf{Primeiro projeto}\\Caminho de dados simples: medir ciclos de execução.}
+\end{minipage}\par
+\endgroup
+\vspace{1mm}
+\textbf{Outras conexões:} verificação e validação • projeto físico e layout • dispositivos e processos • teste e confiabilidade • encapsulamento e integração • ferramentas de projeto (EDA).
+
+\colorbox{ouro!20}{\parbox{\dimexpr\linewidth-2\fboxsep}{\textbf{Próximo passo:} escolha uma pergunta $\rightarrow$ revise os pré-requisitos $\rightarrow$ faça um projeto pequeno $\rightarrow$ documente testes, resultados e limites. As trilhas se cruzam; o percurso não precisa ser linear.}}
+
+{\footnotesize\textbf{Siglas:} ULA: unidade lógica e aritmética; HDL: linguagem de descrição de hardware; RTL: nível de transferências entre registradores; ADC/DAC: conversão analógico--digital/digital--analógica; RF: radiofrequência; LC: indutor e capacitor. Pipeline: execução organizada em etapas.\par
+\textbf{Referências:} Salem e Dutertre (PDFs fornecidos); \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004}; visões de áreas por \href{https://www.cadence.com/en_US/home/explore/what-is-ic-design.html}{Cadence} e \href{https://www.synopsys.com/glossary/what-is-mixed-signal-integrated-circuit.html}{Synopsys}. Sequência e projetos: proposta didática dos facilitadores.}
+\end{document}

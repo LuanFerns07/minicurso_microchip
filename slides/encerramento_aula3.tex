@@ -1,0 +1,118 @@
+\input{comum.tex}
+\title[Aula 3 • Próximos caminhos]{\huge\textbf{Do transistor ao chip}}
+\begin{document}
+\capa{Encerramento da aula 3 · Para onde seguir?}{Mapa de caminhos em microeletrônica • 15 a 20 minutos}
+\note{Usar este bloco ao final da futura prática no Virtuoso. Ele não contém roteiro de laboratório. Reservar até 20 minutos dos 90 minutos do encontro; organizar o restante quando a prática for elaborada.}
+
+\section{Mapa}
+\begin{frame}{Um ponto de partida, vários caminhos conectados}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[x=1cm,y=1cm]
+\node[caixa,text width=11.8cm,fill=yellow!20] (base) at (6,1.5) {\textbf{Base comum} · circuitos, MOSFET, CMOS, lógica, simulação e programação};
+\foreach \x/\id/\titulo/\ex in {0.4/d/Digital/Portas e RTL,3.2/a/Analógica/Amplificadores,6/m/Sinais mistos/ADCs e DACs,8.8/r/RF integrada/Transceptores,11.6/c/Arquitetura/Processadores}{
+\node[caixa,text width=2.25cm,minimum height=15mm] (\id) at (\x,-.3) {\textbf{\titulo}\\\ex};\draw[seta] (\x,1.05)--(\id.north);}
+\draw[<->,thick,yellow] (d.south)--++(0,-.4)-|(c.south);
+\node[align=center,text width=12.5cm,font=\small] at (6,-1.9) {\textbf{Caminhos transversais:} verificação, projeto físico, fabricação, teste, encapsulamento e ferramentas de projeto.};
+\end{tikzpicture}\end{adjustbox}
+\fonte{Mapa didático: as áreas se sobrepõem. Arquitetura de computadores conecta sistemas e implementação digital.}
+\end{frame}
+\note{Dedicar 2 minutos ao mapa. Explicar ADC e DAC quando aparecerem no slide de sinais mistos. RF é radiofrequência. Microeletrônica é o campo que abrange os caminhos, não uma área isolada ao lado de digital e analógica.}
+
+\section{Trilhas de estudo}
+\begin{frame}{Digital · transformar funções em hardware}
+\duas{\topico{Pergunta central}{Como implementar uma função correta respeitando desempenho, consumo e área?}
+\topico{O que se projeta}{Somadores, controladores, interfaces, memórias e aceleradores.}}{\topico{Sequência de estudo}{Lógica combinacional $\rightarrow$ registradores e máquinas de estados $\rightarrow$ HDL/RTL $\rightarrow$ verificação $\rightarrow$ síntese e análise temporal.}
+\topico{Primeiro projeto}{Uma ULA de 4 bits, com operações aritméticas e lógicas e testes automáticos.}}
+\fonte{HDL: linguagem de descrição de hardware. RTL: descrição por registradores e transferências. ULA: unidade lógica e aritmética.}
+\end{frame}
+\note{Conectar a ULA às NAND/NOR já estudadas. FPGA pode permitir prototipagem digital; um ASIC exige ainda etapas de implementação e fabricação próprias. Não tratar escrever HDL como escrever um programa sequencial comum.}
+
+\begin{frame}{Arquitetura de computadores · organizar a computação}
+\small
+\duas{\topico{Pergunta central}{Como organizar unidades de execução, memória e comunicação para executar programas com eficiência?}
+\topico{O que se estuda}{Conjunto de instruções, caminho de dados, controle, pipeline, caches e paralelismo.}}{\topico{Sequência de estudo}{Lógica sequencial $\rightarrow$ ULA e registradores $\rightarrow$ processador simples $\rightarrow$ memória $\rightarrow$ desempenho e aceleradores.}
+\topico{Primeiro projeto}{Construir um caminho de dados simples e medir ciclos necessários para executar uma pequena tarefa.}}
+\ideia{Arquitetura define escolhas do sistema; microarquitetura e RTL aproximam essas escolhas de uma implementação.}
+\end{frame}
+\note{Distinguir ISA: contrato de instruções visível ao software; microarquitetura: organização que o implementa. O exemplo do acelerador de Luan ilustra a ponte com digital. É um desdobramento de estudo, não conteúdo exigido para concluir o curso.}
+
+\begin{frame}{Analógica · trabalhar com sinais contínuos}
+\small
+\duas{\topico{Pergunta central}{Como amplificar, filtrar e regular sinais preservando precisão, faixa útil e estabilidade?}
+\topico{O que se projeta}{Amplificadores, referências, espelhos de corrente, filtros e reguladores.}}{\topico{Sequência de estudo}{Circuitos $\rightarrow$ polarização do MOSFET $\rightarrow$ pequenos sinais $\rightarrow$ realimentação $\rightarrow$ ruído, variações e layout.}
+\topico{Primeiro projeto}{Amplificador fonte comum: definir polarização e comparar ganho e excursão de saída.}}
+\ideia{O mesmo MOSFET deixa de ser apenas uma chave e passa a controlar corrente de forma contínua.}
+\end{frame}
+\note{Não afirmar que analógico significa sempre operação na região triodo. Amplificadores frequentemente usam transistores em saturação, dependendo da topologia. O trabalho de Luiz com amplificador operacional é exemplo de desdobramento.}
+
+\begin{frame}{Sinais mistos · ligar o mundo físico ao digital}
+\duas{\topico{Pergunta central}{Como converter sinais e coordenar blocos analógicos e digitais?}
+\topico{O que se projeta}{Conversores, interfaces de sensores, sistemas de aquisição e blocos de sincronização.}}{\topico{Sequência de estudo}{Base analógica + digital $\rightarrow$ amostragem $\rightarrow$ quantização $\rightarrow$ conversores $\rightarrow$ integração e verificação conjunta.}
+\topico{Primeiro projeto}{Modelo de conversor de 3 bits: relacionar tensão de entrada, código digital e erro de quantização.}}
+\fonte{\textit{Mixed-signal}: sinais mistos. ADC: conversor analógico--digital. DAC: conversor digital--analógico.}
+\end{frame}
+\note{Idealização para projeto inicial: faixas uniformes de quantização. Integração também exige atenção a alimentação, referência, sincronização e interferência. Projeto de conversor transistor a transistor pode vir depois.}
+
+\begin{frame}{RF integrada · transmitir e receber sinais}
+\small
+\duas{\topico{Pergunta central}{Como receber e transmitir sinais em radiofrequência com ganho, baixo ruído e boa linearidade?}
+\topico{O que se projeta}{Amplificadores de baixo ruído, misturadores, osciladores e transmissores/receptores integrados.}}{\topico{Sequência de estudo}{Analógica + sinais e sistemas $\rightarrow$ eletromagnetismo $\rightarrow$ impedâncias e parâmetros S $\rightarrow$ ruído e circuitos de RF.}
+\topico{Primeiro projeto}{Rede LC de casamento de impedâncias: observar a resposta em frequência e o efeito das perdas.}}
+\ideia{Em RF, interconexões, encapsulamento e componentes parasitas têm papel central no comportamento do circuito.}
+\end{frame}
+\note{LC: indutor e capacitor. Parâmetros S descrevem ondas incidentes e refletidas em portas. RF é um aprofundamento conectado à analógica, sinais e eletromagnetismo. Evitar definir RF por uma frequência de corte universal.}
+
+\begin{frame}{Um sistema pode precisar de todas essas áreas}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[node distance=3mm]
+\node[caixa,text width=2.05cm] (s) {Sensor\\Sinal físico};
+\node[caixa,text width=2.05cm,right=of s] (a) {Analógica\\Amplificação};
+\node[caixa,text width=2.05cm,right=of a] (m) {Sinais mistos\\Conversão A/D};
+\node[caixa,text width=2.05cm,right=of m] (d) {Digital\\Processa\-mento};
+\node[caixa,text width=2.05cm,right=of d] (r) {RF\\Comunicação};
+\draw[seta](s)--(a);\draw[seta](a)--(m);\draw[seta](m)--(d);\draw[seta](d)--(r);
+\node[caixa,text width=10.6cm,below=9mm of m,fill=yellow!15] (c) {\textbf{Arquitetura do sistema}\\Organiza processamento, memória, fluxo de dados e consumo};
+\end{tikzpicture}\end{adjustbox}\par
+\vspace{4mm}\small Exemplo: um nó de sensores sem fio. Cada bloco pode estar no mesmo chip ou em componentes diferentes.
+\end{frame}
+\note{A seta digital para RF é uma representação funcional simplificada: transmissores reais incluem interfaces e conversões adicionais. Usar para mostrar colaboração entre áreas, sem apresentar uma cadeia completa de rádio.}
+
+\section{Próximos passos}
+\begin{frame}{Outros desdobramentos na microeletrônica}
+\small\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{3.2cm}p{4.8cm}p{4.1cm}}\toprule Caminho & Pergunta de trabalho & Exemplo de entrega\\\midrule
+Verificação e validação & O projeto cumpre a especificação? & Ambiente de testes e relatório\\[1mm]
+Projeto físico e layout & Como tornar o circuito fabricável? & Geometria verificada e extração\\[1mm]
+Dispositivos e processos & Como a estrutura física define o dispositivo? & Modelos e caracterização\\[1mm]
+Teste e confiabilidade & Como detectar defeitos e avaliar robustez? & Plano de teste e medidas\\[1mm]
+Encapsulamento e integração & Como conectar, alimentar e resfriar o chip? & Interconexões e análise térmica\\[1mm]
+Ferramentas de projeto (EDA) & Como automatizar projeto e análise? & Algoritmos, modelos e ferramentas\\\bottomrule\end{tabular}\end{adjustbox}
+\end{frame}
+\note{Mostrar que o setor vai além de desenhar transistores ou programar HDL. Evitar inferir empregabilidade ou salários. Projeto físico inclui diversas atividades; layout customizado e implementação digital usam métodos próprios.}
+
+\begin{frame}{Um plano inicial de quatro etapas}
+\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{1.3cm}p{6cm}p{5.2cm}}\toprule Etapa & Ação & Evidência de aprendizado\\\midrule
+1 & Revisar MOSFET, inversor, NAND e NOR & Explicar cada tabela por caminhos\\[2mm]
+2 & Escolher uma trilha e estudar seus pré-requisitos & Mapa de conceitos e dúvidas\\[2mm]
+3 & Fazer um pequeno projeto com meta mensurável & Testes, curvas ou medidas\\[2mm]
+4 & Documentar, comparar e apresentar & Relatório curto com limites e próximos passos\\\bottomrule\end{tabular}\end{adjustbox}
+\vspace{3mm}\pergunta{Qual pergunta de projeto mais desperta sua curiosidade? Qual entrega você poderia demonstrar?}
+\end{frame}
+\note{Plano sem prazo obrigatório: o ritmo depende da base de cada pessoa. Incentivar uma trilha inicial sem exigir escolha definitiva de carreira. Os projetos são sugestões pedagógicas dos autores, não recomendações comerciais.}
+
+\begin{frame}{Para continuar estudando}
+\small\begin{itemize}
+\item \textbf{CMOS e digital:} Salem e Dutertre, referências fornecidas; \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004 — Computation Structures}, de lógica a processadores e memória.
+\item \textbf{Visão das áreas de projeto:} Cadence, \href{https://www.cadence.com/en_US/home/explore/what-is-ic-design.html}{\textit{O que é projeto de circuitos integrados?}} (página em inglês).
+\item \textbf{Sinais mistos:} Synopsys, \href{https://www.synopsys.com/glossary/what-is-mixed-signal-integrated-circuit.html}{\textit{O que é um circuito integrado de sinais mistos?}} (em inglês).
+\item \textbf{Radiofrequência:} Synopsys, \href{https://www.synopsys.com/glossary/what-is-rf-circuit-design.html}{\textit{O que é projeto de circuitos de RF?}} (em inglês).
+\end{itemize}
+\vspace{2mm}\ideia{As referências ajudam a situar as áreas. A sequência de estudos e os projetos deste roadmap são uma proposta didática dos facilitadores.}
+\fonte{Identidade visual: Maurício Moreira Neto, Template Beamer UFC. Fontes on-line consultadas em outubro de 2026.}
+\end{frame}
+\note{Todo o conteúdo autoral do curso está em português; algumas fontes externas estão em inglês, como sinalizado. As páginas institucionais apresentam áreas de projeto; não substituem cursos de base.}
+
+\begin{frame}{O próximo circuito pode começar com uma pergunta sua}
+\vspace{3mm}{\Large\color{blue_theme}Do transistor à porta lógica.\\Da porta lógica a sistemas que medem,\\processam e comunicam.}
+\vspace{5mm}\pergunta{Qual caminho você quer explorar primeiro — e qual pequeno projeto vai usar para começar?}
+\vfill\small Desenvolvimento e facilitação: \textbf{Luan F. Nogueira} e \textbf{Luiz F. de Melo Soares}.
+\end{frame}
+\note{Fechamento de 1 a 2 minutos: cada participante pode registrar uma trilha, um pré-requisito e uma entrega. O mapa de uma página está disponível para consulta posterior.}
+\end{document}
