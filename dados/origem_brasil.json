@@ -1,0 +1,12 @@
+{
+  "projeto": "Brazil Silicon Roadmap",
+  "autor_creditado": "Matheus Grossi",
+  "repositorio": "https://github.com/MattGrossi12/brazil_silicon_roadmap",
+  "arquivo_fonte": "road_map_table_PT-BR.xlsx",
+  "consulta": "2026-10-28",
+  "sha256_planilha": "795750055cfbf26e4648b91c7927398d6ae9bc416792f315f283ddad093d4d28",
+  "organizacoes": 54,
+  "presencas_por_polo": 73,
+  "polos": 13,
+  "nota": "Categorias e incertezas de atuação preservadas da planilha; polos agregados não são endereços individuais."
+}

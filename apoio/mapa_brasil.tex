@@ -1,0 +1,124 @@
+\documentclass[10pt,a3paper]{article}
+\usepackage[landscape,margin=14mm,top=24mm,bottom=18mm,headheight=25pt,footskip=8mm]{geometry}
+\input{estilo.tex}
+\colorlet{blue_theme}{azul}\definecolor{green_ufc}{RGB}{0,146,62}\definecolor{lacuna}{RGB}{199,123,0}\definecolor{ativo}{RGB}{0,132,75}
+\makeatletter\def\input@path{{../slides/}}\makeatother
+\input{brasil_mapa.tex}
+\hypersetup{pdftitle={Microeletrônica no Brasil — mapa e organizações por polo}}
+\begin{document}
+\titulo{Microeletrônica no Brasil}{Mapa próprio a partir do Brazil Silicon Roadmap · Matheus Grossi}
+\begin{minipage}[t]{.28\linewidth}\vspace{0pt}\small\raggedright
+\textcolor{azul}{\textbf{1 · Manaus}}\par
+$\circ$ Instituto SENAI de Inovação em Microeletrônica\par
+$\bullet$ ADATA\par
+$\bullet$ Zilia\par
+$\bullet$ Stoneridge\par
+$\circ$ HBR\par
+$\circ$ Instituto de Pesquisas ELDORADO\par
+$\bullet$ HT Micron\par
+$\bullet$ CCBS / TERA\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{3 · Campina Grande}}\par
+$\bullet$ HWiT\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{4 · Salvador}}\par
+$\circ$ SENAI CIMATEC\par
+$\circ$ HBR\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{2 · Brasília}}\par
+$\circ$ HBR\par
+$\circ$ Instituto de Pesquisas ELDORADO\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{5 · Interior de Minas Gerais}}\par
+$\circ$ LC-e\par
+$\circ$ Inatel\par
+$\bullet$ Modirum | GESPI\par
+$\bullet$ Marelli\par
+$\bullet$ Stellantis\par
+$\bullet$ Multilaser\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{6 · Belo Horizonte e proximidades}}\par
+$\bullet$ Cadence\par
+$\bullet$ RFIDO Design\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{9 · Porto Alegre e proximidades}}\par
+$\bullet$ Impinj\par
+$\bullet$ SILVACO\par
+$\bullet$ HCLTech\par
+$\bullet$ AEL Sistemas\par
+$\bullet$ Grupo Tellescom\par
+$\bullet$ Valeo\par
+$\circ$ Instituto de Pesquisas ELDORADO\par
+$\bullet$ EnSilica\par
+$\circ$ itt Chip — Unisinos\par
+$\bullet$ CEITEC\par
+$\circ$ Instituto SENAI (RS)\par
+$\bullet$ InPlace\par
+$\bullet$ HT Micron\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{12 · Interior do Rio Grande do Sul}}\par
+$\bullet$ TUNA Semicondutores\par
+$\circ$ GMicro UFSM\par
+\vspace{2mm}
+\end{minipage}\hfill
+\begin{minipage}[t]{.40\linewidth}\vspace{0pt}\centering
+\resizebox{\linewidth}{!}{\mapaBrasil{1,2,3,4,5,6,7,8,9,10,11,12,13}}
+\par\bigskip{\Large\color{azul}\textbf{54 organizações · 13 polos}}\par
+\small 73 presenças: uma organização pode aparecer em vários polos.\par\medskip
+$\bullet$ Empresa\quad $\circ$ Centro ou grupo de pesquisa\par\medskip
+\footnotesize Pontos esquemáticos por polo; interiores representam áreas agregadas.\par\medskip
+\href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Levantamento: Matheus Grossi · Brazil Silicon Roadmap}\par
+\footnotesize Edição baseada na planilha PT-BR fornecida em 28/10/2026.\par\medskip
+Contorno: \href{https://github.com/johan/world.geo.json/blob/master/countries/BRA.geo.json}{johan/world.geo.json}. Composição redesenhada em TikZ.\par\medskip
+Desenho didático: Luan F. Nogueira e Luiz F. de Melo Soares.
+\end{minipage}\hfill
+\begin{minipage}[t]{.28\linewidth}\vspace{0pt}\small\raggedright
+\textcolor{azul}{\textbf{7 · Campinas e proximidades}}\par
+$\circ$ Von Braun Labs\par
+$\bullet$ ADATA\par
+$\circ$ HBR\par
+$\bullet$ HWiT\par
+$\bullet$ EnSilica\par
+$\circ$ CPQD\par
+$\bullet$ Aedvices\par
+$\circ$ Instituto de Pesquisas ELDORADO\par
+$\bullet$ Stoneridge\par
+$\bullet$ Valeo\par
+$\bullet$ Cadence\par
+$\circ$ CNPEM\par
+$\circ$ CTI Renato Archer\par
+$\bullet$ HCLTech\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{10 · Interior de São Paulo}}\par
+$\bullet$ Macnica DHW\par
+$\bullet$ WG3\par
+$\circ$ Chip Inventor\par
+$\bullet$ Beontag\par
+$\bullet$ SPICTEC\par
+$\circ$ LSI-TEC\par
+$\bullet$ Zilia\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{13 · São José dos Campos e proximidades}}\par
+$\bullet$ Boeing\par
+$\bullet$ Embraer\par
+$\bullet$ Thales Group\par
+$\bullet$ SIATT\par
+$\bullet$ IACIT\par
+$\circ$ INPE\par
+$\bullet$ Modirum | GESPI\par
+$\bullet$ Tecsys do Brasil\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{11 · Curitiba e proximidades}}\par
+$\bullet$ HCLTech\par
+$\bullet$ Thales Group\par
+$\circ$ Lactec\par
+\vspace{2mm}
+\textcolor{azul}{\textbf{8 · Florianópolis}}\par
+$\bullet$ Macnica DHW\par
+$\bullet$ Chipus\par
+$\bullet$ Synopsys\par
+$\circ$ OSIRIS\par
+$\circ$ Silicium\par
+\vspace{2mm}
+\end{minipage}
+\end{document}

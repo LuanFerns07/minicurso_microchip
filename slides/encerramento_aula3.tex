@@ -1,118 +1,101 @@
 \input{comum.tex}
-\title[Aula 3 • Próximos caminhos]{\huge\textbf{Do transistor ao chip}}
+\usepackage{multicol}
+\input{brasil_mapa.tex}
+\title[Aula 3 • Caminhos e Brasil]{\huge\textbf{Do transistor ao chip}}
 \begin{document}
-\capa{Encerramento da aula 3 · Para onde seguir?}{Mapa de caminhos em microeletrônica • 15 a 20 minutos}
-\note{Usar este bloco ao final da futura prática no Virtuoso. Ele não contém roteiro de laboratório. Reservar até 20 minutos dos 90 minutos do encontro; organizar o restante quando a prática for elaborada.}
+\capa{Encerramento da aula 3 · Para onde seguir?}{Trilhas de estudo e microeletrônica no Brasil • cerca de 25 minutos}
+\note{Bloco final da oficina de duas horas. Reservar cerca de 95 minutos à futura prática e 25 ao encerramento; a prática continua sem roteiro elaborado. As páginas regionais do Brasil são consultáveis: destacar exemplos, sem ler toda a relação.}
 
-\section{Mapa}
-\begin{frame}{Um ponto de partida, vários caminhos conectados}
-\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[x=1cm,y=1cm]
-\node[caixa,text width=11.8cm,fill=yellow!20] (base) at (6,1.5) {\textbf{Base comum} · circuitos, MOSFET, CMOS, lógica, simulação e programação};
-\foreach \x/\id/\titulo/\ex in {0.4/d/Digital/Portas e RTL,3.2/a/Analógica/Amplificadores,6/m/Sinais mistos/ADCs e DACs,8.8/r/RF integrada/Transceptores,11.6/c/Arquitetura/Processadores}{
-\node[caixa,text width=2.25cm,minimum height=15mm] (\id) at (\x,-.3) {\textbf{\titulo}\\\ex};\draw[seta] (\x,1.05)--(\id.north);}
-\draw[<->,thick,yellow] (d.south)--++(0,-.4)-|(c.south);
-\node[align=center,text width=12.5cm,font=\small] at (6,-1.9) {\textbf{Caminhos transversais:} verificação, projeto físico, fabricação, teste, encapsulamento e ferramentas de projeto.};
-\end{tikzpicture}\end{adjustbox}
-\fonte{Mapa didático: as áreas se sobrepõem. Arquitetura de computadores conecta sistemas e implementação digital.}
+\section{Trilhas}
+\begin{frame}{Uma base, cinco caminhos que se conectam}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[circle,draw=blue_theme,fill=white,minimum size=22mm,align=center](base)at(0,0){MOSFET\\e CMOS};
+\foreach \y/\t/\ex in {2.4/Digital/Portas e RTL,1.2/Arquitetura/Processadores,0/Analógica/Amplificadores,-1.2/Sinais mistos/Conversores,-2.4/RF/Comunicação}{\node[anchor=west,align=left] (p\y) at(3.2,\y){\textbf{\t}\\\ex};\draw[seta](base.east)--(3,\y);}
+\end{tikzpicture}}
+\chamada{Microeletrônica reúne essas áreas e outras especialidades.}
 \end{frame}
-\note{Dedicar 2 minutos ao mapa. Explicar ADC e DAC quando aparecerem no slide de sinais mistos. RF é radiofrequência. Microeletrônica é o campo que abrange os caminhos, não uma área isolada ao lado de digital e analógica.}
+\note{O objetivo é abrir possibilidades, não exigir escolha de carreira. Arquitetura conecta escolhas do sistema a implementações digitais; RF se apoia em analógica, sinais e eletromagnetismo. Nenhuma trilha é totalmente isolada.}
 
-\section{Trilhas de estudo}
-\begin{frame}{Digital · transformar funções em hardware}
-\duas{\topico{Pergunta central}{Como implementar uma função correta respeitando desempenho, consumo e área?}
-\topico{O que se projeta}{Somadores, controladores, interfaces, memórias e aceleradores.}}{\topico{Sequência de estudo}{Lógica combinacional $\rightarrow$ registradores e máquinas de estados $\rightarrow$ HDL/RTL $\rightarrow$ verificação $\rightarrow$ síntese e análise temporal.}
-\topico{Primeiro projeto}{Uma ULA de 4 bits, com operações aritméticas e lógicas e testes automáticos.}}
-\fonte{HDL: linguagem de descrição de hardware. RTL: descrição por registradores e transferências. ULA: unidade lógica e aritmética.}
+\begin{frame}{Digital: implementar funções em hardware}
+\figura{\begin{tikzpicture}[node distance=8mm,font=\small]
+\node[draw=blue_theme,minimum width=2cm,minimum height=1cm](a){Portas};\node[draw=blue_theme,minimum width=2cm,minimum height=1cm,right=of a](b){Registradores};\node[draw=blue_theme,minimum width=2cm,minimum height=1cm,right=of b](c){ULA};\draw[seta](a)--(b);\draw[seta](b)--(c);\end{tikzpicture}}
+\begin{itemize}\item Estudar: lógica sequencial, HDL/RTL e verificação.
+\item Primeiro projeto: ULA de 4 bits com testes automáticos.\end{itemize}
 \end{frame}
-\note{Conectar a ULA às NAND/NOR já estudadas. FPGA pode permitir prototipagem digital; um ASIC exige ainda etapas de implementação e fabricação próprias. Não tratar escrever HDL como escrever um programa sequencial comum.}
+\note{HDL: linguagem de descrição de hardware. RTL: descrição no nível de transferências entre registradores. ULA: unidade lógica e aritmética. As setas mostram um percurso de estudo, não a conectividade interna de uma ULA. FPGA é uma possibilidade de prototipagem; ASIC tem outras etapas de implementação física.}
 
-\begin{frame}{Arquitetura de computadores · organizar a computação}
-\small
-\duas{\topico{Pergunta central}{Como organizar unidades de execução, memória e comunicação para executar programas com eficiência?}
-\topico{O que se estuda}{Conjunto de instruções, caminho de dados, controle, pipeline, caches e paralelismo.}}{\topico{Sequência de estudo}{Lógica sequencial $\rightarrow$ ULA e registradores $\rightarrow$ processador simples $\rightarrow$ memória $\rightarrow$ desempenho e aceleradores.}
-\topico{Primeiro projeto}{Construir um caminho de dados simples e medir ciclos necessários para executar uma pequena tarefa.}}
-\ideia{Arquitetura define escolhas do sistema; microarquitetura e RTL aproximam essas escolhas de uma implementação.}
+\begin{frame}{Arquitetura: organizar a computação}
+\figura{\begin{tikzpicture}[node distance=12mm,font=\small]
+\node[draw=blue_theme,minimum width=2cm,minimum height=2cm,align=center](r){Banco de\\registradores};
+\node[draw=blue_theme,minimum width=1.7cm,minimum height=1.2cm,right=of r](u){ULA};\node[draw=blue_theme,minimum width=2cm,minimum height=2cm,right=of u](m){Memória};
+\draw[seta](r)--(u);\draw[seta](u)--(m);\draw[seta](m.south)--++(0,-.7)-|(r.south);
+\node[above=8mm of u](c){Controle e instruções};\draw[seta](c)--(u);
+\end{tikzpicture}}
+\begin{itemize}\item Estudar: instruções, caminho de dados e memória.
+\item Primeiro projeto: executar uma tarefa e contar ciclos.\end{itemize}
 \end{frame}
-\note{Distinguir ISA: contrato de instruções visível ao software; microarquitetura: organização que o implementa. O exemplo do acelerador de Luan ilustra a ponte com digital. É um desdobramento de estudo, não conteúdo exigido para concluir o curso.}
+\note{Diagrama funcional simplificado. A ISA é o contrato de instruções visível ao software; a microarquitetura organiza sua execução. Depois vêm temas como pipeline, caches e paralelismo. O trabalho de Luan com aceleradores ilustra a ligação com essa trilha.}
 
-\begin{frame}{Analógica · trabalhar com sinais contínuos}
-\small
-\duas{\topico{Pergunta central}{Como amplificar, filtrar e regular sinais preservando precisão, faixa útil e estabilidade?}
-\topico{O que se projeta}{Amplificadores, referências, espelhos de corrente, filtros e reguladores.}}{\topico{Sequência de estudo}{Circuitos $\rightarrow$ polarização do MOSFET $\rightarrow$ pequenos sinais $\rightarrow$ realimentação $\rightarrow$ ruído, variações e layout.}
-\topico{Primeiro projeto}{Amplificador fonte comum: definir polarização e comparar ganho e excursão de saída.}}
-\ideia{O mesmo MOSFET deixa de ser apenas uma chave e passa a controlar corrente de forma contínua.}
+\begin{frame}{Analógica: trabalhar com sinais contínuos}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[blue_theme,thick,domain=0:2,samples=70]plot(\x,{.3*sin(360*\x)});
+\draw[seta](2.4,0)--(3,0);\draw[blue_theme,thick](3.3,-1)--(3.3,1)--(5.2,0)--cycle;\node at(3.6,.45){$+$};\node at(3.6,-.45){$-$};\draw[seta](5.4,0)--(6,0);
+\draw[ativo,thick,domain=6.3:8.3,samples=70]plot(\x,{.9*sin(360*\x)});
+\end{tikzpicture}}
+\begin{itemize}\item Estudar: polarização, pequenos sinais e realimentação.
+\item Primeiro projeto: amplificador fonte comum.\end{itemize}
 \end{frame}
-\note{Não afirmar que analógico significa sempre operação na região triodo. Amplificadores frequentemente usam transistores em saturação, dependendo da topologia. O trabalho de Luiz com amplificador operacional é exemplo de desdobramento.}
+\note{O desenho ilustra amplificação ideal de uma senoide, sem representar uma topologia ou ganho medido. O mesmo MOSFET passa a ser visto como dispositivo de controle contínuo de corrente. Projetos reais também precisam de ruído, estabilidade, faixa de saída e variações. O trabalho de Luiz com amplificadores e layout é um exemplo.}
 
-\begin{frame}{Sinais mistos · ligar o mundo físico ao digital}
-\duas{\topico{Pergunta central}{Como converter sinais e coordenar blocos analógicos e digitais?}
-\topico{O que se projeta}{Conversores, interfaces de sensores, sistemas de aquisição e blocos de sincronização.}}{\topico{Sequência de estudo}{Base analógica + digital $\rightarrow$ amostragem $\rightarrow$ quantização $\rightarrow$ conversores $\rightarrow$ integração e verificação conjunta.}
-\topico{Primeiro projeto}{Modelo de conversor de 3 bits: relacionar tensão de entrada, código digital e erro de quantização.}}
-\fonte{\textit{Mixed-signal}: sinais mistos. ADC: conversor analógico--digital. DAC: conversor digital--analógico.}
+\begin{frame}{Sinais mistos: do sinal ao código}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[blue_theme,thick,domain=0:2.5,samples=70]plot(\x,{.7*sin(180*\x)});
+\draw[seta](2.9,0)--(3.5,0);\node[draw=blue_theme,minimum width=1.7cm,minimum height=1.3cm](c)at(4.6,0){ADC};\draw[seta](5.6,0)--(6.2,0);
+\node[align=left,font=\ttfamily\small] at(7.1,0){001\\011\\110\\100};
+\node at(1.2,-1.3){Tensão};\node at(4.6,-1.3){Amostragem};\node at(7.1,-1.3){Bits};
+\end{tikzpicture}}
+\begin{itemize}\item Estudar: amostragem, quantização e conversores.
+\item Primeiro projeto: modelo de ADC de 3 bits.\end{itemize}
 \end{frame}
-\note{Idealização para projeto inicial: faixas uniformes de quantização. Integração também exige atenção a alimentação, referência, sincronização e interferência. Projeto de conversor transistor a transistor pode vir depois.}
+\note{ADC: conversor analógico--digital. DAC faz a conversão no sentido oposto. O código mostrado é ilustrativo, sem correspondência numérica com as amostras desenhadas. A área também envolve interfaces de sensores, sincronização e convivência entre blocos analógicos e digitais.}
 
-\begin{frame}{RF integrada · transmitir e receber sinais}
-\small
-\duas{\topico{Pergunta central}{Como receber e transmitir sinais em radiofrequência com ganho, baixo ruído e boa linearidade?}
-\topico{O que se projeta}{Amplificadores de baixo ruído, misturadores, osciladores e transmissores/receptores integrados.}}{\topico{Sequência de estudo}{Analógica + sinais e sistemas $\rightarrow$ eletromagnetismo $\rightarrow$ impedâncias e parâmetros S $\rightarrow$ ruído e circuitos de RF.}
-\topico{Primeiro projeto}{Rede LC de casamento de impedâncias: observar a resposta em frequência e o efeito das perdas.}}
-\ideia{Em RF, interconexões, encapsulamento e componentes parasitas têm papel central no comportamento do circuito.}
+\begin{frame}{RF integrada: comunicar por ondas}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[blue_theme,line width=1.5pt](0,-1)--(0,1.2);\draw[blue_theme,line width=1.5pt](-.6,1.2)--(0,.6)--(.6,1.2);
+\draw[blue_theme](-.8,.2)arc(210:150:1);\draw[blue_theme](.8,1.2)arc(30:-30:1);
+\draw[seta](.5,-.4)--(1.5,-.4);\node[draw=blue_theme,minimum width=2cm,minimum height=1.1cm]at(2.7,-.4){Amplificador};\draw[seta](3.9,-.4)--(4.7,-.4);\node[draw=blue_theme,minimum width=2cm,minimum height=1.1cm]at(5.9,-.4){Misturador};\draw[seta](7.1,-.4)--(8,-.4);
+\end{tikzpicture}}
+\begin{itemize}\item Estudar: analógica, sinais, impedâncias e eletromagnetismo.
+\item Primeiro projeto: rede LC de casamento de impedâncias.\end{itemize}
 \end{frame}
-\note{LC: indutor e capacitor. Parâmetros S descrevem ondas incidentes e refletidas em portas. RF é um aprofundamento conectado à analógica, sinais e eletromagnetismo. Evitar definir RF por uma frequência de corte universal.}
+\note{LC: indutor e capacitor. A cadeia é uma ilustração funcional de recepção, não um rádio completo. Ruído, linearidade, componentes parasitas e encapsulamento são importantes. Não definir a área por uma frequência de corte universal.}
 
-\begin{frame}{Um sistema pode precisar de todas essas áreas}
-\centering\begin{adjustbox}{max width=\linewidth}\begin{tikzpicture}[node distance=3mm]
-\node[caixa,text width=2.05cm] (s) {Sensor\\Sinal físico};
-\node[caixa,text width=2.05cm,right=of s] (a) {Analógica\\Amplificação};
-\node[caixa,text width=2.05cm,right=of a] (m) {Sinais mistos\\Conversão A/D};
-\node[caixa,text width=2.05cm,right=of m] (d) {Digital\\Processa\-mento};
-\node[caixa,text width=2.05cm,right=of d] (r) {RF\\Comunicação};
-\draw[seta](s)--(a);\draw[seta](a)--(m);\draw[seta](m)--(d);\draw[seta](d)--(r);
-\node[caixa,text width=10.6cm,below=9mm of m,fill=yellow!15] (c) {\textbf{Arquitetura do sistema}\\Organiza processamento, memória, fluxo de dados e consumo};
-\end{tikzpicture}\end{adjustbox}\par
-\vspace{4mm}\small Exemplo: um nó de sensores sem fio. Cada bloco pode estar no mesmo chip ou em componentes diferentes.
+\begin{frame}{As trilhas se encontram em um produto}
+\figura{\begin{tikzpicture}[node distance=4mm,font=\small]
+\node[draw=blue_theme,align=center,minimum width=1.5cm,minimum height=1cm](s){Sensor};\node[draw=blue_theme,align=center,minimum width=1.8cm,minimum height=1cm,right=of s](a){Analógica};\node[draw=blue_theme,align=center,minimum width=1.5cm,minimum height=1cm,right=of a](d){ADC};\node[draw=blue_theme,align=center,minimum width=1.6cm,minimum height=1cm,right=of d](p){Digital};\node[draw=blue_theme,align=center,minimum width=1.3cm,minimum height=1cm,right=of p](r){RF};\draw[seta](s)--(a);\draw[seta](a)--(d);\draw[seta](d)--(p);\draw[seta](p)--(r);
+\end{tikzpicture}}
+\chamada{Exemplo: um nó de sensores sem fio.}
+\small\centering Projeto físico • verificação • processos • teste • encapsulamento • ferramentas
 \end{frame}
-\note{A seta digital para RF é uma representação funcional simplificada: transmissores reais incluem interfaces e conversões adicionais. Usar para mostrar colaboração entre áreas, sem apresentar uma cadeia completa de rádio.}
+\note{O processamento e a comunicação reais incluem interfaces e conversões adicionais. A arquitetura organiza dados, memória e consumo. O setor também precisa de funções transversais: não se resume a desenhar transistores ou escrever HDL. Cada bloco pode estar no mesmo chip ou em componentes separados.}
 
-\section{Próximos passos}
-\begin{frame}{Outros desdobramentos na microeletrônica}
-\small\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{3.2cm}p{4.8cm}p{4.1cm}}\toprule Caminho & Pergunta de trabalho & Exemplo de entrega\\\midrule
-Verificação e validação & O projeto cumpre a especificação? & Ambiente de testes e relatório\\[1mm]
-Projeto físico e layout & Como tornar o circuito fabricável? & Geometria verificada e extração\\[1mm]
-Dispositivos e processos & Como a estrutura física define o dispositivo? & Modelos e caracterização\\[1mm]
-Teste e confiabilidade & Como detectar defeitos e avaliar robustez? & Plano de teste e medidas\\[1mm]
-Encapsulamento e integração & Como conectar, alimentar e resfriar o chip? & Interconexões e análise térmica\\[1mm]
-Ferramentas de projeto (EDA) & Como automatizar projeto e análise? & Algoritmos, modelos e ferramentas\\\bottomrule\end{tabular}\end{adjustbox}
-\end{frame}
-\note{Mostrar que o setor vai além de desenhar transistores ou programar HDL. Evitar inferir empregabilidade ou salários. Projeto físico inclui diversas atividades; layout customizado e implementação digital usam métodos próprios.}
+\input{brasil_trecho.tex}
 
-\begin{frame}{Um plano inicial de quatro etapas}
-\centering\begin{adjustbox}{max width=\linewidth}\begin{tabular}{p{1.3cm}p{6cm}p{5.2cm}}\toprule Etapa & Ação & Evidência de aprendizado\\\midrule
-1 & Revisar MOSFET, inversor, NAND e NOR & Explicar cada tabela por caminhos\\[2mm]
-2 & Escolher uma trilha e estudar seus pré-requisitos & Mapa de conceitos e dúvidas\\[2mm]
-3 & Fazer um pequeno projeto com meta mensurável & Testes, curvas ou medidas\\[2mm]
-4 & Documentar, comparar e apresentar & Relatório curto com limites e próximos passos\\\bottomrule\end{tabular}\end{adjustbox}
-\vspace{3mm}\pergunta{Qual pergunta de projeto mais desperta sua curiosidade? Qual entrega você poderia demonstrar?}
+\section{Próximo passo}
+\begin{frame}{Escolha uma pergunta e faça um pequeno projeto}
+\figura{\begin{tikzpicture}[node distance=10mm,font=\small]
+\node[circle,draw=blue_theme,minimum size=15mm](a){Escolher};\node[circle,draw=blue_theme,minimum size=15mm,right=of a](b){Estudar};\node[circle,draw=blue_theme,minimum size=15mm,right=of b](c){Construir};\node[circle,draw=blue_theme,minimum size=15mm,right=of c](d){Explicar};\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);
+\end{tikzpicture}}
+\chamada{Qual trilha? Qual primeiro projeto? Como demonstrar que funciona?}
 \end{frame}
-\note{Plano sem prazo obrigatório: o ritmo depende da base de cada pessoa. Incentivar uma trilha inicial sem exigir escolha definitiva de carreira. Os projetos são sugestões pedagógicas dos autores, não recomendações comerciais.}
+\note{Fechar com dois ou três relatos curtos. A turma pode registrar uma trilha, um pré-requisito e uma entrega. Não é preciso decidir uma carreira hoje. Os mapas e as listas ficam para consulta.}
 
-\begin{frame}{Para continuar estudando}
-\small\begin{itemize}
-\item \textbf{CMOS e digital:} Salem e Dutertre, referências fornecidas; \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004 — Computation Structures}, de lógica a processadores e memória.
-\item \textbf{Visão das áreas de projeto:} Cadence, \href{https://www.cadence.com/en_US/home/explore/what-is-ic-design.html}{\textit{O que é projeto de circuitos integrados?}} (página em inglês).
-\item \textbf{Sinais mistos:} Synopsys, \href{https://www.synopsys.com/glossary/what-is-mixed-signal-integrated-circuit.html}{\textit{O que é um circuito integrado de sinais mistos?}} (em inglês).
-\item \textbf{Radiofrequência:} Synopsys, \href{https://www.synopsys.com/glossary/what-is-rf-circuit-design.html}{\textit{O que é projeto de circuitos de RF?}} (em inglês).
-\end{itemize}
-\vspace{2mm}\ideia{As referências ajudam a situar as áreas. A sequência de estudos e os projetos deste roadmap são uma proposta didática dos facilitadores.}
-\fonte{Identidade visual: Maurício Moreira Neto, Template Beamer UFC. Fontes on-line consultadas em outubro de 2026.}
+\begin{frame}{Créditos e caminhos de consulta}
+\small\begin{itemize}\item Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
+\item Levantamento Brasil: \textbf{Matheus Grossi}, \href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Brazil Silicon Roadmap}; planilha PT-BR fornecida.
+\item Contorno: \href{https://github.com/johan/world.geo.json/blob/master/countries/BRA.geo.json}{johan/world.geo.json}; mapa redesenhado em TikZ.
+\item Continuação de estudos: \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004}, Salem e Dutertre.
+\item Template Beamer UFC: Maurício Moreira Neto.\end{itemize}
 \end{frame}
-\note{Todo o conteúdo autoral do curso está em português; algumas fontes externas estão em inglês, como sinalizado. As páginas institucionais apresentam áreas de projeto; não substituem cursos de base.}
-
-\begin{frame}{O próximo circuito pode começar com uma pergunta sua}
-\vspace{3mm}{\Large\color{blue_theme}Do transistor à porta lógica.\\Da porta lógica a sistemas que medem,\\processam e comunicam.}
-\vspace{5mm}\pergunta{Qual caminho você quer explorar primeiro — e qual pequeno projeto vai usar para começar?}
-\vfill\small Desenvolvimento e facilitação: \textbf{Luan F. Nogueira} e \textbf{Luiz F. de Melo Soares}.
-\end{frame}
-\note{Fechamento de 1 a 2 minutos: cada participante pode registrar uma trilha, um pré-requisito e uma entrega. O mapa de uma página está disponível para consulta posterior.}
+\note{As localizações são polos agregados e não endereços. As incertezas e categorias da planilha estão preservadas nos dados derivados. O mapa não reproduz a imagem fornecida. As sequências de estudo e os pequenos projetos são propostas didáticas, não promessas de emprego ou ofertas de curso.}
 \end{document}

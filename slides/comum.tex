@@ -1,4 +1,5 @@
 % Modelo Beamer UFC original de Maurício Moreira Neto.
+\ifdefined\Resumo\PassOptionsToClass{handout}{beamer}\fi
 \documentclass{libs/ufc_format}
 \usepackage{amsmath,amssymb,booktabs,tikz,circuitikz}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
@@ -59,6 +60,8 @@
 \draw (pa.G) node[left]{$A$};\draw (pb.G) node[left]{$B$};\draw (pc.G) node[left]{$C$};
 \draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};\draw (nc.G) node[left]{$C$};
 \end{circuitikz}}
+\input{visuais.tex}
+\newcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=5.1cm}#1\end{adjustbox}\end{center}}
 \author[L. Nogueira / L. Soares]{\texorpdfstring{Luan F. Nogueira\\Luiz F. de Melo Soares}{Luan F. Nogueira e Luiz F. de Melo Soares}}
 \institute[UFC]{\department{Minicurso de Microeletrônica}\\\ufc}
 \date{SEELECT}
