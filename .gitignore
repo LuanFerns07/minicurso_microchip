@@ -16,6 +16,8 @@ __pycache__/
 # Materiais de consulta e dados pessoais locais
 /fontes/
 /template_original/
+/referencias/
+*.xlsx
 CV_*.pdf
 LECTURE_logic_gate.pdf
 figures_course_digital_design.pdf

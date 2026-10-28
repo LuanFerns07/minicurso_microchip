@@ -21,6 +21,7 @@ POLOS = [
 ('Interior do Rio Grande do Sul', -54.5, -29.8, 'Sul', 'Interior do RS', 1.5, .25),
 ('São José dos Campos e proximidades', -45.88, -23.18, 'Sudeste', 'S. José dos Campos', 7.5, 2.55),
 ]
+MARKER_OFFSETS = {5:(.20,.08),6:(.05,.15),7:(-.08,.10),10:(-.14,.10),13:(.20,-.10),11:(-.03,-.03),8:(.10,.02)}
 REGCOL = {'Norte':'green_ufc','Nordeste':'lacuna','Centro-Oeste':'red!65!blue','Sudeste':'blue_theme','Sul':'ativo'}
 def tex(s):
     for a,b in [ ('\\',r'\textbackslash{}'), ('&',r'\&'), ('%',r'\%'), ('_',r'\_'), ('#',r'\#') ]:
@@ -48,13 +49,15 @@ def main():
     for row in csv.DictReader((ROOT/'dados/presencas_brasil.csv').open(encoding='utf-8')):
         groups[row['polo']].append(row['organizacao'])
     assert set(groups)=={p[0] for p in POLOS}
-    lines=[r'% Gerado por scripts/gerar_brasil.py.',r'\input{brasil_contorno.tex}',r'\newcommand{\mapaBrasil}[1]{%',r'\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]',r'\ifdefined\SemRotulos\path[use as bounding box](-.3,-.6) rectangle (6.8,7);\else\path[use as bounding box](-.3,-.6) rectangle (9,7);\fi',r'\filldraw[fill=blue_theme!5,draw=blue_theme,line width=.8pt] \contornoBrasil;']
+    lines=[r'% Gerado por scripts/gerar_brasil.py.',r'\input{brasil_contorno.tex}',r'\newcommand{\mapaBrasil}[1]{%',r'\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]',r'\ifdefined\SemRotulos\path[use as bounding box](-.3,-.6) rectangle (6.8,7);\else\path[use as bounding box](-.3,-.6) rectangle (11.7,7);\fi',r'\filldraw[fill=blue_theme!5,draw=blue_theme,line width=.8pt] \contornoBrasil;']
     for i,(name,lon,lat,region,label,lx,ly) in enumerate(POLOS,1):
         x,y=(lon+74)*.165,(lat+34)*.165
         lines.append(fr'\fill[black!22] ({x:.3f},{y:.3f})circle(.05);')
     lines.append(r'\foreach \selecionado in {#1}{')
     for i,(name,lon,lat,region,label,lx,ly) in enumerate(POLOS,1):
         x,y=(lon+74)*.165,(lat+34)*.165
+        dx,dy=MARKER_OFFSETS.get(i,(0,0))
+        x,y=x+dx,y+dy
         col=REGCOL[region]
         # Labels mostly outside the silhouette, so dense hubs remain readable.
         lines.append(fr'\ifnum\selecionado={i}\relax\ifdefined\SemRotulos\else\draw[{col},line width=.6pt]({x:.3f},{y:.3f})--({lx:.2f},{ly:.2f});\node[anchor=west,fill=white,inner sep=1.5pt,text={col},font=\scriptsize] at({lx:.2f},{ly:.2f}){{{tex(label)}}};\fi\node[circle,fill={col},text=white,inner sep=1.3pt,font=\tiny] at({x:.3f},{y:.3f}){{{i}}};\fi')

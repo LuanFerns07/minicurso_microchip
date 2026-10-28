@@ -53,7 +53,7 @@
 \fill[eletron!55,draw=blue_theme] (2.7,3.08) rectangle (7.3,3.55);
 \node at (5,.5){Corpo P};\node at (1.5,3.9){Fonte};\node at (8.5,3.9){Dreno};\node at (5,4){Porta};
 \draw (1.5,2.8)--(1.5,3.6);\draw (8.5,2.8)--(8.5,3.6);\draw (5,3.55)--(5,3.8);
-\node[font=\scriptsize,align=left,anchor=west] at (7.7,3.25){Dielétrico\\isolante};
+\node[font=\scriptsize,anchor=west] at (8.1,4.72){Dielétrico};\draw[-{Latex},black!50] (8.1,4.35)--(7.65,4.35)--(7.25,2.97);
 \ifnum#1<1
  \foreach \x/\y in {3.3/1.2,4.3/2.1,5.2/1.4,6.5/2.1}{\draw[lacuna,fill=white] (\x,\y) circle(.12);}
  \node at (5,4.75){$V_{GS}$ baixo};
@@ -70,7 +70,7 @@
   \foreach \x in {2.9,3.6,4.3,5,5.7,6.4,7.1}{\node[white,font=\scriptsize] at (\x,2.69){$-$};}
   \node at (5,4.75){$V_{GS}>V_{TN}$: canal de elétrons};
   \ifnum#1=3
-   \draw[-{Latex},line width=2pt,ativo] (8.4,1.25)--node[below]{Corrente convencional $I_D$}(1.6,1.25);
+   \draw[-{Latex},white,line width=3.5pt] (8.4,2.69)--(1.6,2.69);\draw[-{Latex},line width=2pt,ativo] (8.4,2.69)--(1.6,2.69);\node[ativo] at (5,1.15){Corrente convencional $I_D$};
    \node[font=\scriptsize] at (5,-.65){Com $V_D>V_S$, há corrente pelo canal};
   \else\node[font=\scriptsize] at (5,-.65){Inversão: a superfície conduz por elétrons};\fi
  \fi
