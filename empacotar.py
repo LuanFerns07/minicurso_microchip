@@ -37,13 +37,15 @@ with ZipFile(raiz/'minicurso_cmos_beamer.zip','w',ZIP_DEFLATED) as pacote:
     pacote.write(material/'dados/CREDITOS_MAPA.md','CREDITOS_MAPA.md')
     pacote.write(material/'dados/FONTES_CONTEXTO.md','FONTES_CONTEXTO.md')
     pacote.write(material/'dados/processos_historicos.csv','processos_historicos.csv')
+    for nome in ['FONTES_INTEGRACAO.md','CREDITOS_MICROGRAFIAS.md','integracao_processadores.csv','micrografias_fontes.json']:
+        pacote.write(material/'dados'/nome,nome)
     pacote.writestr('LEIA_ME.md', '''# Do transistor ao chip — oficinas visuais de duas horas
 
 Luan F. Nogueira e Luiz F. de Melo Soares. Template UFC original 4:3.
 
 Use pdfLaTeX no Overleaf. `main.tex` compila a aula 1. Para trocar:
 
-- `\\input{aula1.tex}`: 42 quadros; 58 páginas com etapas.
+- `\\input{aula1.tex}`: 42 quadros; 60 páginas nesta edição com etapas.
 - `\\input{aula2.tex}`: 27 quadros; 37 páginas com etapas.
 - `\\input{encerramento_aula3.tex}`: 17 quadros, incluindo âmbito Brasil.
 
@@ -56,7 +58,10 @@ estados do inversor e das portas NAND/NOR. As figuras vetoriais estão em
 `contexto_visuais.tex`. A fabricação e as perspectivas usam `fabricacao_aula1.tex`,
 `perspectivas_aula1.tex`, `fisica_fabricacao_visuais.tex` e `cidade_visuais.tex`.
 Preserve também `assets/`, `libs/` e `brasil_*.tex`.
-Os retratos vêm dos currículos; as fotos do chip, de Roche et al. (2021).
+Os retratos vêm dos currículos. As fotos antigas do componente foram retiradas.
+As duas micrografias reais selecionadas ainda não foram obtidas por bloqueio
+de download e não aparecem nesta edição. Veja CREDITOS_MICROGRAFIAS.md.
+Com os arquivos locais, `microscopia_trecho.tex` inclui dois quadros adicionais.
 Consulte FONTES_CONTEXTO.md
 para as fontes da história, gráficos, litografia e CMOS 2.0.
 

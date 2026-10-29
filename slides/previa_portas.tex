@@ -1,0 +1,45 @@
+% Prévia conceitual de redes pull-down; R limita a corrente e puxa Y para VDD.
+\newcommand{\redePrevia}[2]{%
+\begin{circuitikz}[x=1cm,y=1cm,font=\small]
+\path[use as bounding box] (-2.05,-.3) rectangle (2.1,5.6);
+\draw (0,5.1) node[above]{$\VDD$} to[R,l=$R$] (0,3.7);
+\draw (0,3.7) to[short,*-] (.8,3.7) node[right]{$Y$};
+\ifnum#2=0
+  \ifnum#1=1
+    \draw (0,3.7)--(0,3.3) to[nos,l=$A$] (0,2)--(0,1.8) to[nos,l=$B$] (0,.5)--(0,.1) node[ground]{};
+  \fi
+  \ifnum#1=2
+    \draw (0,3.7)--(0,3.3) to[D,l=$D_1$] (0,2)--(0,1.8) to[D,l=$D_2$] (0,.5)--(0,.1) node[ground]{};
+  \fi
+  \ifnum#1=3
+    \node[nmos] (a) at (0,2.65) {};\node[nmos] (b) at (0,1.15) {};
+    \draw (0,3.7)--(a.D);\draw (a.S)--(b.D);\draw (b.S)--(0,.1) node[ground]{};
+    \draw[blue_theme,thick] (a.G)--++(-.5,0) node[left]{$A$};\draw[blue_theme,thick] (b.G)--++(-.5,0) node[left]{$B$};
+  \fi
+\else
+  \draw (0,3.7)--(0,3.2)--(-1.1,3.2) (0,3.2)--(1.1,3.2);
+  \ifnum#1=1
+    \draw (-1.1,3.2) to[nos,l=$A$] (-1.1,.8);\draw (1.1,3.2) to[nos,l=$B$] (1.1,.8);
+  \fi
+  \ifnum#1=2
+    \draw (-1.1,3.2) to[D,l=$D_1$] (-1.1,.8);\draw (1.1,3.2) to[D,l=$D_2$] (1.1,.8);
+  \fi
+  \ifnum#1=3
+    \node[nmos] (a) at (-1.1,2) {};\node[nmos] (b) at (1.1,2) {};
+    \draw (-1.1,3.2)--(a.D);\draw (1.1,3.2)--(b.D);
+    \draw (a.S)--(-1.1,.8);\draw (b.S)--(1.1,.8);
+    \draw[blue_theme,thick] (a.G)--++(-.25,0) node[left]{$A$};\draw[blue_theme,thick] (b.G)--++(-.25,0) node[left]{$B$};
+  \fi
+  \draw (-1.1,.8)--(1.1,.8);\draw (0,.8)--(0,.1) node[ground]{};
+\fi
+\end{circuitikz}}
+\newcommand{\compararRedes}[1]{%
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}\centering\textcolor{blue_theme}{\textbf{Série}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=3.8cm}\redePrevia{#1}{0}\end{adjustbox}\par
+{\scriptsize\ifnum#1=2 Dois diodos no mesmo percurso.\else Caminho fechado: $A$ \textbf{e} $B$.\fi}
+\end{column}
+\begin{column}{.48\textwidth}\centering\textcolor{blue_theme}{\textbf{Paralelo}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=3.8cm}\redePrevia{#1}{1}\end{adjustbox}\par
+{\scriptsize\ifnum#1=2 Um diodo em cada ramo.\else Caminho fechado: $A$ \textbf{ou} $B$.\fi}
+\end{column}\end{columns}}

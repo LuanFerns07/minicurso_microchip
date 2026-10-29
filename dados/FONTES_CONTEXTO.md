@@ -1,6 +1,6 @@
 # Fontes e imagens da aula 1
 
-Consulta em **29 de outubro de 2026**. Os links aparecem também junto às figuras na apresentação. Diagramas, gráficos e analogia urbana foram desenhados para o minicurso. As fotografias documentais do chip foram extraídas de uma apresentação científica identificada abaixo; os retratos vêm dos currículos fornecidos.
+Consulta em **29 de outubro de 2026**. Os links aparecem também junto às figuras na apresentação. Diagramas, gráficos e analogia urbana foram desenhados para o minicurso. As micrografias selecionadas e seus créditos estão documentados separadamente; os retratos vêm dos currículos fornecidos.
 
 ## História e Lei de Moore
 
@@ -14,7 +14,7 @@ Consulta em **29 de outubro de 2026**. Os links aparecem também junto às figur
 - [TSMC — Relatório anual 2020](https://investor.tsmc.com/static/annualReports/2020/english/index.html): início da produção em volume do N5 em 2020.
 - [TSMC — Relatório anual 2025](https://investor.tsmc.com/static/annualReports/2025/english/index.html): início da produção em volume do N2 no quarto trimestre de 2025.
 
-O gráfico usa eixo vertical logarítmico e mostra **referências de gerações de processo**. Não deve ser lido como comprimento de porta medido de modo uniforme. Os pontos recentes N5 e N2 são nomes comerciais, desenhados vazados e separados da linha histórica. Não se pode calcular a redução real de área ou comprimento do transistor dividindo esses números. Dimensões de porta, passo dos contatos, passo de metal, resolução óptica e nome do nó são grandezas diferentes.
+O gráfico anterior de referências de processo permanece no fonte `contexto_visuais.tex`, mas foi substituído na apresentação pelo histórico de **contagens reais por die**, descrito em [FONTES_INTEGRACAO.md](FONTES_INTEGRACAO.md). A coluna de processo usa as designações publicadas. Não se pode calcular a redução real de área ou comprimento do transistor dividindo nomes de nós comerciais. Dimensões de porta, passo dos contatos, passo de metal, resolução óptica e nome do nó são grandezas diferentes.
 
 ## Fabricação, litografia e estruturas de transistor
 
@@ -55,16 +55,6 @@ Fotos extraídas diretamente dos currículos locais fornecidos, sem geração ou
 
 Os textos resumem os percursos documentados e não pressupõem que todos os cursos estejam concluídos. Os currículos completos e os contatos pessoais não integram os pacotes nem o repositório.
 
-## Fotografias de componentes e microscopia óptica
+## Micrografias e histórico de integração
 
-**Crédito:** Thomas Roche, Victor Lomné, Camille Mutschler e Laurent Imbert, *A Side Journey to Titan — Revealing and Breaking NXP’s P5x ECDSA Implementation on the Way*, apresentação das Journées SIF, **15/10/2021**. Instituições: NinjaLab e LIRMM / Univ. Montpellier / CNRS. Registro do evento: [Journées sécurité SIF](https://archive.socinfo.fr/les-journees-sif/journees-securite-14-et-15-octobre-2/). Projeto e artigo dos mesmos autores: [USENIX Security 2021](https://www.usenix.org/conference/usenixsecurity21/presentation/roche).
-
-As três figuras foram extraídas dos objetos de imagem do PDF local da apresentação, preservando os pixels, as proporções e as anotações originais. O documento completo não foi copiado para o repositório.
-
-| Arquivo | Origem no PDF da apresentação SIF | O que mostra |
-| --- | --- | --- |
-| `slides/assets/microscopia/titan_placa.png` | Página 6, quadro 5/23 | Placa com o encapsulamento NXP A7005 e outros componentes identificados pelos autores. |
-| `slides/assets/microscopia/titan_aberto.png` | Página 8, quadro 7/23 | Encapsulamento aberto, revelando o die de silício. |
-| `slides/assets/microscopia/titan_microscopio.png` | Página 9, quadro 8/23 | Observação óptica do chip e da sonda do experimento original. |
-
-São fotografias documentais de um exemplo de 2021, não micrografias de um processo de 2 nm. A imagem óptica não resolve canais de transistores individuais. A aula usa as fotos para distinguir placa, encapsulamento e die; os cortes de dispositivos e as escalas nanométricas são explicados nos diagramas seguintes. Não foram geradas imagens sintéticas de microscópio. Os créditos acompanham a reprodução na apresentação.
+As fotos de encapsulamento e sonda usadas na revisão anterior foram retiradas. As fontes das novas micrografias, seus créditos e o estado de obtenção estão em [CREDITOS_MICROGRAFIAS.md](CREDITOS_MICROGRAFIAS.md). A série histórica real de contagens e processos está documentada em [FONTES_INTEGRACAO.md](FONTES_INTEGRACAO.md) e `integracao_processadores.csv`.

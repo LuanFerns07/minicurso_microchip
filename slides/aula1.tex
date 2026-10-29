@@ -229,24 +229,25 @@ Chave aberta não garante tensão zero.}
 \chamada{Qual transistor você retiraria para deixar a saída flutuante?}
 \end{frame}
 
-\begin{frame}{Para levar para a próxima oficina}
-\figura{\begin{tikzpicture}[node distance=8mm]
-\node[circle,draw=blue_theme,minimum size=13mm] (a){Material};\node[circle,draw=blue_theme,minimum size=13mm,right=of a] (b){Canal};\node[circle,draw=blue_theme,minimum size=13mm,right=of b] (c){Chave};\node[circle,draw=blue_theme,minimum size=13mm,right=of c] (d){Lógica};\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
-\chamada{Como descarregar uma saída somente quando A e B forem altos?}
+\begin{frame}{Para levar para a próxima oficina: série e paralelo}
+\only<1|handout:0>{\compararRedes{1}\etapa{1/3}{Chaves A/B: dois caminhos diferentes para descarregar a saída $Y$.}}
+\only<2|handout:0>{\compararRedes{2}\etapa{2/3}{Diodos: a condução depende da polarização entre seus dois terminais.}}
+\only<3|handout:1>{\compararRedes{3}\etapa{3/3}{MOSFETs: as portas recebem os sinais externos $A$ e $B$.}}
+\fonte{R limita corrente e puxa Y para VDD. Diodos não têm terminal de controle A/B: D$_1$ e D$_2$ são identificadores. Na aula 2, as redes PMOS complementarão as redes NMOS e substituirão o resistor na construção CMOS.}
 \end{frame}
 
 \begin{frame}{Referências e créditos}
 \small\begin{itemize}\item Fathi Salem, \textit{ECE 410: VLSI Design}, Michigan State University. Notas fornecidas.
 \item J.-M. Dutertre, \textit{Digital Design (Introduction to)}, ISMIN, 2022. Figuras fornecidas.
 \item Mini-fichas e retratos: currículos de Luan e Luiz.
-\item Fotos de chip: Roche et al., \textit{A Side Journey to Titan}, 2021.
+\item Micrografias selecionadas: \href{https://www.nisenet.org/catalog/media/zoom_microchip_video}{NISE Network / Lawrence Hall of Science} e \href{https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology}{imec — GAA nanosheets}.
 \item Template Beamer UFC: Maurício Moreira Neto, modelo original 4:3.
 \item Diagramas e sequências didáticas: elaboração para este minicurso.\end{itemize}
 \end{frame}
 \begin{frame}{Fontes: história, fabricação e perspectivas}
 \small\begin{itemize}
 \item \href{https://www.computerhistory.org/siliconengine/timeline/}{Computer History Museum: The Silicon Engine} — marcos históricos.
-\item Intel: \href{https://www.intel.com/content/www/us/en/newsroom/resources/moores-law.htm}{Lei de Moore} e \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{processos históricos}.
+\item Intel: \href{https://www.intel.com/content/www/us/en/newsroom/resources/moores-law.htm}{Lei de Moore} e \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{processos históricos}. \href{https://www.apple.com/newsroom/2024/05/apple-introduces-m4-chip/}{Apple} e \href{https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/}{NVIDIA}: integração em SoCs e GPU.
 \item TSMC: relatórios anuais \href{https://investor.tsmc.com/static/annualReports/2020/english/index.html}{2020} e \href{https://investor.tsmc.com/static/annualReports/2025/english/index.html}{2025} — N5 e N2.
 \item ASML: \href{https://www.asml.com/en/technology/lithography-principles}{litografia} e \href{https://www.asml.com/en/company/stories/2024/5-things-high-na-euv}{EUV High-NA}.
 \item imec: \href{https://www.imec-int.com/en/articles/cmos-20-revolution}{CMOS 2.0} e \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{integração 3D}.

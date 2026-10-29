@@ -21,15 +21,8 @@
 \fonte{\href{https://www.computerhistory.org/siliconengine/timeline/}{Computer History Museum — The Silicon Engine}; \href{https://www.intel.com/content/www/us/en/history/virtual-vault/articles/the-intel-4004.html}{Intel — 4004}. Linha do tempo seletiva; espaçamento não cronológico.}
 \end{frame}
 
-\begin{frame}{Da placa ao silício: o que estamos estudando?}
-\only<1|handout:0>{
-\begin{center}\includegraphics[width=.79\linewidth,height=4.15cm,keepaspectratio]{assets/microscopia/titan_placa.png}\end{center}
-\etapa{1/2}{Na placa, o circuito integrado aparece dentro de um encapsulamento.}}
-\only<2|handout:1>{
-\duas{\centering\includegraphics[width=\linewidth,height=3.55cm,keepaspectratio]{assets/microscopia/titan_aberto.png}\par\scriptsize Encapsulamento aberto.}{\centering\includegraphics[width=\linewidth,height=3.55cm,keepaspectratio]{assets/microscopia/titan_microscopio.png}\par\scriptsize Silício observado ao microscópio óptico.}
-\etapa{2/2}{O die é a peça de semicondutor que contém os dispositivos e conexões.}}
-\fonte{Fotografias: T. Roche, V. Lomné, C. Mutschler e L. Imbert, \href{https://www.usenix.org/conference/usenixsecurity21/presentation/roche}{A Side Journey to Titan} (2021). A sonda à direita pertence ao experimento dos autores. As fotos não resolvem transistores individuais.}
-\end{frame}
+\input{microscopia_trecho.tex}
+
 
 \begin{frame}{Lei de Moore: uma trajetória de integração}
 \figura{\graficoMoore}
@@ -38,10 +31,7 @@
 \fonte{\href{https://www.intel.com/content/www/us/en/newsroom/resources/moores-law.htm}{Intel — Moore's Law}. Curva ideal normalizada, sem dados medidos. Refere-se à quantidade de transistores por circuito integrado, não à frequência nem a uma lei física.}
 \end{frame}
 
-\begin{frame}{Da escala micrométrica aos nós nanométricos}
-\figura{\graficoProcessos}
-\chamada{Hoje, ``2 nm'' identifica uma geração de processo.}
-\fonte{Gráfico próprio: \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{Intel — Quick Reference Guide} (1971--2008); TSMC, relatórios \href{https://investor.tsmc.com/static/annualReports/2020/english/index.html}{2020} e \href{https://investor.tsmc.com/static/annualReports/2025/english/index.html}{2025}. As referências de processo não medem uma única dimensão física ao longo de toda a série. N5 e N2 são nomes comerciais, indicados separadamente.}
-\end{frame}
+\input{integracao_trecho.tex}
+
 
 \endgroup

@@ -5,6 +5,8 @@ try {
     Get-Command $Python, pdflatex -ErrorAction Stop | Out-Null
     & $Python scripts/gerar_brasil.py
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao gerar a seção Brasil.' }
+    & $Python scripts/gerar_integracao.py
+    if ($LASTEXITCODE -ne 0) { throw 'Falha ao gerar o gráfico de integração.' }
     New-Item -ItemType Directory -Force -Path build,pdfs | Out-Null
     foreach ($obsolete in 'aula1_notas', 'aula2_notas', 'encerramento_aula3_notas', 'guia_facilitadores') {
         Remove-Item -LiteralPath "pdfs/$obsolete.pdf" -ErrorAction SilentlyContinue
@@ -13,7 +15,7 @@ try {
         'slides/aula1.tex', 'slides/aula2.tex', 'slides/encerramento_aula3.tex',
         'slides/aula1_resumo.tex', 'slides/aula2_resumo.tex', 'slides/encerramento_aula3_resumo.tex',
         'apoio/roadmap.tex', 'apoio/exercicios.tex', 'apoio/gabarito.tex',
-        'apoio/mapa_brasil.tex'
+        'apoio/mapa_brasil.tex', 'apoio/integracao_processadores.tex'
     )
     foreach ($source in $sources) {
         $name = [IO.Path]::GetFileNameWithoutExtension($source)
@@ -30,5 +32,5 @@ try {
         Copy-Item -LiteralPath "build/$name.pdf" -Destination "pdfs/$name.pdf" -Force
         Write-Host "OK: $name"
     }
-    Write-Host 'Os 10 PDFs foram compilados em pdfs/.'
+    Write-Host 'Os 11 PDFs foram compilados em pdfs/.'
 } finally { Pop-Location }
