@@ -1,6 +1,5 @@
 # Compilação e entregas geradas
 /build/
-/pdfs/
 *.zip
 *.aux
 *.log
