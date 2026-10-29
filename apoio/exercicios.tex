@@ -21,13 +21,14 @@ PMOS & 1,2 V & 1,2 V & & \\\bottomrule\end{tabularx}
 \vfill\small Os valores são didáticos e não especificam uma tecnologia de fabricação. Escreva suas justificativas no verso, se necessário.
 \newpage
 \titulo{Atividades · aula 2}{Do MOSFET às portas lógicas}
-\caixa{4 · Construa e confira}{a) Desenhe NAND2: quatro transistores, entradas A/B, saída Y, alimentação e GND.\\b) Destaque o caminho ativo para A=1 e B=0.\\c) Transforme o desenho em NOR2 e explique a mudança das duas redes.}
+{\small Use os nomes Source, Gate e Drain. Justifique cada saída por um caminho completo.}\par\smallskip
+\caixa{4 · Construa e confira}{a) Desenhe NAND2: quatro transistores, entradas A/B, saída Y, alimentação e GND.\\b) Destaque o caminho ativo para A=1 e B=0.\\c) Transforme o desenho em NOR2 e explique a mudança das duas redes.\\d) Por que os PMOS substituem R na construção CMOS?}
 \vspace{33mm}
 \textbf{Complete as duas tabelas:}\par
 \begin{tabularx}{\linewidth}{ccXXXX}\toprule A & B & NAND: subida ativa? & NAND: Y & NOR: descida ativa? & NOR: Y\\\midrule
 0&0&&&&\\[4mm]0&1&&&&\\[4mm]1&0&&&&\\[4mm]1&1&&&&\\[4mm]\bottomrule\end{tabularx}
 \caixa{5 · Estenda para três entradas}{Desenhe uma NAND3. Quantos transistores são necessários? Em quais combinações a saída é zero?}
 \vspace{17mm}
-\caixa{6 · Explique sem decorar}{a) Dois NMOS em série geram condição AND de condução. Por que a saída é NAND?\\b) Por que copiar a rede NMOS em série para PMOS em série falha com entradas 01?\\c) Como obter NOT usando uma NAND de duas entradas?\\d) Por que uma porta CMOS real consome energia ao comutar?}
+\caixa{6 · Explique sem decorar}{a) Dois NMOS em série geram condição AND de condução. Por que a saída é NAND?\\b) Por que copiar a rede NMOS em série para PMOS em série falha com entradas 01?\\c) Como obter NOT usando uma NAND de duas entradas?\\d) Para 00 → 01 → 11 → 10, preveja a sequência de Y em NAND e NOR.\\e) Por que uma porta CMOS real consome energia ao comutar?}
 \vfill\small Extensão opcional: construa $Y=\overline{AB+C}$ e confira as oito combinações de entrada.
 \end{document}

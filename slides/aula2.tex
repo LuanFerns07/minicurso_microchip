@@ -1,17 +1,20 @@
 \input{comum.tex}
+\input{portas_visuais.tex}
+\renewcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.4cm}#1\end{adjustbox}\end{center}}
 \title[Aula 2 • Portas CMOS]{\huge\textbf{Do transistor ao chip}}
 \begin{document}
 \capa{Aula 2 · Do MOSFET às portas lógicas}{Desenhar, prever e conferir • oficina de 2 horas}
 
 \section{Retomada}
-\begin{frame}{Lembra dos dois caminhos?}
-\duas{\figura{\inversorestado{0}}}{\figura{\inversorestado{1}}}
-\chamada{Quem carrega? Quem descarrega? Quem bloqueia?}
+\begin{frame}{Onde paramos: dois modos de descarregar a saída}
+\compararRedes{3}
+\chamada{Série: $A$ e $B$. Paralelo: $A$ ou $B$.}
+\fonte{Retomada do fechamento da aula 1. R puxa Y para a alimentação; os Gates recebem A/B. A condição de condução da rede NMOS e o valor de Y são coisas diferentes.}
 \end{frame}
 
 \begin{frame}{Duas horas para construir e explicar portas}
 \centering\begin{tabular}{lr}\toprule Retomada e níveis lógicos & 10 min\\
-Inversor: forma de onda, carga e energia & 20 min\\NAND: construir e percorrer & 20 min\\
+Inversor: forma de onda, carga e energia & 20 min\\Da carga resistiva à NAND & 20 min\\
 Pausa & 10 min\\NOR e comparação & 20 min\\Desenho e teste entre duplas & 25 min\\
 Composição e fechamento & 15 min\\\bottomrule\end{tabular}
 \end{frame}
@@ -40,11 +43,12 @@ No meio: nível não garantido.}
 \draw[blue_theme,very thick] (0,2.5)--(1.4,2.5)--(1.8,3.5)--(5.7,3.5)--(6.1,2.5)--(9,2.5);
 \draw[ativo,very thick] (0,1.5)--(2.2,1.5)--(2.9,.5)--(6.6,.5)--(7.4,1.5)--(9,1.5);
 \draw[dashed,black!35] (0,3)--(9,3);\draw[dashed,black!35] (0,1)--(9,1);
-\draw[dotted] (1.6,3.8)--(1.6,-.3);\draw[dotted] (2.55,1.8)--(2.55,-.3);
+\only<2|handout:1>{\draw[dotted] (1.6,3.8)--(1.6,-.3);\draw[dotted] (2.55,1.8)--(2.55,-.3);
 \draw[<->] (1.6,-.2)--node[below]{$t_{pHL}$}(2.55,-.2);
-\draw[dotted] (5.9,3.8)--(5.9,-.3);\draw[dotted] (7,1.8)--(7,-.3);\draw[<->] (5.9,-.2)--node[below]{$t_{pLH}$}(7,-.2);
+\draw[dotted] (5.9,3.8)--(5.9,-.3);\draw[dotted] (7,1.8)--(7,-.3);\draw[<->] (5.9,-.2)--node[below]{$t_{pLH}$}(7,-.2);}
 \end{tikzpicture}}
-\chamada{Há inversão lógica e atraso elétrico.}
+\only<1|handout:0>{\etapa{1/2}{Primeiro, compare as transições de A e Y.}}
+\only<2|handout:1>{\etapa{2/2}{Agora, meça o atraso entre os cruzamentos de 50\%.}}
 \fonte{Desenho qualitativo. Referências de atraso indicadas a 50\% da alimentação.}
 \end{frame}
 
@@ -52,37 +56,36 @@ No meio: nível não garantido.}
 \duas{\figura{\begin{circuitikz}[scale=.8]\draw(0,2) node[above]{$\VDD$} to[R,l=$R_{\mathrm{eq}}$] (0,0) to[short,*-] (1.3,0) node[right]{$Y$};\draw(.8,0) to[C,l=$C_L$] (.8,-2) node[ground]{};\end{circuitikz}}}{\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \draw[->](0,0)--(4.5,0) node[right]{$t$};\draw[->](0,0)--(0,3.5) node[above]{$V_Y$};
 \draw[blue_theme,very thick] (0,0).. controls (.6,2.9) and(1.4,3)..(4.1,3);
-\draw[red,very thick] (0,0).. controls (1.5,1.8) and(2.9,2.7)..(4.1,2.85);
-\node[blue_theme] at(2.7,3.35){menor $C_L$};\node[red] at(3,1.7){maior $C_L$};\end{tikzpicture}}}
-\chamada{Capacitâncias incluem portas seguintes e interconexões.}
+\only<2|handout:1>{\draw[red,very thick] (0,0).. controls (1.5,1.8) and(2.9,2.7)..(4.1,2.85);}
+\node[blue_theme] at(2.7,3.35){menor $C_L$};\only<2|handout:1>{\node[red] at(3,1.7){maior $C_L$};}\end{tikzpicture}}}
+\only<1|handout:0>{\etapa{1/2}{O caminho de condução carrega a capacitância de saída.}}
+\only<2|handout:1>{\etapa{2/2}{Com o mesmo caminho, uma carga maior muda mais devagar.}}
+\fonte{Modelo RC qualitativo: capacitâncias incluem os Gates seguintes e as interconexões. Não são resultados de simulação.}
 \end{frame}
 
-\begin{frame}{Onde a energia é gasta?}
-\figura{\begin{tikzpicture}[node distance=12mm,font=\small]
-\node[draw=blue_theme,minimum size=12mm] (v){$\VDD$};\node[draw=blue_theme,minimum size=12mm,right=of v] (c){$C_L$};\node[draw=blue_theme,minimum size=12mm,right=of c] (g){GND};
-\draw[seta](v)--node[above]{carregar}(c);\draw[seta](c)--node[above]{descarregar}(g);
-\end{tikzpicture}}
-\begin{itemize}\item Comutação movimenta carga.
-\item Circuitos reais também têm fugas.
-\item Durante transições, ambos os tipos podem conduzir por um intervalo.\end{itemize}
+\begin{frame}{Uma transição movimenta carga e energia}
+\only<1|handout:0>{\figura{\cicloEnergia{1}}\etapa{1/2}{O caminho PMOS carrega a saída.}}
+\only<2|handout:1>{\figura{\cicloEnergia{2}}\etapa{2/2}{O caminho NMOS descarrega a saída.}}
+\fonte{Equivalentes resistivos ilustrativos. Circuitos reais também têm fugas e podem ter corrente direta durante transições; baixo consumo estático não significa comutação sem energia.}
 \end{frame}
 
 \section{NAND}
-\begin{frame}{Série ou paralelo: quando existe caminho?}
-\duas{\centering\textcolor{blue_theme}{\large\textbf{Série}}\par
-\figura{\begin{circuitikz}[scale=.8]\node[nmos] (a) at(0,1){};\node[nmos] (b) at(0,-.6){};\draw(a.D)--(0,1.8) node[above]{$Y$};\draw(a.S)--(b.D);\draw(b.S)--(0,-1.4) node[ground]{};\draw(a.G) node[left]{$A$};\draw(b.G) node[left]{$B$};\end{circuitikz}}
-É preciso A \textbf{e} B.}{\centering\textcolor{blue_theme}{\large\textbf{Paralelo}}\par
-\figura{\begin{circuitikz}[scale=.8]\node[nmos](a) at(-1,0){};\node[nmos](b) at(1.2,0){};\draw(a.D)--(-1,1)--(1.2,1)--(b.D);\node[above] at(0,1){$Y$};\draw(a.S)--(-1,-1)--(1.2,-1)--(b.S);\draw(0,-1)node[ground]{};\draw(a.G)node[left]{$A$};\draw(b.G)node[left]{$B$};\end{circuitikz}}
-Basta A \textbf{ou} B.}
+\begin{frame}{Da resistência R à rede complementar}
+\only<1|handout:0>{\duas{\figura{\construirNAND{1}}}{\vspace{10mm}\textcolor{blue_theme}{\large\textbf{O ponto de partida}}\par\medskip
+Dois NMOS em série.\par\medskip R fornece o caminho de subida.\par\medskip
+Com A=B=1, há corrente por R.}\etapa{1/2}{A saída baixa mantém um caminho entre alimentação e GND.}}
+\only<2|handout:1>{\duas{\figura{\construirNAND{2}}}{\vspace{10mm}\textcolor{blue_theme}{\large\textbf{Construção CMOS}}\par\medskip
+Substituímos R por dois PMOS em paralelo.\par\medskip
+Eles conduzem quando A=0 ou B=0.}\etapa{2/2}{A rede de subida bloqueia quando a série NMOS conduz.}}
+\fonte{Entradas binárias estáveis; modelo de chaves ideais. Os Gates A/B são compartilhados pelas duas redes. Corpos: NMOS em GND, PMOS em VDD, no modelo bulk.}
 \end{frame}
 
-\begin{frame}{Duas redes, uma saída}
-\figura{\begin{tikzpicture}[node distance=5mm,font=\small]
-\node(v){$\VDD$};\node[draw=blue_theme,minimum width=4cm,minimum height=1cm,below=of v](p){Rede PMOS · subida};
-\node[below=of p](y){$Y$};\node[draw=blue_theme,minimum width=4cm,minimum height=1cm,below=of y](n){Rede NMOS · descida};\node[below=of n](g){GND};
-\draw[fio](v)--(p);\draw[fio](p)--(y);\draw[fio](y)--(n);\draw[fio](n)--(g);\draw[seta](y)--++(2.5,0);
-\end{tikzpicture}}
-\chamada{Nos estados estáveis ideais: uma conduz, a outra bloqueia.}
+\begin{frame}{Uma rede conduz; a outra precisa bloquear}
+\duas{\figura{\portaestado{0}{1}{1}}}{\vspace{8mm}\textcolor{blue_theme}{\large\textbf{A=B=1}}\par\medskip
+NMOS: caminho completo até GND.\par\medskip PMOS: dois caminhos interrompidos.\par\medskip
+Logo, $Y=0$.}
+\chamada{Condição de condução $AB$; saída invertida $\overline{AB}$.}
+\fonte{Verde indica transistor habilitado. Uma série só conduz por completo quando todos os seus dispositivos estão habilitados.}
 \end{frame}
 
 \begin{frame}{NAND: descarregar somente com A e B altos}
@@ -97,6 +100,7 @@ Quatro transistores.}
 \only<2|handout:0>{\figura{\portaestado{0}{0}{1}}\etapa{2/4}{01: A interrompe a série NMOS; PMOS A mantém Y alto.}}
 \only<3|handout:0>{\figura{\portaestado{0}{1}{1}}\etapa{3/4}{11: a série NMOS está completa; Y desce.}}
 \only<4|handout:1>{\figura{\portaestado{0}{1}{0}}\etapa{4/4}{10: B interrompe a série; PMOS B faz Y subir.}}
+\fonte{Verde: transistor habilitado. Siga um caminho completo entre Y e uma das alimentações.}
 \end{frame}
 
 \begin{frame}{Monte a tabela antes de revelar}
@@ -106,12 +110,9 @@ Quatro transistores.}
 \end{frame}
 
 \begin{frame}{Dois erros que a complementaridade evita}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\foreach \x in {0,5}{\node at(\x,3){$\VDD$};\node at(\x,0){GND};\draw[fio](\x,2.9)--(\x,2.35);\draw[fio](\x,.65)--(\x,.1);\fill[blue_theme](\x,1.5)circle(.05);\draw[fio](\x,1.5)--++(1,0)node[right]{$Y$};}
-\draw[cortado](0,2.35)--(-.35,2.05);\draw[fio](0,1.95)--(0,1.5);\draw[cortado](0,1.25)--(-.35,.95);\draw[fio](0,1.5)--(0,1.25);\draw[fio](0,.85)--(0,.65);
-\draw[ligado](5,2.35)--(5,.65);\draw[-{Latex},red,thick](4.5,2.6)--(4.5,.4);
-\node[align=center] at(0,-.8){Ambas abertas\\\textbf{Saída flutuante}};\node[align=center]at(5,-.8){Ambas conduzindo\\\textbf{Corrente direta}};
-\end{tikzpicture}}
+\figura{\falhasRedes}
+\chamada{Confira a subida e a descida para cada combinação.}
+\fonte{Modelos de falhas estáveis: saída sem caminho definido ou alimentação ligada diretamente ao GND. Na comutação real, pode haver breve condução simultânea.}
 \end{frame}
 
 \begin{frame}{Pausa · 10 minutos}
@@ -131,6 +132,7 @@ Quatro transistores.}
 \only<2|handout:0>{\figura{\portaestado{1}{0}{1}}\etapa{2/4}{01: NMOS B descarrega; PMOS B interrompe a subida.}}
 \only<3|handout:0>{\figura{\portaestado{1}{1}{1}}\etapa{3/4}{11: os dois ramos NMOS descarregam a saída.}}
 \only<4|handout:1>{\figura{\portaestado{1}{1}{0}}\etapa{4/4}{10: basta o ramo NMOS A para manter Y baixo.}}
+\fonte{Verde: transistor habilitado. Na subida em série, um único PMOS bloqueado já interrompe o caminho.}
 \end{frame}
 
 \begin{frame}{Agora confira a tabela da NOR}
@@ -143,13 +145,11 @@ Quatro transistores.}
 \duas{\centering\textbf{NAND}\par\figura{\nandcircuito}\small Série embaixo; paralelo em cima.}{\centering\textbf{NOR}\par\figura{\norcircuito}\small Paralelo embaixo; série em cima.}
 \end{frame}
 
-\begin{frame}{De Morgan: a razão da troca}
-\[\overline{AB}=\overline A+\overline B\qquad\overline{A+B}=\overline A\,\overline B\]
-\figura{\begin{tikzpicture}[node distance=10mm,font=\small]
-\node(a){NMOS em série};\node[right=22mm of a](b){PMOS em paralelo};\draw[<->,blue_theme,thick](a)--(b);
-\node[below=12mm of a](c){NMOS em paralelo};\node[right=22mm of c](d){PMOS em série};\draw[<->,blue_theme,thick](c)--(d);
-\end{tikzpicture}}
-\chamada{Mesmas entradas nos Gates; redes duais.}
+\begin{frame}{De Morgan: por que série vira paralelo?}
+\figura{\redesDuais}
+\only<1|handout:0>{\etapa{1/2}{NMOS habilita com 1; PMOS habilita com 0.}}
+\only<2|handout:1>{\etapa{2/2}{$\overline{AB}=\overline A+\overline B$ e $\overline{A+B}=\overline A\,\overline B$.}}
+\fonte{As expressões nas redes representam condições de condução. Trocar série por paralelo constrói a rede dual; os Gates mantêm os mesmos sinais A/B.}
 \end{frame}
 
 \begin{frame}{Oficina de desenho · 25 minutos}
@@ -161,14 +161,14 @@ Quatro transistores.}
 
 \section{Composição}
 \begin{frame}{Uma inversão a mais produz AND ou OR}
-\only<1|handout:0>{\figura{\begin{circuitikz}\node[nand port](n)at(0,0){};\node[not port](i)at(3,0){};\draw(n.in 1)--++(-.5,0)node[left]{$A$};\draw(n.in 2)--++(-.5,0)node[left]{$B$};\draw(n.out)--node[above]{$\overline{AB}$}(i.in);\draw(i.out)--++(.6,0)node[right]{$AB$};\end{circuitikz}}\chamada{NAND + inversor = AND.}}
-\only<2|handout:1>{\figura{\begin{circuitikz}\node[nor port](n)at(0,0){};\node[not port](i)at(3,0){};\draw(n.in 1)--++(-.5,0)node[left]{$A$};\draw(n.in 2)--++(-.5,0)node[left]{$B$};\draw(n.out)--node[above]{$\overline{A+B}$}(i.in);\draw(i.out)--++(.6,0)node[right]{$A+B$};\end{circuitikz}}\chamada{NOR + inversor = OR.}}
+\only<1|handout:0>{\figura{\begin{circuitikz}\node[nand port](n)at(0,0){};\node[not port](i)at(3,0){};\draw(n.in 1)--++(-.5,0)node[left]{$A$};\draw(n.in 2)--++(-.5,0)node[left]{$B$};\draw(n.out)--node[above]{$\overline{AB}$}(i.in);\draw(i.out)--++(.6,0)node[right]{$AB$};\end{circuitikz}}\chamada{NAND + inversor = AND: 4 + 2 = 6 transistores.}}
+\only<2|handout:1>{\figura{\begin{circuitikz}\node[nor port](n)at(0,0){};\node[not port](i)at(3,0){};\draw(n.in 1)--++(-.5,0)node[left]{$A$};\draw(n.in 2)--++(-.5,0)node[left]{$B$};\draw(n.out)--node[above]{$\overline{A+B}$}(i.in);\draw(i.out)--++(.6,0)node[right]{$A+B$};\end{circuitikz}}\chamada{NOR + inversor = OR: 4 + 2 = 6 transistores.}}
 \end{frame}
 
 \begin{frame}{Uma NAND também pode inverter}
 \figura{\begin{circuitikz}\node[nand port](n)at(1.7,0){};\draw(n.in 1)--(-.2,.28)--(-.2,-.28)--(n.in 2);\draw(-.2,0)to[short,*-](-1,0)node[left]{$A$};\draw(n.out)--++(.9,0)node[right]{$\overline A$};\end{circuitikz}}
 \[N(A,A)=\overline{AA}=\overline A\]
-\chamada{Compondo NANDs, construímos qualquer função booleana.}
+\chamada{A NAND também produz NOT: podemos compor funções com uma única família.}
 \end{frame}
 
 \begin{frame}{Da porta a um sistema digital}
@@ -179,11 +179,28 @@ Quatro transistores.}
 \chamada{A lógica de hoje será um dos caminhos do roadmap.}
 \end{frame}
 
-\begin{frame}{O que vamos levar para a prática?}
-\begin{enumerate}\item Prever a tabela verdade pelo desenho.
-\item Identificar o caminho de carga e de descarga.
-\item Comparar a previsão com as formas de onda.\end{enumerate}
-\chamada{O circuito deve fazer sentido antes da simulação.}
+\begin{frame}{Do desenho à forma de onda: preveja a NAND}
+\only<1|handout:0>{\figura{\ondaNAND{1}}\etapa{1/2}{Percorra 00 → 01 → 11 → 10: quando Y deve baixar?}}
+\only<2|handout:1>{\figura{\ondaNAND{2}}\etapa{2/2}{Y só baixa em 11: a série NMOS está completa.}}
+\fonte{Diagrama lógico ideal, sem atraso. Não é uma simulação. As quatro combinações aparecem no mesmo estímulo; os atrasos reais serão observados na prática.}
+\end{frame}
+
+\begin{frame}{O que levaremos para o Virtuoso?}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[align=center] (a) at (0,0){\textbf{Desenhar}\\NMOS/PMOS\\e conexões};
+\node[align=center] (b) at (4,0){\textbf{Excitar}\\A/B percorrem\\as combinações};
+\node[align=center] (c) at (8,0){\textbf{Conferir}\\Y previsto\\e Y observado};
+\draw[seta] (1.3,0)--(2.7,0);\draw[seta] (5.3,0)--(6.7,0);
+\node[pmos,scale=.55] (p) at (0,-1.4) {};\node[nmos,scale=.55] (n) at (0,-2.25) {};
+\draw (p.S)--(0,-1) node[above,font=\tiny]{$\VDD$};\draw (p.D)--(n.D);
+\draw (n.S)--(0,-2.8) node[ground]{};
+\draw (p.G)--(-.7,-1.4)--(-.7,-2.25)--(n.G);\draw (-.7,-1.8)--(-1,-1.8) node[left,font=\tiny]{$A$};
+\draw (0,-1.8) to[short,*-] (.65,-1.8) node[right,font=\tiny]{$Y$};
+\draw[blue_theme] (3.1,-1.7)--(3.1,-1.2)--(3.7,-1.2)--(3.7,-1.7)--(4.3,-1.7)--(4.3,-1.2)--(4.9,-1.2);
+\draw[ativo] (7.1,-1.2)--(7.7,-1.2)--(7.7,-1.7)--(8.3,-1.7)--(8.3,-1.2)--(8.9,-1.2);
+\path[use as bounding box] (-1.5,-3.1) rectangle (9.5,1);
+\end{tikzpicture}}
+\chamada{A simulação confere uma previsão que já sabemos explicar.}
 \end{frame}
 
 \begin{frame}{Saída da oficina: explique uma escolha}

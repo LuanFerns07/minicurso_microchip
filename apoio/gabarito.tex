@@ -16,14 +16,14 @@ A terceira linha mostra por que olhar apenas a tensão do Gate pode levar ao err
 
 \textbf{3 · Inversor e nó flutuante.} a) O PMOS conduz e carrega Y até próximo de $\VDD$: saída lógica 1. O NMOS está cortado. b) Sem PMOS e sem outro elemento de carga, não há caminho garantido para recarregar a saída: ela fica flutuante quando o NMOS corta. c) Sem caminho ativo, a tensão pode depender da carga anterior, das capacitâncias e das fugas; circuito aberto não equivale a terra.
 
-\textbf{4 · Portas de duas entradas.} NAND: PMOS em paralelo entre alimentação e saída; NMOS em série entre saída e GND. Para A=1 e B=0, o PMOS B permite a carga, e o NMOS B interrompe a descida. NOR: PMOS em série e NMOS em paralelo.
+\textbf{4 · Portas de duas entradas.} NAND: PMOS em paralelo entre alimentação e saída; NMOS em série entre saída e GND. Para A=1 e B=0, o PMOS B permite a carga, e o NMOS B interrompe a descida. NOR: PMOS em série e NMOS em paralelo. A rede PMOS fornece subida e bloqueia quando a rede NMOS descarrega; evita o caminho resistivo permanente de alimentação a GND para saída baixa, no modelo ideal.
 \begin{center}\begin{tabular}{cccccc}\toprule A & B & NAND: subida & NAND: Y & NOR: descida & NOR: Y\\\midrule
 0&0&Sim&1&Não&1\\0&1&Sim&1&Sim&0\\1&0&Sim&1&Sim&0\\1&1&Não&0&Sim&0\\\bottomrule\end{tabular}\end{center}
 Em todos os desenhos, os Gates identificados por A recebem a mesma entrada A; o mesmo vale para B. Os corpos NMOS ficam em GND e os corpos PMOS em $\VDD$ no modelo introdutório.
 
 \textbf{5 · NAND3.} Três NMOS em série e três PMOS em paralelo: seis transistores. A saída é zero somente em 111. Em qualquer outra combinação, a cadeia NMOS é interrompida e pelo menos um PMOS fornece caminho até a alimentação.
 
-\textbf{6 · Justificativas.} a) A série define a condição AB para descarregar a saída; portanto $Y=\overline{AB}$. b) Com 01, a série NMOS tem A aberto e a série PMOS tem B aberto: nenhuma rede fixa a saída. c) Unir as duas entradas: $N(A,A)=\overline{AA}=\overline A$. d) Carregar e descarregar capacitâncias envolve energia. Há ainda fuga e possível corrente direta transitória. Baixo consumo estático não significa energia de comutação nula.
+\textbf{6 · Justificativas.} a) A série define a condição AB para descarregar a saída; portanto $Y=\overline{AB}$. b) Com 01, a série NMOS tem A aberto e a série PMOS tem B aberto: nenhuma rede fixa a saída. c) Unir as duas entradas: $N(A,A)=\overline{AA}=\overline A$. d) Na ordem 00 → 01 → 11 → 10: NAND = 1, 1, 0, 1; NOR = 1, 0, 0, 0. São estados lógicos, sem atraso. e) Carregar e descarregar capacitâncias envolve energia. Há ainda fuga e possível corrente direta transitória. Baixo consumo estático não significa energia de comutação nula.
 \newpage
 \titulo{Extensão opcional · AOI21}{Combinar as regras de série e paralelo}
 \[Y=\overline{AB+C}\]

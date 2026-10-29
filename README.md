@@ -9,18 +9,20 @@ Os terminais MOS são nomeados **Source, Gate e Drain**; “portas lógicas” c
 | Material | Quadros | Páginas com as etapas |
 | --- | ---: | ---: |
 | [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 42 | 60 |
-| [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 27 | 37 |
-| [Encerramento da aula 3 — Caminhos e Brasil](pdfs/encerramento_aula3.pdf) | 17 | 17 |
+| [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 28 | 44 |
+| [Encerramento da aula 3 — Caminhos e Brasil](pdfs/encerramento_aula3.pdf) | 8 | 8 |
+| [Consulta — organizações no Brasil](pdfs/consulta_brasil.pdf) | 8 | 8 |
 
 Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurso contínuo: facilitadores e história → contagens reais, VLSI e composição NMOS/PMOS → SoC → transporte de dados e CMOS 2.0 → materiais e junção PN → MOSFET e inversor CMOS → estrutura física e fabricação → litografia, escala atômica e limites físicos. O bloco de fabricação vem depois dos dispositivos que ele precisa construir. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
 
 - [Aula 1 resumida](pdfs/aula1_resumo.pdf), [aula 2 resumida](pdfs/aula2_resumo.pdf) e [encerramento resumido](pdfs/encerramento_aula3_resumo.pdf): uma página de síntese por quadro.
 - [Atividades](pdfs/exercicios.pdf) e [gabarito](pdfs/gabarito.pdf).
-- [Roadmap de estudos](pdfs/roadmap.pdf): A4 horizontal.
+- [Roadmap de estudos](pdfs/roadmap.pdf): A4 horizontal, com cinco trilhas e sugestões de projetos.
+- [Consulta Brasil](pdfs/consulta_brasil.pdf): relação completa por polo; leitura complementar à aula 3.
 - [Histórico de integração: gráfico e tabela](pdfs/integracao_processadores.pdf): A4 horizontal, 13 chips com contagens e processos documentados.
 - [Microeletrônica no Brasil — mapa e organizações](pdfs/mapa_brasil.pdf): pôster vetorial A3 horizontal.
 
-A prática da aula 3 no **Cadence Virtuoso será elaborada posteriormente**. O encerramento reserva cerca de 25 minutos às trilhas e ao panorama Brasil, deixando 95 minutos para a futura prática.
+A prática da aula 3 no **Cadence Virtuoso será elaborada posteriormente**. O encerramento tem **8 slides, para cerca de 15 minutos**, reservando **105 minutos** à futura prática. As seis páginas de listas regionais passaram para uma apresentação de consulta, preservando a relação integral de organizações e os créditos. O tempo da prática será validado quando seu roteiro for elaborado.
 
 ## O que é animado
 
@@ -30,7 +32,11 @@ A prática da aula 3 no **Cadence Virtuoso será elaborada posteriormente**. O e
 - Mudança da largura de depleção em polarização direta e reversa.
 - Depleção da superfície do NMOS, formação do canal e condução.
 - Caminhos de carga/descarga do inversor.
-- Estados 00 → 01 → 11 → 10 de NAND e NOR, com chaves habilitadas em verde.
+- Estados 00 → 01 → 11 → 10 de NAND e NOR, com transistores habilitados em verde.
+- Substituição do resistor R pela rede PMOS complementar na construção da NAND.
+- Medição de atraso a 50%, comparação de cargas e carga/descarga da capacitância.
+- Previsão e revelação do traço Y da NAND antes da prática.
+- De Morgan com revelação da rede dual.
 - Revelação de respostas e composição AND/OR.
 - Formação conceitual de regiões, Gates e interconexões de um inversor planar.
 - Exposição, revelação e gravação em litografia.
@@ -58,7 +64,7 @@ bash compilar.sh
 
 No Windows, com Python e pdfLaTeX disponíveis no terminal, execute `.\compilar.ps1`. Para selecionar o Python, use `.\compilar.ps1 -Python 'C:\caminho\python.exe'`. Consulte [o roteiro de revisão](ROTEIRO_REVISAO.md) para a organização do conteúdo.
 
-O script usa os dados locais para gerar a seção Brasil e o gráfico de integração e compila os 11 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
+O script usa os dados locais para gerar a seção Brasil e o gráfico de integração e compila os 12 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
 
 - `slides/aula1.tex`, `slides/aula2.tex`, `slides/encerramento_aula3.tex`: apresentações.
 - `slides/visuais.tex`: desenhos parametrizados e cores de estados.
@@ -68,7 +74,10 @@ O script usa os dados locais para gerar a seção Brasil e o gráfico de integra
 - `slides/microscopia_trecho.tex`: inclusão das micrografias reais quando os arquivos locais estiverem disponíveis.
 - `scripts/obter_micrografias.py` e `dados/micrografias_fontes.json`: fontes de imagem e obtenção opcional.
 - `slides/integracao_*.tex` e `dados/integracao_processadores.csv`: gráfico e contagens.
-- `slides/previa_portas.tex`: circuitos série/paralelo do fechamento.
+- `slides/previa_portas.tex`: circuitos série/paralelo do fechamento da aula 1.
+- `slides/portas_visuais.tex`: construção da NAND, falhas, energia e estímulos da aula 2.
+- `slides/trilhas_visuais.tex`: diagramas das cinco trilhas e integração de funções da aula 3.
+- `slides/consulta_brasil.tex`: apresentação complementar com todas as organizações por polo.
 - `slides/assets/facilitadores/`: fotografias extraídas dos currículos.
 - `dados/FONTES_CONTEXTO.md` e `dados/processos_historicos.csv`: bibliografia e dados dos gráficos da abertura.
 - `slides/comum.tex`: comandos compartilhados; o tema está na classe original `slides/libs/ufc_format.cls`.
@@ -104,6 +113,12 @@ Os diagramas de dispositivos e as analogias são qualitativos, sem resultados me
 ## Ritmo da aula 1
 
 Apresentação e percurso: 5 min; panorama, VLSI e integração 3D: 18 min; materiais: 12 min; junção PN e discussão: 16 min; pausa: 10 min; MOSFET: 23 min; CMOS e desenho físico: 10 min; fabricação e litografia: 12 min; limites físicos: 6 min; atividade e fechamento: 8 min. Total: **120 minutos**. Os PDFs de notas e o guia de condução foram retirados; permanecem as apresentações, resumos, atividades e gabarito.
+
+## Ritmo das aulas 2 e 3
+
+Na aula 2: retomada e níveis lógicos (10 min); inversor, carga, atraso e energia (20 min); da carga resistiva à NAND (20 min); pausa (10 min); NOR e redes duais (20 min); desenho e teste entre duplas (25 min); composição, previsão das ondas e fechamento (15 min). Total: **120 minutos**.
+
+A aula 3 reserva **105 minutos à prática** e **15 ao encerramento**: síntese do percurso (2 min), cinco trilhas (5 min), integração no produto (2 min), âmbito Brasil (3 min) e próximo projeto/créditos (3 min). A apresentação de consulta Brasil não integra esse tempo; pode ser explorada depois da oficina.
 
 ## Micrografias pendentes
 

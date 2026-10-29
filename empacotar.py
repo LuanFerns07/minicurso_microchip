@@ -15,6 +15,7 @@ Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
 - [Aula 1](material/pdfs/aula1.pdf)
 - [Aula 2](material/pdfs/aula2.pdf)
 - [Encerramento da aula 3](material/pdfs/encerramento_aula3.pdf)
+- [Consulta Brasil](material/pdfs/consulta_brasil.pdf)
 - [Mapa do Brasil](material/pdfs/mapa_brasil.pdf)
 - [Fontes, instruções de compilação e demais materiais](material/README.md)
 
@@ -46,8 +47,9 @@ Luan F. Nogueira e Luiz F. de Melo Soares. Template UFC original 4:3.
 Use pdfLaTeX no Overleaf. `main.tex` compila a aula 1. Para trocar:
 
 - `\\input{aula1.tex}`: 42 quadros; 60 páginas nesta edição com etapas.
-- `\\input{aula2.tex}`: 27 quadros; 37 páginas com etapas.
-- `\\input{encerramento_aula3.tex}`: 17 quadros, incluindo âmbito Brasil.
+- `\\input{aula2.tex}`: 28 quadros; 44 páginas com etapas.
+- `\\input{encerramento_aula3.tex}`: 8 slides; cerca de 15 minutos após a prática.
+- `\\input{consulta_brasil.tex}`: 8 slides de consulta, com todas as organizações por polo.
 
 Você também pode selecionar diretamente um desses arquivos como principal.
 `*_resumo.tex` produz uma página de síntese por quadro.
@@ -55,7 +57,8 @@ Você também pode selecionar diretamente um desses arquivos como principal.
 A animação ocorre ao avançar as páginas: depleção, ativação do MOSFET,
 estados do inversor e das portas NAND/NOR. O panorama inclui VLSI, bairros de casas,
 prédio e CMOS 2.0. Os terminais MOS são Source, Gate e Drain. As figuras vetoriais estão em
-`visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
+`visuais.tex`. A aula 2 também usa `portas_visuais.tex`; a aula 3 usa
+`trilhas_visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
 `contexto_visuais.tex`. A fabricação e as perspectivas usam `fabricacao_aula1.tex`,
 `perspectivas_aula1.tex`, `fisica_fabricacao_visuais.tex` e `cidade_visuais.tex`.
 Preserve também `assets/`, `libs/` e `brasil_*.tex`.
@@ -72,7 +75,9 @@ Os pontos são esquemáticos por polo, não endereços. Consulte CREDITOS_MAPA.m
 
 O pacote compila sem baixar imagens ou dados externos. Os materiais de apoio,
 o mapa A3 e os dados derivados estão no pacote completo. A prática no Virtuoso
-será elaborada posteriormente.
+será elaborada posteriormente; estão reservados 105 minutos à prática e
+15 ao encerramento. As listas regionais estão em `consulta_brasil.tex`,
+para consulta fora desse tempo.
 ''')
 
 for nome in ['minicurso_cmos_completo.zip','minicurso_cmos_beamer.zip']:
