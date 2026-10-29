@@ -1,0 +1,61 @@
+\begingroup
+\renewcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.05cm}#1\end{adjustbox}\end{center}}
+\section{Perspectivas}
+\begin{frame}{Quanto mede um átomo de silício?}
+\figura{\escalaAtomica}
+\chamada{Na escala de poucos nanômetros, a matéria já é granular.}
+\fonte{\href{https://periodic-table.rsc.org/element/14/silicon}{Royal Society of Chemistry}: raio covalente 0,114 nm; diâmetro de referência 0,228 nm. \href{https://www.nist.gov/publications/certification-standard-reference-materialr-640g-line-position-and-line-shape-standard}{NIST}: parâmetro da rede $a\approx0{,}543$ nm; vizinhos mais próximos $a\sqrt{3}/4\approx0{,}235$ nm. Átomos não têm uma borda rígida.}
+\end{frame}
+
+\begin{frame}{High-NA e átomos: comparar sem confundir}
+\figura{\reguaAtomica}
+\chamada{8 nm de resolução não significam um transistor de 8 nm.}
+\fonte{\href{https://www.asml.com/en/products/euv-lithography-systems/twinscan-exe-5000}{ASML EXE:5000}: resolução nominal de 8 nm; luz EUV de 13,5 nm. Comparação linear ilustrativa: $8/0{,}235\approx34$ distâncias entre vizinhos. O nó comercial ``2 nm'' não conta átomos nem mede o comprimento da porta.}
+\end{frame}
+
+\begin{frame}{Um limite físico: tunelamento e corrente de fuga}
+\only<1|handout:0>{\figura{\barreiraTunelamento{1}}\etapa{1/2}{Mesmo abaixo da barreira, existe probabilidade de transmissão quântica.}}
+\only<2|handout:1>{\figura{\barreiraTunelamento{2}}\etapa{2/2}{Afinar a mesma barreira pode aumentar a corrente que não desejamos.}}
+\fonte{Modelo qualitativo, com energia e altura da barreira mantidas. Exemplo histórico: dielétricos de porta de SiO$_2$ muito finos. \href{https://www.nist.gov/publications/challenges-high-kappa-gate-dielectrics-future-mos-devices}{NIST — Gate dielectrics}. Materiais high-$k$ permitem maior espessura física para um mesmo acoplamento elétrico; não eliminam todos os limites.}
+\end{frame}
+
+\begin{frame}{Por que reduzir dimensões fica mais difícil?}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+% Fuga em um dispositivo curto.
+\fill[blue_theme!12] (0,1) rectangle (2.8,2.8);\fill[blue_theme!65] (.8,2.9) rectangle (2,3.2);
+\fill[lacuna!50] (.1,1.5) rectangle (.8,2.7);\fill[lacuna!50] (2,1.5) rectangle (2.7,2.7);
+\draw[-{Latex},red,thick,dashed] (.8,2.4)--(2,2.4);\node[font=\scriptsize] at (1.4,1.45){fuga};
+% Calor e muitos dispositivos.
+\draw[blue_theme,thick] (4,1) rectangle (6.6,2.8);
+\foreach \x in {4.25,4.85,5.45,6.05}{\foreach \y in {1.3,1.9,2.5}{\fill[blue_theme!45] (\x,\y) rectangle ++(.25,.15);}}
+\foreach \x in {4.5,5.3,6.1}{\draw[-{Latex},red] (\x,2.9) .. controls +( -.3,.3) and +(.3,-.3) .. (\x,3.8);}
+% Fio longo versus dispositivo.
+\draw[line width=3pt,blue_theme!50] (8,1.2)--(8,2.8)--(9,2.8)--(9,1.2)--(10,1.2)--(10,2.8);
+\node[align=center,font=\scriptsize] at (1.4,.25){\textbf{Controle elétrico}\\Fuga e variabilidade};
+\node[align=center,font=\scriptsize] at (5.3,.25){\textbf{Energia e calor}\\Dissipar fica difícil};
+\node[align=center,font=\scriptsize] at (9,-.05){\textbf{Conexões e custo}\\Transportar dados\\e fabricar camadas};
+\path[use as bounding box] (-.4,-.8) rectangle (10.5,4.1);
+\end{tikzpicture}}
+\chamada{Mais transistores: novos desafios de energia, custo e desempenho.}
+\fonte{\href{https://www.imec-int.com/en/articles/cmos-20-revolution}{imec — The CMOS 2.0 Revolution}; \href{https://www.imec-int.com/en/articles/introducing-2d-material-based-devices-logic-scaling-roadmap}{imec — Logic scaling roadmap}. Não há uma data única de ``fim'' da Lei de Moore.}
+\end{frame}
+
+\begin{frame}{O transistor também mudou de forma}
+\figura{\transistoresModernos}
+\chamada{Controlar melhor o canal é uma parte do avanço.}
+\fonte{\href{https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology}{imec — Nanosheet e CFET}. Cortes transversais esquemáticos, sem escala; branco: dielétrico. Empilhar canais de um transistor não equivale a empilhar circuitos completos.}
+\end{frame}
+
+\begin{frame}{Mover dados também custa tempo e energia}
+\only<1|handout:0>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{1}\end{adjustbox}\end{center}\etapa{1/2}{Bairros separados: transportar dados exige percurso e interfaces.}}
+\only<2|handout:1>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{2}\end{adjustbox}\end{center}\etapa{2/2}{Mesmo prédio: conexões verticais aproximam memória e processamento.}}
+\fonte{Analogia própria de proximidade e conectividade. Fonte: \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — Wafer connectivity}. Ganhos dependem do projeto; o transporte não passa a ter custo zero.}
+\end{frame}
+
+\begin{frame}{CMOS 2.0: reorganizar o sistema em camadas}
+\figura{\pilhaCMOSdois}
+\chamada{Cada função pode usar a tecnologia mais adequada.}
+\fonte{\href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — CMOS 2.0 e conexões 3D}. Visão de pesquisa: partição fina do sistema e integração heterogênea. Pilha ilustrativa; ordem e funções dependem do projeto. Calor, fabricação, teste e ferramentas seguem como desafios.}
+\end{frame}
+
+\endgroup

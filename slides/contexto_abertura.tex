@@ -1,8 +1,6 @@
 \begingroup
-% Limita a altura dos desenhos desta abertura para reservar os créditos e o brasão.
 \renewcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.0cm}#1\end{adjustbox}\end{center}}
-% Abertura de aproximadamente 22 minutos: contexto e perspectivas.
-\section{Contexto}
+\section{Panorama}
 \begin{frame}{Microeletrônica: integrar para transformar}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \draw[blue_theme,thick,fill=white] (3.6,0) rectangle (6.4,2.8);
@@ -23,6 +21,16 @@
 \fonte{\href{https://www.computerhistory.org/siliconengine/timeline/}{Computer History Museum — The Silicon Engine}; \href{https://www.intel.com/content/www/us/en/history/virtual-vault/articles/the-intel-4004.html}{Intel — 4004}. Linha do tempo seletiva; espaçamento não cronológico.}
 \end{frame}
 
+\begin{frame}{Da placa ao silício: o que estamos estudando?}
+\only<1|handout:0>{
+\begin{center}\includegraphics[width=.79\linewidth,height=4.15cm,keepaspectratio]{assets/microscopia/titan_placa.png}\end{center}
+\etapa{1/2}{Na placa, o circuito integrado aparece dentro de um encapsulamento.}}
+\only<2|handout:1>{
+\duas{\centering\includegraphics[width=\linewidth,height=3.55cm,keepaspectratio]{assets/microscopia/titan_aberto.png}\par\scriptsize Encapsulamento aberto.}{\centering\includegraphics[width=\linewidth,height=3.55cm,keepaspectratio]{assets/microscopia/titan_microscopio.png}\par\scriptsize Silício observado ao microscópio óptico.}
+\etapa{2/2}{O die é a peça de semicondutor que contém os dispositivos e conexões.}}
+\fonte{Fotografias: T. Roche, V. Lomné, C. Mutschler e L. Imbert, \href{https://www.usenix.org/conference/usenixsecurity21/presentation/roche}{A Side Journey to Titan} (2021). A sonda à direita pertence ao experimento dos autores. As fotos não resolvem transistores individuais.}
+\end{frame}
+
 \begin{frame}{Lei de Moore: uma trajetória de integração}
 \figura{\graficoMoore}
 \small\centering 1965: previsão de duplicação anual.\quad 1975: revisão para dois anos.
@@ -34,90 +42,6 @@
 \figura{\graficoProcessos}
 \chamada{Hoje, ``2 nm'' identifica uma geração de processo.}
 \fonte{Gráfico próprio: \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{Intel — Quick Reference Guide} (1971--2008); TSMC, relatórios \href{https://investor.tsmc.com/static/annualReports/2020/english/index.html}{2020} e \href{https://investor.tsmc.com/static/annualReports/2025/english/index.html}{2025}. As referências de processo não medem uma única dimensão física ao longo de toda a série. N5 e N2 são nomes comerciais, indicados separadamente.}
-\end{frame}
-
-\begin{frame}{Litografia: desenhar padrões com luz}
-\only<1|handout:0>{\figura{\litografiaEtapa{1}}\etapa{1/3}{Exposição: a luz altera a solubilidade do resiste.}}
-\only<2|handout:0>{\figura{\litografiaEtapa{2}}\etapa{2/3}{Revelação: o padrão aparece no resiste.}}
-\only<3|handout:1>{\figura{\litografiaEtapa{3}}\etapa{3/3}{Transferência: gravar a camada; depois remover o resiste.}}
-\fonte{\href{https://www.asml.com/en/technology/lithography-principles}{ASML — Lithography principles}. Resiste positivo; luz no wafer após projeção óptica. Máscara e raios simplificados, sem escala. O ciclo se repete para diferentes camadas.}
-\end{frame}
-
-\begin{frame}{A fronteira da litografia: DUV, EUV e High-NA}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\foreach \x/\titulo/\onda/\sub in {0/DUV/193/Lentes · imersão,3.8/EUV/13.5/Espelhos · vácuo,7.6/{EUV High-NA}/13.5/Óptica de maior abertura}{%
-\node[blue_theme,font=\small\bfseries] at (\x+1.2,4.15){\titulo};
-\node at (\x+1.2,3.5){$\lambda=\onda$ nm};
-\node[align=center,font=\scriptsize,text width=3.3cm] at (\x+1.2,2.9){\sub};}
-% Cones ilustram abertura numérica, não uma máquina real.
-\fill[blue_theme!12] (4.3,2.2)--(5,.7)--(5.7,2.2)--cycle;
-\fill[blue_theme!22] (7.6,2.2)--(8.8,.7)--(10,2.2)--cycle;
-\draw[blue_theme,thick] (4.3,2.2)--(5,.7)--(5.7,2.2);\draw[blue_theme,thick] (7.6,2.2)--(8.8,.7)--(10,2.2);
-\draw[blue_theme,thick] (4,.65)--(6,.65) (7.6,.65)--(10,.65);
-\draw[blue_theme,thick] (.5,.65)--(1.9,.65);\draw[blue_theme,thick] (.3,1.7) ellipse (.9 and .15);\draw[seta] (1.2,2.2)--(1.2,.8);
-\node[align=center,font=\scriptsize] at (1.2,-.05){DUV segue em uso\\em muitas camadas};
-\node[align=center,font=\scriptsize] at (5,-.05){NA = 0,33\\resolução: 13 nm};
-\node[align=center,font=\scriptsize] at (8.8,-.05){NA = 0,55\\resolução: 8 nm};
-\path[use as bounding box] (-.4,-.7) rectangle (10.6,4.6);
-\end{tikzpicture}}
-\chamada{Luz, resolução e nome do nó: três grandezas distintas.}
-\fonte{ASML: \href{https://www.asml.com/en/technology/lithography-principles/light-and-lasers}{luz}; \href{https://www.asml.com/en/company/stories/2024/5-things-high-na-euv}{High-NA EUV}. Resolução nominal por exposição nas plataformas NXE/EXE; não é tamanho de transistor. NA: abertura numérica.}
-\end{frame}
-
-\begin{frame}{Por que reduzir dimensões fica mais difícil?}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-% Fuga em um dispositivo curto.
-\fill[blue_theme!12] (0,1) rectangle (2.8,2.8);\fill[blue_theme!65] (.8,2.9) rectangle (2,3.2);
-\fill[lacuna!50] (.1,1.5) rectangle (.8,2.7);\fill[lacuna!50] (2,1.5) rectangle (2.7,2.7);
-\draw[-{Latex},red,thick,dashed] (.8,2.4)--(2,2.4);\node[font=\scriptsize] at (1.4,1.45){fuga};
-% Calor e muitos dispositivos.
-\draw[blue_theme,thick] (4,1) rectangle (6.6,2.8);
-\foreach \x in {4.25,4.85,5.45,6.05}{\foreach \y in {1.3,1.9,2.5}{\fill[blue_theme!45] (\x,\y) rectangle ++(.25,.15);}}
-\foreach \x in {4.5,5.3,6.1}{\draw[-{Latex},red] (\x,2.9) .. controls +( -.3,.3) and +(.3,-.3) .. (\x,3.8);}
-% Fio longo versus dispositivo.
-\draw[line width=3pt,blue_theme!50] (8,1.2)--(8,2.8)--(9,2.8)--(9,1.2)--(10,1.2)--(10,2.8);
-\node[align=center,font=\scriptsize] at (1.4,.25){\textbf{Controle elétrico}\\Fuga e variabilidade};
-\node[align=center,font=\scriptsize] at (5.3,.25){\textbf{Energia e calor}\\Dissipar fica difícil};
-\node[align=center,font=\scriptsize] at (9,-.05){\textbf{Conexões e custo}\\Transportar dados\\e fabricar camadas};
-\path[use as bounding box] (-.4,-.8) rectangle (10.5,4.1);
-\end{tikzpicture}}
-\chamada{Mais transistores: novos desafios de energia, custo e desempenho.}
-\fonte{\href{https://www.imec-int.com/en/articles/cmos-20-revolution}{imec — The CMOS 2.0 Revolution}; \href{https://www.imec-int.com/en/articles/introducing-2d-material-based-devices-logic-scaling-roadmap}{imec — Logic scaling roadmap}. Não há uma data única de ``fim'' da Lei de Moore.}
-\end{frame}
-
-\begin{frame}{O transistor também mudou de forma}
-\figura{\transistoresModernos}
-\chamada{Envolver o canal melhora o controle exercido pela porta.}
-\fonte{\href{https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology}{imec — Nanosheet e CFET}. Cortes transversais esquemáticos, sem escala; branco: dielétrico. Empilhar canais de um transistor não equivale a empilhar circuitos completos.}
-\end{frame}
-
-\begin{frame}{Dados: de bairros separados a andares vizinhos}
-\only<1|handout:0>{\figura{\cidadeDados{1}}\etapa{1/2}{Analogia: a memória e quem processa estão em bairros diferentes.}}
-\only<2|handout:1>{\figura{\cidadeDados{2}}\etapa{2/2}{Integração 3D: aproximar memória e processamento verticalmente.}}
-\fonte{Analogia própria para distância e conectividade; inspirada em \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — Wafer connectivity}. Há sistemas atuais com memória 3D; a mudança não é universal nem instantânea.}
-\end{frame}
-
-\begin{frame}{CMOS 2.0: reorganizar o sistema em camadas}
-\figura{\pilhaCMOSdois}
-\chamada{Cada função pode usar a tecnologia mais adequada.}
-\fonte{\href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — CMOS 2.0 e conexões 3D}. Visão de pesquisa: partição fina do sistema e integração heterogênea. Pilha ilustrativa; ordem e funções dependem do projeto. Calor, fabricação, teste e ferramentas seguem como desafios.}
-\end{frame}
-
-\begin{frame}{O avanço combina dispositivo, fabricação e arquitetura}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\node[blue_theme,font=\bfseries] at (1.4,3.4){Fabricar melhor};
-\draw[blue_theme,thick] (.3,1.3)--(2.5,1.3);\foreach \x in {.5,1,1.5,2}{\fill[blue_theme!50] (\x,1.3) rectangle ++(.25,.8);}
-\node[align=center,font=\scriptsize] at (1.4,.55){EUV e High-NA\\Padrões mais precisos};
-\node[blue_theme,font=\bfseries] at (5.1,3.4){Integrar em 3D};
-\foreach \y in {1.3,1.9,2.5}{\draw[blue_theme,fill=blue_theme!10] (4,\y) rectangle ++(2.2,.3);}
-\node[align=center,font=\scriptsize] at (5.1,.55){Chiplets e camadas\\Mais conectividade};
-\node[blue_theme,font=\bfseries] at (8.8,3.4){Projetar em conjunto};
-\draw[blue_theme,thick] (7.6,1.3) rectangle (10,2.8);\draw[blue_theme] (8.5,1.3)--(8.5,2.8) (8.5,2)--(10,2);
-\node[align=center,font=\scriptsize] at (8.8,.55){Circuito e arquitetura\\Co-otimização};
-\path[use as bounding box] (-.2,0) rectangle (10.5,3.9);
-\end{tikzpicture}}
-\chamada{Para entender esses caminhos, começamos pelos semicondutores.}
-\fonte{Perspectivas: \href{https://www.imec-int.com/en/press/imec-launches-university-consortium-around-next-generation-chips}{consórcio CMOS 2.0, imec (2026)}; \href{https://www.investor.asml.com/news-releases/news-release-details/high-na-euv-reaches-new-readiness-milestone}{High-NA em camadas selecionadas, ASML (2026)}. Maturidade e adoção variam por tecnologia e aplicação.}
 \end{frame}
 
 \endgroup

@@ -98,27 +98,6 @@
 \path[use as bounding box] (-.3,-1.7) rectangle (10.4,3.6);
 \end{tikzpicture}}
 
-\newcommand{\cidadeDados}[1]{%
-\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\ifnum#1=1
-\fill[blue_theme!5] (-.3,-.3) rectangle (3.3,3.3);\fill[ativo!5] (6.7,-.3) rectangle (10.3,3.3);
-\draw[blue_theme,thick,fill=white] (.4,.3) rectangle (2.6,2.7);\node[align=center] at (1.5,1.55){Memória\\\scriptsize bairro A};
-\draw[ativo,thick,fill=white] (7.4,.3) rectangle (9.6,2.7);\node[align=center] at (8.5,1.55){Processamento\\\scriptsize bairro B};
-\draw[line width=7pt,gray!30] (2.6,.7)--(4,.7)--(4,2.4)--(6,2.4)--(6,.7)--(7.4,.7);
-\draw[-{Latex},blue_theme,very thick] (2.6,.7)--(4,.7)--(4,2.4)--(6,2.4)--(6,.7)--(7.4,.7);
-\node[above,fill=white,inner sep=1pt,font=\scriptsize] at (5,2.6){transporte dos dados};
-\node[font=\scriptsize,align=center] at (5,-1){Mais distância e interconexões\\podem aumentar atraso e energia.};
-\else
-\draw[blue_theme,thick,fill=white] (2.1,0) rectangle (7.9,3.6);
-\fill[blue_theme!15] (2.15,2) rectangle (7.85,3.55);\fill[ativo!12] (2.15,.05) rectangle (7.85,1.6);
-\node at (4.4,2.75){Memória};\node at (4.4,.8){Processamento};
-\draw[<->,very thick,blue_theme] (6.9,1)--(6.9,2.8);\node[right,font=\scriptsize,fill=white,inner sep=1pt] at (8.1,1.8){dados};\draw[blue_theme] (7,1.8)--(8.1,1.8);
-\draw[blue_theme] (2.1,1.8)--(7.9,1.8);
-\node[align=center,font=\scriptsize] at (5,-1){Mesmo prédio, andares diferentes:\\conexões verticais curtas e numerosas.};
-\fi
-\path[use as bounding box] (-.4,-1.5) rectangle (10.4,4);
-\end{tikzpicture}}
-
 \newcommand{\pilhaCMOSdois}{%
 \begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \foreach \y/\cor/\titulo in {0/gray/Alimentação e acesso externo,1.2/ativo/Lógica densa,2.4/blue_theme/Memória,3.6/lacuna/Interfaces e funções especializadas}{%

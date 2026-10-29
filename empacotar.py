@@ -43,7 +43,7 @@ Luan F. Nogueira e Luiz F. de Melo Soares. Template UFC original 4:3.
 
 Use pdfLaTeX no Overleaf. `main.tex` compila a aula 1. Para trocar:
 
-- `\\input{aula1.tex}`: 37 quadros; 49 páginas com etapas.
+- `\\input{aula1.tex}`: 42 quadros; 58 páginas com etapas.
 - `\\input{aula2.tex}`: 27 quadros; 37 páginas com etapas.
 - `\\input{encerramento_aula3.tex}`: 17 quadros, incluindo âmbito Brasil.
 
@@ -53,8 +53,11 @@ Você também pode selecionar diretamente um desses arquivos como principal.
 A animação ocorre ao avançar as páginas: depleção, ativação do MOSFET,
 estados do inversor e das portas NAND/NOR. As figuras vetoriais estão em
 `visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
-`contexto_visuais.tex`; preserve também `assets/`, `libs/` e `brasil_*.tex`.
-As fotos foram extraídas dos currículos fornecidos. Consulte FONTES_CONTEXTO.md
+`contexto_visuais.tex`. A fabricação e as perspectivas usam `fabricacao_aula1.tex`,
+`perspectivas_aula1.tex`, `fisica_fabricacao_visuais.tex` e `cidade_visuais.tex`.
+Preserve também `assets/`, `libs/` e `brasil_*.tex`.
+Os retratos vêm dos currículos; as fotos do chip, de Roche et al. (2021).
+Consulte FONTES_CONTEXTO.md
 para as fontes da história, gráficos, litografia e CMOS 2.0.
 
 Brasil: dados do Brazil Silicon Roadmap, de Matheus Grossi, via planilha

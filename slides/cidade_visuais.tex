@@ -1,0 +1,96 @@
+% Analogia urbana original: ilustra conectividade; não fixa custos ou ganhos.
+\newcommand{\arvoreUrbana}[2]{%
+\draw[brown!70!black,line width=1pt] (#1,#2)--++(0,.4);
+\fill[green_ufc!45!black] (#1,#2+.5) circle(.17);
+\fill[green_ufc!65] (#1-.1,#2+.48) circle(.14);}
+\newcommand{\predioUrbano}[5]{%
+\begin{scope}[shift={(#1,#2)}]
+\fill[black!8] (.12,-.08)--(#3+.52,.1)--(#3+.7,.35)--(.4,.2)--cycle;
+\fill[#5!18] (0,0) rectangle (#3,#4);
+\fill[#5!38] (#3,0)--(#3+.35,.25)--(#3+.35,#4+.25)--(#3,#4)--cycle;
+\fill[#5!8] (0,#4)--(.35,#4+.25)--(#3+.35,#4+.25)--(#3,#4)--cycle;
+\draw[#5!65!black,line width=.5pt] (0,0)--(0,#4)--(.35,#4+.25)--(#3+.35,#4+.25)--(#3+.35,.25)--(#3,0)--cycle;
+\draw[#5!60!black] (0,#4)--(#3,#4)--(#3,0) (#3,#4)--(#3+.35,#4+.25);
+\foreach \yy in {.45,.9,1.35}{\ifdim\yy pt<#4pt\relax\foreach \xx in {.2,.6}{\ifdim\xx pt<#3pt\relax\fill[white!90!#5] (\xx,\yy) rectangle ++(.2,.22);\fi}\fi}
+\fill[#5!60!black] (.36,0) rectangle (.61,.34);
+\end{scope}}
+\newcommand{\pessoaDados}[2]{%
+\begin{scope}[shift={(#1,#2)}]
+\fill[blue_theme] (0,.27) circle(.065);
+\draw[blue_theme,line width=1pt] (0,.2)--(0,.03)--(-.1,-.13) (0,.03)--(.1,-.13) (-.12,.13)--(0,.17)--(.17,.14);
+\fill[lacuna!75] (.13,.02) rectangle (.33,.22);\draw[lacuna!70!black] (.13,.02) rectangle (.33,.22);
+\end{scope}}
+\newcommand{\cidadeDados}[1]{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,line join=round]
+\ifnum#1=1
+% Terreno, calçadas e praças delimitam bairros, sem cartões de texto.
+\fill[green_ufc!5] (-.1,.45) rectangle (11.7,4.45);
+\fill[blue_theme!6] (.15,1.4) rectangle (3.65,4.2);
+\fill[ativo!8] (7.75,1.4) rectangle (11.4,4.2);
+\fill[gray!15] (3.8,2.5) rectangle (7.5,4.1);
+\foreach \x/\y in {4.1/2.8,5/2.8,5.9/2.8,6.8/2.8,4.1/3.6,6.8/3.6}{\arvoreUrbana{\x}{\y}}
+% Via sinuosa: conserva o significado de distância e cruzamentos.
+\draw[gray!55,line width=14pt] (2.1,1.8)--(3.5,1.8)--(3.5,.9)--(7.9,.9)--(7.9,1.8)--(9.3,1.8);
+\draw[white,line width=.65pt,dash pattern=on 4pt off 3pt] (2.1,1.8)--(3.5,1.8)--(3.5,.9)--(7.9,.9)--(7.9,1.8)--(9.3,1.8);
+\foreach \x in {3.32,3.5,3.68}{\draw[white,line width=1.4pt] (\x,1.56)--(\x,2.04);}
+\foreach \x in {7.72,7.9,8.08}{\draw[white,line width=1.4pt] (\x,1.56)--(\x,2.04);}
+% Edifícios e depósitos do bairro de memória.
+\predioUrbano{.55}{2.15}{1.15}{1.8}{blue_theme}
+\predioUrbano{2.1}{2.15}{.95}{1.35}{blue_theme}
+\predioUrbano{8.45}{2.15}{1.15}{1.8}{ativo}
+\predioUrbano{10}{2.15}{.95}{1.35}{ativo}
+\foreach \x/\y in {.35/1.8,3.2/3.7,8.25/3.7,11.1/1.8}{\arvoreUrbana{\x}{\y}}
+% Caminhão de dados com cabine, carga e rodas.
+\begin{scope}[shift={(5.2,.96)}]
+\fill[blue_theme] (-.55,-.02) rectangle (.3,.43);\fill[blue_theme!70] (.3,-.02)--(.7,-.02)--(.7,.24)--(.52,.43)--(.3,.43)--cycle;
+\fill[white] (.38,.24) rectangle (.57,.34);
+\foreach \x in {-.35,.48}{\fill[black!75] (\x,-.08) circle(.1);\fill[white] (\x,-.08) circle(.035);}
+\node[font=\tiny,text=white] at (-.12,.2){0101};
+\end{scope}
+\draw[-{Latex},blue_theme,very thick] (4.1,.43)--(7.2,.43);
+\node[font=\scriptsize,blue_theme,fill=white,inner sep=2pt] at (5.7,.05){Dados atravessam a cidade};
+\node[blue_theme,font=\bfseries] at (1.9,4.9){Bairro 1 · memória};
+\node[ativo,font=\bfseries] at (9.6,4.9){Bairro 2 · processamento};
+\node[font=\scriptsize,black!65] at (5.7,4.45){Mais percurso e interfaces de comunicação};
+\else
+% Corte de um prédio real: fachada lateral, pilares, lajes e três pavimentos.
+\fill[black!8] (2.5,-.15)--(9.2,-.15)--(10.3,.3)--(3.6,.3)--cycle;
+\fill[blue_theme!18] (8.55,.2)--(9.2,.65)--(9.2,5.1)--(8.55,4.65)--cycle;
+\foreach \y in {.5,1.8,3.1}{\foreach \x in {8.67,8.92}{\fill[white!85!blue_theme] (\x,\y+.15)--(\x+.13,\y+.24)--(\x+.13,\y+.73)--(\x,\y+.64)--cycle;}}
+\fill[blue_theme!6] (2.8,.25) rectangle (8.5,4.65);
+\fill[ativo!8] (2.85,1.65) rectangle (7.5,3.05);
+\fill[blue_theme!10] (2.85,3.1) rectangle (7.5,4.5);
+\foreach \y in {.2,1.6,3.05,4.5}{%
+\fill[gray!45] (2.65,\y) rectangle (8.55,\y+.13);
+\fill[gray!22] (2.65,\y+.13)--(3.3,\y+.55)--(9.2,\y+.55)--(8.55,\y+.13)--cycle;}
+% Fundo dos andares desenhado à frente apenas com os elementos internos.
+\foreach \x in {2.7,7.5,8.4}{\fill[gray!45] (\x,.2) rectangle (\x+.11,4.65);}
+% Memória: três estantes com módulos, não janelas abstratas.
+\foreach \x in {3.15,4.5,5.85}{%
+\fill[blue_theme!60] (\x,3.28) rectangle ++(.9,.95);
+\foreach \y in {3.4,3.66,3.92}{\fill[white!85!blue_theme] (\x+.12,\y) rectangle ++(.66,.13);\fill[lacuna] (\x+.65,\y+.035) circle(.025);}}
+% Processamento: mesas, telas e profissionais.
+\foreach \x in {3.35,5.15}{%
+\draw[ativo!70!black,line width=1pt] (\x,2.12)--++(1.15,0) (\x+.1,2.12)--++(0,-.32) (\x+1.05,2.12)--++(0,-.32);
+\fill[ativo!60] (\x+.25,2.3) rectangle ++(.6,.37);\fill[white] (\x+.31,2.37) rectangle ++(.48,.23);
+\draw[ativo] (\x+.55,2.3)--(\x+.55,2.12);
+\fill[blue_theme] (\x+.1,2.65) circle(.075);\draw[blue_theme,thick] (\x+.1,2.56)--(\x+.1,2.27)--(\x+.32,2.21);}
+\pessoaDados{7.05}{3.4}
+% Térreo: energia e infraestrutura.
+\fill[lacuna!70] (3.2,.5) rectangle (4.2,1.25);
+\node[font=\large,blue_theme] at (3.7,.88){$+$};
+\draw[blue_theme,line width=1pt] (4.45,.6)--(6.9,.6);
+\foreach \x in {4.6,5.2,5.8,6.4}{\draw[blue_theme] (\x,.6)--(\x,1.05);}
+\node[anchor=east,blue_theme,font=\scriptsize,align=right] at (2.4,3.75){2º andar\\\textbf{Memória}};
+\node[anchor=east,ativo,font=\scriptsize,align=right] at (2.4,2.3){1º andar\\\textbf{Processamento}};
+\node[anchor=east,black!65,font=\scriptsize,align=right] at (2.4,.85){Térreo\\Alimentação};
+% Elevador de dados em uma coluna contínua.
+\fill[white!60!blue_theme] (7.65,.35) rectangle (8.25,4.4);
+\draw[blue_theme!40] (7.65,.35) rectangle (8.25,4.4);
+\draw[<->,blue_theme,very thick] (7.95,1.95)--(7.95,3.9);
+\fill[lacuna!75] (7.76,2.9) rectangle (8.14,3.24);\node[font=\tiny,blue_theme] at (7.95,3.07){01};
+\node[font=\scriptsize,align=left,anchor=west] at (9.45,2.9){Conexões\\verticais:\\menos percurso,\\mais paralelismo};
+\node[font=\scriptsize,blue_theme] at (5.6,5.18){Mesmo prédio: funções em andares especializados};
+\fi
+\path[use as bounding box] (-.3,-.3) rectangle (12,5.55);
+\end{tikzpicture}}

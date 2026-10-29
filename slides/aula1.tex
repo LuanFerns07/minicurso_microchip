@@ -37,11 +37,11 @@ Cadence Virtuoso e Spectre\par}
 \begin{frame}{Roadmap da oficina · três aulas}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \draw[blue_theme!30,line width=2pt] (.4,2.5)--(9.4,2.5);
-\foreach \x/\n/\titulo/\sub in {0/1/{Fundamentos}/{História e perspectivas\\Semicondutores e junção PN\\MOSFET e inversor CMOS},3.7/2/{Portas lógicas}/{Redes NMOS e PMOS\\Construção de NAND e NOR\\Composição e análise},7.4/3/{Projeto e caminhos}/{Prática no Virtuoso\\Esquema e simulação\\Áreas de estudo e âmbito Brasil}}{%
+\foreach \x/\n/\titulo/\sub in {0/1/{Fundamentos}/{Panorama e semicondutores\\MOSFET e inversor CMOS\\Fabricação, limites e integração 3D},3.7/2/{Portas lógicas}/{Redes NMOS e PMOS\\Construção de NAND e NOR\\Composição e análise},7.4/3/{Projeto e caminhos}/{Prática no Virtuoso\\Esquema e simulação\\Áreas de estudo e âmbito Brasil}}{%
 \node[circle,fill=blue_theme,text=white,minimum size=10mm,font=\large\bfseries] at (\x+1.2,2.5){\n};
 \node[blue_theme,font=\bfseries] at (\x+1.2,1.55){\titulo};
 \node[align=center,text width=3.45cm,font=\scriptsize] at (\x+1.2,.4){\sub};
-\node[font=\scriptsize] at (\x+1.2,3.4){Aula \n · 2 horas};}
+\node[font=\scriptsize] at (\x+1.2,3.4){Aula \n{} · 2 horas};}
 \path[use as bounding box] (-.6,-.6) rectangle (10.7,3.9);
 \end{tikzpicture}}
 \chamada{Da compreensão dos dispositivos à construção e análise de circuitos.}
@@ -50,26 +50,28 @@ Cadence Virtuoso e Spectre\par}
 \begin{frame}{Como vamos usar as duas horas?}
 \centering\small\begin{tabular}{lr}\toprule
 Apresentação e percurso & 5 min\\
-História, litografia e perspectivas & 22 min\\
-Materiais e portadores & 15 min\\
-Junção PN e discussão & 18 min\\
+Panorama histórico e observação de um chip & 12 min\\
+Materiais e portadores & 12 min\\
+Junção PN e discussão & 16 min\\
 Pausa & 10 min\\
-MOSFET e controle do canal & 25 min\\
-Inversor CMOS e desenho físico & 15 min\\
-Atividade e fechamento & 10 min\\\bottomrule\end{tabular}
+MOSFET e controle do canal & 23 min\\
+Inversor CMOS e desenho físico & 10 min\\
+Fabricação e litografia & 12 min\\
+Limites e integração 3D & 12 min\\
+Atividade e fechamento & 8 min\\\bottomrule\end{tabular}
 \end{frame}
 
 \input{contexto_abertura.tex}
 
 \section{Materiais}
-\begin{frame}{Um chip é construído em camadas de ideias}
+\begin{frame}{Do chip ao dispositivo: nossa próxima escala}
 \figura{\begin{tikzpicture}[node distance=6mm]
-\node[draw=blue_theme,minimum width=2cm,minimum height=1.2cm,align=center] (a){NMOS\\PMOS};
-\node[draw=blue_theme,right=of a,minimum width=2cm,minimum height=1.2cm,align=center] (b){Portas\\lógicas};
-\node[draw=blue_theme,right=of b,minimum width=2cm,minimum height=1.2cm,align=center] (c){Somador\\memória};
-\node[draw=blue_theme,right=of c,minimum width=2cm,minimum height=1.2cm,align=center] (d){Sistema\\em um chip};
+\node[draw=blue_theme,minimum width=2cm,minimum height=1.2cm,align=center] (a){Sistema\\em um chip};
+\node[draw=blue_theme,right=of a,minimum width=2cm,minimum height=1.2cm,align=center] (b){Somador\\memória};
+\node[draw=blue_theme,right=of b,minimum width=2cm,minimum height=1.2cm,align=center] (c){Portas\\lógicas};
+\node[draw=blue_theme,right=of c,minimum width=2cm,minimum height=1.2cm,align=center] (d){NMOS\\PMOS};
 \draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
-\chamada{Vamos começar pelo dispositivo.}
+\chamada{Para entender o dispositivo, começamos pelo material.}
 \end{frame}
 
 \begin{frame}{Conduzir, isolar ou controlar?}
@@ -216,7 +218,11 @@ Chave aberta não garante tensão zero.}
 \fonte{Ilustração de camadas e conexões; não é um layout fabricável nem verificado por regras de processo.}
 \end{frame}
 
-\begin{frame}{Atividade: desenhe e conte a história}
+\input{fabricacao_aula1.tex}
+
+\input{perspectivas_aula1.tex}
+
+\begin{frame}{Voltando à base: desenhe e explique o inversor}
 \begin{enumerate}\item Desenhe o inversor com alimentação, entrada e saída.
 \item Use duas cores para indicar os caminhos com $A=0$ e $A=1$.
 \item Explique o que acontece com a carga quando a entrada muda.\end{enumerate}
@@ -232,18 +238,20 @@ Chave aberta não garante tensão zero.}
 \begin{frame}{Referências e créditos}
 \small\begin{itemize}\item Fathi Salem, \textit{ECE 410: VLSI Design}, Michigan State University. Notas fornecidas.
 \item J.-M. Dutertre, \textit{Digital Design (Introduction to)}, ISMIN, 2022. Figuras fornecidas.
-\item Mini-fichas e fotografias: currículos de Luan e Luiz.
+\item Mini-fichas e retratos: currículos de Luan e Luiz.
+\item Fotos de chip: Roche et al., \textit{A Side Journey to Titan}, 2021.
 \item Template Beamer UFC: Maurício Moreira Neto, modelo original 4:3.
-\item Figuras e sequências didáticas: elaboração para este minicurso.\end{itemize}
+\item Diagramas e sequências didáticas: elaboração para este minicurso.\end{itemize}
 \end{frame}
-\begin{frame}{Fontes da abertura histórica}
+\begin{frame}{Fontes: história, fabricação e perspectivas}
 \small\begin{itemize}
 \item \href{https://www.computerhistory.org/siliconengine/timeline/}{Computer History Museum: The Silicon Engine} — marcos históricos.
 \item Intel: \href{https://www.intel.com/content/www/us/en/newsroom/resources/moores-law.htm}{Lei de Moore} e \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{processos históricos}.
 \item TSMC: relatórios anuais \href{https://investor.tsmc.com/static/annualReports/2020/english/index.html}{2020} e \href{https://investor.tsmc.com/static/annualReports/2025/english/index.html}{2025} — N5 e N2.
 \item ASML: \href{https://www.asml.com/en/technology/lithography-principles}{litografia} e \href{https://www.asml.com/en/company/stories/2024/5-things-high-na-euv}{EUV High-NA}.
 \item imec: \href{https://www.imec-int.com/en/articles/cmos-20-revolution}{CMOS 2.0} e \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{integração 3D}.
+\item \href{https://periodic-table.rsc.org/element/14/silicon}{RSC} e \href{https://www.nist.gov/publications/certification-standard-reference-materialr-640g-line-position-and-line-shape-standard}{NIST}: escalas atômicas do silício.
 \end{itemize}
-\fonte{Consulta: 29/10/2026. Fontes completas e dados dos gráficos em dados/FONTES\_CONTEXTO.md no pacote completo. Figuras próprias; analogias e modelos sem escala.}
+\fonte{Consulta: 29/10/2026. Fontes completas e dados dos gráficos em dados/FONTES\_CONTEXTO.md no pacote completo. Diagramas próprios e fotografias creditadas. Escalas indicadas nas legendas.}
 \end{frame}
 \end{document}
