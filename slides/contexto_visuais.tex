@@ -1,5 +1,5 @@
 % Figuras originais para a abertura histórica. Referências: dados/FONTES_CONTEXTO.md.
-% As cores distinguem porta, canal e interconexões; desenhos sem escala.
+% As cores distinguem Gate, canal e interconexões; desenhos sem escala.
 \newcommand{\linhaHistorica}{%
 \begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \draw[seta] (0,0)--(10.3,0);
@@ -82,7 +82,7 @@
 \foreach \x/\nome in {0/Planar,3.8/FinFET,7.6/{GAA · nanosheets}}{%
 \node[blue_theme,font=\small\bfseries] at (\x+1.25,3.2){\nome};
 \fill[gray!12] (\x,0) rectangle ++(2.5,.5);}
-% Cortes transversais ao canal. Dielétrico branco entre porta e silício.
+% Cortes transversais ao canal. Dielétrico branco entre Gate e silício.
 \fill[ativo!60] (.4,.5) rectangle (2.1,.85);
 \fill[blue_theme!70] (.35,1) rectangle (2.15,1.5);
 \fill[blue_theme!70] (4.35,.55) rectangle (5.75,2.4);
@@ -90,10 +90,10 @@
 \fill[ativo!60] (4.87,.5) rectangle (5.23,1.93);
 \fill[blue_theme!70] (8.1,.65) rectangle (9.6,2.55);
 \foreach \y in {.9,1.5,2.1}{\fill[white,rounded corners=2pt] (8.3,\y) rectangle ++(1.1,.3);\fill[ativo!60,rounded corners=1pt] (8.4,\y+.08) rectangle ++(.9,.14);}
-\node[align=center,font=\scriptsize] at (1.25,-.5){Porta sobre\\a superfície};
-\node[align=center,font=\scriptsize] at (5.05,-.5){Porta envolve\\três faces};
-\node[align=center,font=\scriptsize] at (8.85,-.5){Porta envolve\\cada canal};
-\fill[blue_theme!70] (2,-1.45) rectangle ++(.25,.2);\node[right,font=\scriptsize] at (2.3,-1.35){porta};
+\node[align=center,font=\scriptsize] at (1.25,-.5){Gate sobre\\a superfície};
+\node[align=center,font=\scriptsize] at (5.05,-.5){Gate envolve\\três faces};
+\node[align=center,font=\scriptsize] at (8.85,-.5){Gate envolve\\cada canal};
+\fill[blue_theme!70] (2,-1.45) rectangle ++(.25,.2);\node[right,font=\scriptsize] at (2.3,-1.35){Gate};
 \fill[ativo!60] (5,-1.45) rectangle ++(.25,.2);\node[right,font=\scriptsize] at (5.3,-1.35){canal};
 \path[use as bounding box] (-.3,-1.7) rectangle (10.4,3.6);
 \end{tikzpicture}}

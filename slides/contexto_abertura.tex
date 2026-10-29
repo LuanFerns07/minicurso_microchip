@@ -33,5 +33,29 @@
 
 \input{integracao_trecho.tex}
 
+\begin{frame}{Do transistor ao sistema em um chip}
+\figura{\begin{tikzpicture}[node distance=6mm]
+\node[draw=blue_theme,minimum width=2cm,minimum height=1.2cm,align=center] (a){NMOS\\PMOS};
+\node[draw=blue_theme,right=of a,minimum width=2cm,minimum height=1.2cm,align=center] (b){Portas\\lógicas};
+\node[draw=blue_theme,right=of b,minimum width=2cm,minimum height=1.2cm,align=center] (c){Somadores\\e memórias};
+\node[draw=blue_theme,right=of c,minimum width=2cm,minimum height=1.2cm,align=center] (d){SoC\\Sistema em um chip};
+\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
+\chamada{Combinar dispositivos permite construir circuitos e sistemas.}
+\end{frame}
+
+\begin{frame}{Mover dados também custa tempo e energia}
+\only<1|handout:0>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{1}\end{adjustbox}\end{center}\etapa{1/2}{Bairros separados: transportar dados exige percurso e interfaces.}}
+\only<2|handout:1>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{2}\end{adjustbox}\end{center}\etapa{2/2}{Mesmo prédio: conexões verticais aproximam memória e processamento.}}
+\fonte{Analogia própria de proximidade e conectividade. Fonte: \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — Wafer connectivity}. Ganhos dependem do projeto; o transporte não passa a ter custo zero.}
+\end{frame}
+
+\begin{frame}{CMOS 2.0: reorganizar o sistema em camadas}
+\figura{\pilhaCMOSdois}
+\chamada{Cada função pode usar a tecnologia mais adequada.}
+\fonte{\href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — CMOS 2.0 e conexões 3D}. Visão de pesquisa: partição fina do sistema e integração heterogênea. Pilha ilustrativa; ordem e funções dependem do projeto. Calor, fabricação, teste e ferramentas seguem como desafios.}
+\end{frame}
+
+
+
 
 \endgroup

@@ -50,30 +50,20 @@ Cadence Virtuoso e Spectre\par}
 \begin{frame}{Como vamos usar as duas horas?}
 \centering\small\begin{tabular}{lr}\toprule
 Apresentação e percurso & 5 min\\
-Panorama histórico e observação de um chip & 12 min\\
+Panorama, VLSI e integração 3D & 20 min\\
 Materiais e portadores & 12 min\\
 Junção PN e discussão & 16 min\\
 Pausa & 10 min\\
 MOSFET e controle do canal & 23 min\\
 Inversor CMOS e desenho físico & 10 min\\
 Fabricação e litografia & 12 min\\
-Limites e integração 3D & 12 min\\
+Limites físicos & 4 min\\
 Atividade e fechamento & 8 min\\\bottomrule\end{tabular}
 \end{frame}
 
 \input{contexto_abertura.tex}
 
 \section{Materiais}
-\begin{frame}{Do chip ao dispositivo: nossa próxima escala}
-\figura{\begin{tikzpicture}[node distance=6mm]
-\node[draw=blue_theme,minimum width=2cm,minimum height=1.2cm,align=center] (a){Sistema\\em um chip};
-\node[draw=blue_theme,right=of a,minimum width=2cm,minimum height=1.2cm,align=center] (b){Somador\\memória};
-\node[draw=blue_theme,right=of b,minimum width=2cm,minimum height=1.2cm,align=center] (c){Portas\\lógicas};
-\node[draw=blue_theme,right=of c,minimum width=2cm,minimum height=1.2cm,align=center] (d){NMOS\\PMOS};
-\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
-\chamada{Para entender o dispositivo, começamos pelo material.}
-\end{frame}
-
 \begin{frame}{Conduzir, isolar ou controlar?}
 \figura{\begin{tikzpicture}[x=.8cm,y=.8cm,font=\small]
 \foreach \x/\t/\ex in {0/Condutor/metal,4.2/Isolante/dielétrico,8.4/Semicondutor/silício}{\node at (\x+1.4,3.7){\textbf{\t}};\draw[blue_theme,fill=blue_theme!12] (\x,0) rectangle +(2.8,1);\node at (\x+1.4,-.6){\ex};}
@@ -149,15 +139,15 @@ Energia térmica pode criar pares elétron--lacuna.}
 \section{MOSFET}
 \begin{frame}{Conheça os terminais do MOSFET}
 \begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\moscanal{0}\end{adjustbox}\end{center}
-\chamada{A porta controla a formação do canal entre fonte e dreno.}
+\chamada{O Gate controla a formação do canal entre Source e Drain.}
 \fonte{NMOS de enriquecimento, corte planar esquemático: corpo P e regiões n+. Modelo qualitativo, sem escala.}
 \end{frame}
 
 \begin{frame}{Ativar o MOSFET: acompanhe a superfície}
 \only<1|handout:0>{\figura{\moscanal{0}}\etapa{1/4}{Sem canal forte: chave ideal aberta.}}
-\only<2|handout:0>{\figura{\moscanal{1}}\etapa{2/4}{O campo de porta afasta lacunas.}}
+\only<2|handout:0>{\figura{\moscanal{1}}\etapa{2/4}{O campo do Gate afasta lacunas.}}
 \only<3|handout:0>{\figura{\moscanal{2}}\etapa{3/4}{Forma-se um canal de inversão.}}
-\only<4|handout:1>{\figura{\moscanal{3}}\etapa{4/4}{Uma diferença entre dreno e fonte produz corrente.}}
+\only<4|handout:1>{\figura{\moscanal{3}}\etapa{4/4}{Uma diferença entre Drain e Source produz corrente.}}
 \end{frame}
 
 \begin{frame}{Duas chaves complementares}
@@ -168,14 +158,14 @@ Conduz se $V_{GS}>V_{TN}$.}{\centering\textcolor{blue_theme}{\large\textbf{PMOS}
 \figura{\begin{circuitikz}\node[pmos] (p) at (0,0) {};\draw(p.G) node[left]{G};\draw(p.S) node[above]{S};\draw(p.D) node[below]{D};\end{circuitikz}}
 \[V_{SG}=V_S-V_G\]
 Conduz se $V_{SG}>|V_{TP}|$.}
-\chamada{Compare terminais, não apenas a tensão de porta.}
+\chamada{Compare terminais, não apenas a tensão de Gate.}
 \fonte{Modelo ideal de chave para MOSFETs de enriquecimento; a corrente real não se anula abruptamente no limiar.}
 \end{frame}
 
 \begin{frame}{Qual chave está ligada?}
 \centering\small
-\only<1|handout:0>{\begin{tabular}{llll}\toprule Tipo & Porta & Fonte & Estado\\\midrule NMOS&0 V&0 V&?\\PMOS&0,2 V&1,2 V&?\\NMOS&1,2 V&1,0 V&?\\\bottomrule\end{tabular}\par\bigskip Calcule $V_{GS}$ ou $V_{SG}$ antes de responder.}
-\only<2|handout:1>{\begin{tabular}{llll}\toprule Tipo & Diferença & Comparação & Estado\\\midrule NMOS&$V_{GS}=0$ V&$0<0{,}4$&Cortado\\PMOS&$V_{SG}=1{,}0$ V&$1{,}0>0{,}4$&Ligado\\NMOS&$V_{GS}=0{,}2$ V&$0{,}2<0{,}4$&Cortado\\\bottomrule\end{tabular}\chamada{Porta alta não basta se a fonte também estiver alta.}}
+\only<1|handout:0>{\begin{tabular}{llll}\toprule Tipo & Gate & Source & Estado\\\midrule NMOS&0 V&0 V&?\\PMOS&0,2 V&1,2 V&?\\NMOS&1,2 V&1,0 V&?\\\bottomrule\end{tabular}\par\bigskip Calcule $V_{GS}$ ou $V_{SG}$ antes de responder.}
+\only<2|handout:1>{\begin{tabular}{llll}\toprule Tipo & Diferença & Comparação & Estado\\\midrule NMOS&$V_{GS}=0$ V&$0<0{,}4$&Cortado\\PMOS&$V_{SG}=1{,}0$ V&$1{,}0>0{,}4$&Ligado\\NMOS&$V_{GS}=0{,}2$ V&$0{,}2<0{,}4$&Cortado\\\bottomrule\end{tabular}\chamada{Gate alto não basta se o Source também estiver alto.}}
 \fonte{Valores didáticos: limiares constantes $V_{TN}=|V_{TP}|=0{,}4$ V. Não são parâmetros do laboratório.}
 \end{frame}
 
@@ -232,7 +222,7 @@ Chave aberta não garante tensão zero.}
 \begin{frame}{Para levar para a próxima oficina: série e paralelo}
 \only<1|handout:0>{\compararRedes{1}\etapa{1/3}{Chaves A/B: dois caminhos diferentes para descarregar a saída $Y$.}}
 \only<2|handout:0>{\compararRedes{2}\etapa{2/3}{Diodos: a condução depende da polarização entre seus dois terminais.}}
-\only<3|handout:1>{\compararRedes{3}\etapa{3/3}{MOSFETs: as portas recebem os sinais externos $A$ e $B$.}}
+\only<3|handout:1>{\compararRedes{3}\etapa{3/3}{MOSFETs: os Gates recebem os sinais externos $A$ e $B$.}}
 \fonte{R limita corrente e puxa Y para VDD. Diodos não têm terminal de controle A/B: D$_1$ e D$_2$ são identificadores. Na aula 2, as redes PMOS complementarão as redes NMOS e substituirão o resistor na construção CMOS.}
 \end{frame}
 

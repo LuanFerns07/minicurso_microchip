@@ -24,6 +24,6 @@ O primeiro avanço apresenta oito marcos Intel. O segundo mantém esses pontos e
 
 CPU, SoC e GPU têm funções, áreas e proporções de memória diferentes. O total do SoC inclui CPU, GPU, caches, interfaces e aceleradores. A contagem não permite inferir diretamente desempenho ou transistores por mm². Não foram misturadas contagens de pacotes multidie com contagens de dies individuais.
 
-A coluna **processo**, às vezes chamada informalmente de litografia, é a designação nominal publicada. Não é o comprimento de onda da luz nem uma medida uniforme do comprimento da porta. Não foram inferidas variantes TSMC N5P/N3B/N3E quando o comunicado citado informa somente a geração em nanômetros.
+A coluna **processo**, às vezes chamada informalmente de litografia, é a designação nominal publicada. Não é o comprimento de onda da luz nem uma medida uniforme do comprimento do Gate. Não foram inferidas variantes TSMC N5P/N3B/N3E quando o comunicado citado informa somente a geração em nanômetros.
 
 O gráfico e a tabela são regenerados por `python3 scripts/gerar_integracao.py`. Os fontes gerados estão em `slides/integracao_visual.tex`, `slides/integracao_trecho.tex` e `apoio/integracao_processadores.tex`.

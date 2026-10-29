@@ -16,9 +16,9 @@
 \fill[\cor!40] (\x,1) rectangle ++(.9,.4);\node[font=\scriptsize] at (\x+.45,1.18){\tipo};}
 \foreach \x in {2.2,8.15}{\fill[lacuna!65] (\x,1.43) rectangle ++(.9,.1);\fill[blue_theme!65] (\x,1.59) rectangle ++(.9,.38);}
 \ifnum#1=2
-\draw[blue_theme] (2.65,2.05)--(2.65,2.6) node[above,font=\scriptsize]{porta};
+\draw[blue_theme] (2.65,2.05)--(2.65,2.6) node[above,font=\scriptsize]{Gate};
 \draw[lacuna] (8.6,1.48)--(9.5,2.5) node[above,font=\scriptsize]{dielétrico};
-\node[font=\scriptsize,align=center] at (5.5,3.9){Os dois dispositivos têm regiões de fonte e dreno\\e uma porta isolada do semicondutor.};
+\node[font=\scriptsize,align=center] at (5.5,3.9){Os dois dispositivos têm regiões de Source e Drain\\e um Gate isolado do semicondutor.};
 \fi
 \else
 \node[font=\scriptsize,align=center] at (5.5,3.5){Regiões com dopagens diferentes\\permitem construir os dispositivos complementares.};

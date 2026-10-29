@@ -3,16 +3,19 @@
 \draw[brown!70!black,line width=1pt] (#1,#2)--++(0,.4);
 \fill[green_ufc!45!black] (#1,#2+.5) circle(.17);
 \fill[green_ufc!65] (#1-.1,#2+.48) circle(.14);}
-\newcommand{\predioUrbano}[5]{%
+\newcommand{\casaUrbana}[3]{%
 \begin{scope}[shift={(#1,#2)}]
-\fill[black!8] (.12,-.08)--(#3+.52,.1)--(#3+.7,.35)--(.4,.2)--cycle;
-\fill[#5!18] (0,0) rectangle (#3,#4);
-\fill[#5!38] (#3,0)--(#3+.35,.25)--(#3+.35,#4+.25)--(#3,#4)--cycle;
-\fill[#5!8] (0,#4)--(.35,#4+.25)--(#3+.35,#4+.25)--(#3,#4)--cycle;
-\draw[#5!65!black,line width=.5pt] (0,0)--(0,#4)--(.35,#4+.25)--(#3+.35,#4+.25)--(#3+.35,.25)--(#3,0)--cycle;
-\draw[#5!60!black] (0,#4)--(#3,#4)--(#3,0) (#3,#4)--(#3+.35,#4+.25);
-\foreach \yy in {.45,.9,1.35}{\ifdim\yy pt<#4pt\relax\foreach \xx in {.2,.6}{\ifdim\xx pt<#3pt\relax\fill[white!90!#5] (\xx,\yy) rectangle ++(.2,.22);\fi}\fi}
-\fill[#5!60!black] (.36,0) rectangle (.61,.34);
+\fill[black!8] (.08,-.06)--(1.36,.02)--(1.58,.2)--(.3,.14)--cycle;
+\fill[#3!13] (0,0) rectangle (1.05,.72);
+\fill[#3!30] (1.05,0)--(1.3,.2)--(1.3,.92)--(1.05,.72)--cycle;
+\draw[#3!65!black] (0,0)--(0,.72)--(1.05,.72)--(1.3,.92)--(1.3,.2)--(1.05,0)--cycle;
+\fill[brown!65!red] (-.12,.7)--(.52,1.22)--(1.18,.7)--cycle;
+\fill[brown!55!black] (.52,1.22)--(.77,1.42)--(1.43,.9)--(1.18,.7)--cycle;
+\draw[brown!70!black,line width=.5pt] (-.12,.7)--(.52,1.22)--(.77,1.42)--(1.43,.9)--(1.18,.7)--cycle;
+\fill[white!85!#3,draw=#3!65!black] (.12,.28) rectangle (.4,.55);
+\draw[#3!60!black] (.26,.28)--(.26,.55) (.12,.415)--(.4,.415);
+\fill[#3!65!black] (.64,0) rectangle (.89,.5);\fill[lacuna] (.83,.24) circle(.015);
+\fill[gray!25] (.64,-.03)--(.89,-.03)--(1,-.23)--(.55,-.23)--cycle;
 \end{scope}}
 \newcommand{\pessoaDados}[2]{%
 \begin{scope}[shift={(#1,#2)}]
@@ -24,9 +27,9 @@
 \begin{tikzpicture}[x=1cm,y=1cm,font=\small,line join=round]
 \ifnum#1=1
 % Terreno, calçadas e praças delimitam bairros, sem cartões de texto.
-\fill[green_ufc!5] (-.1,.45) rectangle (11.7,4.45);
-\fill[blue_theme!6] (.15,1.4) rectangle (3.65,4.2);
-\fill[ativo!8] (7.75,1.4) rectangle (11.4,4.2);
+\fill[green_ufc!5] (-.1,.45) rectangle (11.7,5.2);
+\fill[blue_theme!6] (.15,1.4) rectangle (3.85,5.1);
+\fill[ativo!8] (7.75,1.4) rectangle (11.55,5.1);
 \fill[gray!15] (3.8,2.5) rectangle (7.5,4.1);
 \foreach \x/\y in {4.1/2.8,5/2.8,5.9/2.8,6.8/2.8,4.1/3.6,6.8/3.6}{\arvoreUrbana{\x}{\y}}
 % Via sinuosa: conserva o significado de distância e cruzamentos.
@@ -34,12 +37,10 @@
 \draw[white,line width=.65pt,dash pattern=on 4pt off 3pt] (2.1,1.8)--(3.5,1.8)--(3.5,.9)--(7.9,.9)--(7.9,1.8)--(9.3,1.8);
 \foreach \x in {3.32,3.5,3.68}{\draw[white,line width=1.4pt] (\x,1.56)--(\x,2.04);}
 \foreach \x in {7.72,7.9,8.08}{\draw[white,line width=1.4pt] (\x,1.56)--(\x,2.04);}
-% Edifícios e depósitos do bairro de memória.
-\predioUrbano{.55}{2.15}{1.15}{1.8}{blue_theme}
-\predioUrbano{2.1}{2.15}{.95}{1.35}{blue_theme}
-\predioUrbano{8.45}{2.15}{1.15}{1.8}{ativo}
-\predioUrbano{10}{2.15}{.95}{1.35}{ativo}
-\foreach \x/\y in {.35/1.8,3.2/3.7,8.25/3.7,11.1/1.8}{\arvoreUrbana{\x}{\y}}
+% Casas e jardins: bairros horizontais, em contraste com os andares seguintes.
+\foreach \x/\y in {.55/2.1,2.15/2.1,.75/3.55,2.35/3.55}{\casaUrbana{\x}{\y}{blue_theme}}
+\foreach \x/\y in {8.05/2.1,9.85/2.1,8.25/3.55,10.05/3.55}{\casaUrbana{\x}{\y}{ativo}}
+\foreach \x/\y in {.2/2.5,3.45/3.4,7.85/3.5,11.55/2.4}{\arvoreUrbana{\x}{\y}}
 % Caminhão de dados com cabine, carga e rodas.
 \begin{scope}[shift={(5.2,.96)}]
 \fill[blue_theme] (-.55,-.02) rectangle (.3,.43);\fill[blue_theme!70] (.3,-.02)--(.7,-.02)--(.7,.24)--(.52,.43)--(.3,.43)--cycle;
@@ -49,9 +50,9 @@
 \end{scope}
 \draw[-{Latex},blue_theme,very thick] (4.1,.43)--(7.2,.43);
 \node[font=\scriptsize,blue_theme,fill=white,inner sep=2pt] at (5.7,.05){Dados atravessam a cidade};
-\node[blue_theme,font=\bfseries] at (1.9,4.9){Bairro 1 · memória};
-\node[ativo,font=\bfseries] at (9.6,4.9){Bairro 2 · processamento};
-\node[font=\scriptsize,black!65] at (5.7,4.45){Mais percurso e interfaces de comunicação};
+\node[blue_theme,font=\bfseries] at (1.9,5.65){Bairro 1 · memória};
+\node[ativo,font=\bfseries] at (9.6,5.65){Bairro 2 · processamento};
+\node[font=\scriptsize,black!65] at (5.7,5.1){Mais percurso e interfaces de comunicação};
 \else
 % Corte de um prédio real: fachada lateral, pilares, lajes e três pavimentos.
 \fill[black!8] (2.5,-.15)--(9.2,-.15)--(10.3,.3)--(3.6,.3)--cycle;
@@ -92,5 +93,5 @@
 \node[font=\scriptsize,align=left,anchor=west] at (9.45,2.9){Conexões\\verticais:\\menos percurso,\\mais paralelismo};
 \node[font=\scriptsize,blue_theme] at (5.6,5.18){Mesmo prédio: funções em andares especializados};
 \fi
-\path[use as bounding box] (-.3,-.3) rectangle (12,5.55);
+\ifnum#1=1\path[use as bounding box] (-.3,-.3) rectangle (12,6.05);\else\path[use as bounding box] (-.3,-.3) rectangle (12,5.55);\fi
 \end{tikzpicture}}

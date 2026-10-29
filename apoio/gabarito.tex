@@ -12,14 +12,14 @@ NMOS, G=0; S=0 & $V_{GS}=0-0=0$ V & $0<0{,}4$ V & Cortado\\
 PMOS, G=0,2; S=1,2 & $V_{SG}=1{,}2-0{,}2=1{,}0$ V & $1{,}0>0{,}4$ V & Ligado\\
 NMOS, G=1,2; S=1,0 & $V_{GS}=1{,}2-1{,}0=0{,}2$ V & $0{,}2<0{,}4$ V & Cortado\\
 PMOS, G=1,2; S=1,2 & $V_{SG}=1{,}2-1{,}2=0$ V & $0<0{,}4$ V & Cortado\\\bottomrule\end{tabular}\end{center}
-A terceira linha mostra por que olhar apenas a tensão da porta pode levar ao erro. Aqui se idealiza um limiar constante; o dispositivo real também depende de corpo e condições de operação.
+A terceira linha mostra por que olhar apenas a tensão do Gate pode levar ao erro. Aqui se idealiza um limiar constante; o dispositivo real também depende de corpo e condições de operação.
 
 \textbf{3 · Inversor e nó flutuante.} a) O PMOS conduz e carrega Y até próximo de $\VDD$: saída lógica 1. O NMOS está cortado. b) Sem PMOS e sem outro elemento de carga, não há caminho garantido para recarregar a saída: ela fica flutuante quando o NMOS corta. c) Sem caminho ativo, a tensão pode depender da carga anterior, das capacitâncias e das fugas; circuito aberto não equivale a terra.
 
 \textbf{4 · Portas de duas entradas.} NAND: PMOS em paralelo entre alimentação e saída; NMOS em série entre saída e GND. Para A=1 e B=0, o PMOS B permite a carga, e o NMOS B interrompe a descida. NOR: PMOS em série e NMOS em paralelo.
 \begin{center}\begin{tabular}{cccccc}\toprule A & B & NAND: subida & NAND: Y & NOR: descida & NOR: Y\\\midrule
 0&0&Sim&1&Não&1\\0&1&Sim&1&Sim&0\\1&0&Sim&1&Sim&0\\1&1&Não&0&Sim&0\\\bottomrule\end{tabular}\end{center}
-Em todos os desenhos, as portas identificadas por A recebem a mesma entrada A; o mesmo vale para B. Os corpos NMOS ficam em GND e os corpos PMOS em $\VDD$ no modelo introdutório.
+Em todos os desenhos, os Gates identificados por A recebem a mesma entrada A; o mesmo vale para B. Os corpos NMOS ficam em GND e os corpos PMOS em $\VDD$ no modelo introdutório.
 
 \textbf{5 · NAND3.} Três NMOS em série e três PMOS em paralelo: seis transistores. A saída é zero somente em 111. Em qualquer outra combinação, a cadeia NMOS é interrompida e pelo menos um PMOS fornece caminho até a alimentação.
 

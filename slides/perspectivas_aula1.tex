@@ -10,25 +10,13 @@
 \begin{frame}{High-NA e átomos: comparar sem confundir}
 \figura{\reguaAtomica}
 \chamada{8 nm de resolução não significam um transistor de 8 nm.}
-\fonte{\href{https://www.asml.com/en/products/euv-lithography-systems/twinscan-exe-5000}{ASML EXE:5000}: resolução nominal de 8 nm; luz EUV de 13,5 nm. Comparação linear ilustrativa: $8/0{,}235\approx34$ distâncias entre vizinhos. O nó comercial ``2 nm'' não conta átomos nem mede o comprimento da porta.}
-\end{frame}
-
-\begin{frame}{Mover dados também custa tempo e energia}
-\only<1|handout:0>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{1}\end{adjustbox}\end{center}\etapa{1/2}{Bairros separados: transportar dados exige percurso e interfaces.}}
-\only<2|handout:1>{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\cidadeDados{2}\end{adjustbox}\end{center}\etapa{2/2}{Mesmo prédio: conexões verticais aproximam memória e processamento.}}
-\fonte{Analogia própria de proximidade e conectividade. Fonte: \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — Wafer connectivity}. Ganhos dependem do projeto; o transporte não passa a ter custo zero.}
-\end{frame}
-
-\begin{frame}{CMOS 2.0: reorganizar o sistema em camadas}
-\figura{\pilhaCMOSdois}
-\chamada{Cada função pode usar a tecnologia mais adequada.}
-\fonte{\href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{imec — CMOS 2.0 e conexões 3D}. Visão de pesquisa: partição fina do sistema e integração heterogênea. Pilha ilustrativa; ordem e funções dependem do projeto. Calor, fabricação, teste e ferramentas seguem como desafios.}
+\fonte{\href{https://www.asml.com/en/products/euv-lithography-systems/twinscan-exe-5000}{ASML EXE:5000}: resolução nominal de 8 nm; luz EUV de 13,5 nm. Comparação linear ilustrativa: $8/0{,}235\approx34$ distâncias entre vizinhos. O nó comercial ``2 nm'' não conta átomos nem mede o comprimento do Gate.}
 \end{frame}
 
 \begin{frame}{Um limite físico: tunelamento e corrente de fuga}
 \only<1|handout:0>{\figura{\barreiraTunelamento{1}}\etapa{1/2}{Mesmo abaixo da barreira, existe probabilidade de transmissão quântica.}}
 \only<2|handout:1>{\figura{\barreiraTunelamento{2}}\etapa{2/2}{Afinar a mesma barreira pode aumentar a corrente que não desejamos.}}
-\fonte{Modelo qualitativo, com energia e altura da barreira mantidas. Exemplo histórico: dielétricos de porta de SiO$_2$ muito finos. \href{https://www.nist.gov/publications/challenges-high-kappa-gate-dielectrics-future-mos-devices}{NIST — Gate dielectrics}. Materiais high-$k$ permitem maior espessura física para um mesmo acoplamento elétrico; não eliminam todos os limites.}
+\fonte{Modelo qualitativo, com energia e altura da barreira mantidas. Exemplo histórico: dielétricos de Gate de SiO$_2$ muito finos. \href{https://www.nist.gov/publications/challenges-high-kappa-gate-dielectrics-future-mos-devices}{NIST — Gate dielectrics}. Materiais high-$k$ permitem maior espessura física para um mesmo acoplamento elétrico; não eliminam todos os limites.}
 \end{frame}
 
 \begin{frame}{Por que reduzir dimensões fica mais difícil?}

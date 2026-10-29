@@ -14,7 +14,7 @@ Consulta em **29 de outubro de 2026**. Os links aparecem também junto às figur
 - [TSMC — Relatório anual 2020](https://investor.tsmc.com/static/annualReports/2020/english/index.html): início da produção em volume do N5 em 2020.
 - [TSMC — Relatório anual 2025](https://investor.tsmc.com/static/annualReports/2025/english/index.html): início da produção em volume do N2 no quarto trimestre de 2025.
 
-O gráfico anterior de referências de processo permanece no fonte `contexto_visuais.tex`, mas foi substituído na apresentação pelo histórico de **contagens reais por die**, descrito em [FONTES_INTEGRACAO.md](FONTES_INTEGRACAO.md). A coluna de processo usa as designações publicadas. Não se pode calcular a redução real de área ou comprimento do transistor dividindo nomes de nós comerciais. Dimensões de porta, passo dos contatos, passo de metal, resolução óptica e nome do nó são grandezas diferentes.
+O gráfico anterior de referências de processo permanece no fonte `contexto_visuais.tex`, mas foi substituído na apresentação pelo histórico de **contagens reais por die**, descrito em [FONTES_INTEGRACAO.md](FONTES_INTEGRACAO.md). A coluna de processo usa as designações publicadas. Não se pode calcular a redução real de área ou comprimento do transistor dividindo nomes de nós comerciais. Dimensões de Gate, passo dos contatos, passo de metal, resolução óptica e nome do nó são grandezas diferentes.
 
 ## Fabricação, litografia e estruturas de transistor
 
@@ -26,9 +26,9 @@ O gráfico anterior de referências de processo permanece no fonte `contexto_vis
 - [ASML — 5 things you should know about High NA EUV](https://www.asml.com/en/company/stories/2024/5-things-high-na-euv): abertura numérica e resoluções das plataformas EUV NXE e EXE. Os valores nominais de resolução de 13 nm e 8 nm não são dimensões de transistores de nós comerciais com nomes semelhantes.
 - [ASML — High NA EUV reaches new readiness milestone, 15/07/2026](https://www.investor.asml.com/news-releases/news-release-details/high-na-euv-reaches-new-readiness-milestone): adoção em camadas selecionadas de um subconjunto de produtos, sem pressupor adoção generalizada.
 - [imec — Introducing 2D-material based devices in the logic scaling roadmap](https://www.imec-int.com/en/articles/introducing-2d-material-based-devices-logic-scaling-roadmap): dificuldades de controle do canal ao reduzir dimensões.
-- [imec — Outer wall forksheet: bridging nanosheet and CFET](https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology): porta envolvendo os canais nos dispositivos GAA.
+- [imec — Outer wall forksheet: bridging nanosheet and CFET](https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology): Gate envolvendo os canais nos dispositivos GAA.
 
-A sequência de litografia usa um resiste positivo e uma camada a gravar, sem modelar uma máquina específica. A figura de transistor mostra cortes transversais ao canal: porta azul, canal verde e dielétrico branco. Empilhamento de canais dentro de um transistor e empilhamento de circuitos completos representam escalas de integração distintas.
+A sequência de litografia usa um resiste positivo e uma camada a gravar, sem modelar uma máquina específica. A figura de transistor mostra cortes transversais ao canal: Gate azul, canal verde e dielétrico branco. Empilhamento de canais dentro de um transistor e empilhamento de circuitos completos representam escalas de integração distintas.
 
 ## Escala atômica e tunelamento
 
