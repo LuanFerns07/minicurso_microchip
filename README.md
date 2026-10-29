@@ -49,6 +49,8 @@ Com TeX Live e suporte a português, Beamer, TikZ, Circuitikz, adjustbox, multic
 bash compilar.sh
 ```
 
+No Windows, com Python e pdfLaTeX disponíveis no terminal, execute `.\compilar.ps1`. Para selecionar o Python, use `.\compilar.ps1 -Python 'C:\caminho\python.exe'`. Consulte [o roteiro de revisão](ROTEIRO_REVISAO.md) para a organização do conteúdo.
+
 O script usa os dados locais para gerar a seção Brasil e compila os 14 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
 
 - `slides/aula1.tex`, `slides/aula2.tex`, `slides/encerramento_aula3.tex`: apresentações.
