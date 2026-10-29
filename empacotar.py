@@ -53,7 +53,8 @@ Você também pode selecionar diretamente um desses arquivos como principal.
 `*_resumo.tex` produz uma página de síntese por quadro.
 
 A animação ocorre ao avançar as páginas: depleção, ativação do MOSFET,
-estados do inversor e das portas NAND/NOR. As figuras vetoriais estão em
+estados do inversor e das portas NAND/NOR. O panorama inclui VLSI, bairros de casas,
+prédio e CMOS 2.0. Os terminais MOS são Source, Gate e Drain. As figuras vetoriais estão em
 `visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
 `contexto_visuais.tex`. A fabricação e as perspectivas usam `fabricacao_aula1.tex`,
 `perspectivas_aula1.tex`, `fisica_fabricacao_visuais.tex` e `cidade_visuais.tex`.

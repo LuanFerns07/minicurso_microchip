@@ -2,6 +2,8 @@
 
 Oficinas em português, com **duas horas por encontro**. Desenvolvimento e facilitação: **Luan F. Nogueira e Luiz F. de Melo Soares**. O Beamer UFC permanece no modelo original **4:3 (128 × 96 mm)**.
 
+Os terminais MOS são nomeados **Source, Gate e Drain**; “portas lógicas” continua designando os circuitos digitais.
+
 ## Apresentar e consultar
 
 | Material | Quadros | Páginas com as etapas |
@@ -10,7 +12,7 @@ Oficinas em português, com **duas horas por encontro**. Desenvolvimento e facil
 | [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 27 | 37 |
 | [Encerramento da aula 3 — Caminhos e Brasil](pdfs/encerramento_aula3.pdf) | 17 | 17 |
 
-Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurso contínuo: facilitadores e história e contagens reais de integração → materiais e junção PN → MOSFET e inversor CMOS → estrutura física e fabricação → litografia, escala atômica → bairros/prédio e CMOS 2.0 → limites físicos. O bloco de fabricação vem depois dos dispositivos que ele precisa construir. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
+Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurso contínuo: facilitadores e história → contagens reais, VLSI e composição NMOS/PMOS → SoC → transporte de dados e CMOS 2.0 → materiais e junção PN → MOSFET e inversor CMOS → estrutura física e fabricação → litografia, escala atômica e limites físicos. O bloco de fabricação vem depois dos dispositivos que ele precisa construir. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
 
 - [Aula 1 resumida](pdfs/aula1_resumo.pdf), [aula 2 resumida](pdfs/aula2_resumo.pdf) e [encerramento resumido](pdfs/encerramento_aula3_resumo.pdf): uma página de síntese por quadro.
 - [Atividades](pdfs/exercicios.pdf) e [gabarito](pdfs/gabarito.pdf).
@@ -30,10 +32,10 @@ A prática da aula 3 no **Cadence Virtuoso será elaborada posteriormente**. O e
 - Caminhos de carga/descarga do inversor.
 - Estados 00 → 01 → 11 → 10 de NAND e NOR, com chaves habilitadas em verde.
 - Revelação de respostas e composição AND/OR.
-- Formação conceitual de regiões, portas e interconexões de um inversor planar.
+- Formação conceitual de regiões, Gates e interconexões de um inversor planar.
 - Exposição, revelação e gravação em litografia.
 - Tunelamento por uma barreira de energia espessa e por uma mais fina.
-- Transporte de dados entre bairros e entre andares de um prédio em corte, imediatamente após a régua atômica e antes de CMOS 2.0.
+- Transporte de dados entre bairros e entre andares de um prédio em corte, no panorama inicial, após VLSI e antes de CMOS 2.0; os bairros são formados por casas térreas.
 - Prévia série/paralelo: chaves A/B → diodos → MOSFETs com controle externo A/B, antes das referências.
 
 As animações são etapas vetoriais do Beamer, reproduzidas como páginas consecutivas. A versão `resumo` seleciona uma etapa de síntese; a versão principal contém toda a sequência.
@@ -101,7 +103,7 @@ Os diagramas de dispositivos e as analogias são qualitativos, sem resultados me
 
 ## Ritmo da aula 1
 
-Apresentação e percurso: 5 min; panorama histórico e integração: 12 min; materiais: 12 min; junção PN e discussão: 16 min; pausa: 10 min; MOSFET: 23 min; CMOS e desenho físico: 10 min; fabricação e litografia: 12 min; limites e integração 3D: 12 min; atividade e fechamento: 8 min. Total: **120 minutos**. Os PDFs de notas e o guia de condução foram retirados; permanecem as apresentações, resumos, atividades e gabarito.
+Apresentação e percurso: 5 min; panorama, VLSI e integração 3D: 18 min; materiais: 12 min; junção PN e discussão: 16 min; pausa: 10 min; MOSFET: 23 min; CMOS e desenho físico: 10 min; fabricação e litografia: 12 min; limites físicos: 6 min; atividade e fechamento: 8 min. Total: **120 minutos**. Os PDFs de notas e o guia de condução foram retirados; permanecem as apresentações, resumos, atividades e gabarito.
 
 ## Micrografias pendentes
 

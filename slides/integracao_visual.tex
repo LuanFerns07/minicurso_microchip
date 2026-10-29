@@ -17,12 +17,12 @@
 \begin{semilogyaxis}[width=11.4cm,height=5.5cm,xticklabel style={/pgf/number format/1000 sep={}},ylabel={Transistores por die},xlabel={Ano de lançamento},grid=major,major grid style={gray!18},axis lines=left,tick label style={font=\scriptsize},label style={font=\scriptsize},clip=false,xmin=2019.5,xmax=2024.7,ymin=1e10,ymax=8e10,xtick={2020,2021,2022,2023,2024},ytick={1e10,2e10,4e10,8e10},yticklabels={10 bi,20 bi,40 bi,80 bi}]
 \addplot[only marks,ativo,mark=square*,mark size=2.1pt] coordinates {(2020,16000000000) (2022,20000000000) (2023,25000000000) (2024,28000000000)};
 \addplot[only marks,lacuna,mark=triangle*,mark size=2.1pt] coordinates {(2020,54200000000)};
-\node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=0pt,yshift=-22pt] at (axis cs:2020,16000000000){M1\\16 bi · 5 nm};
+\node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=7pt,yshift=-13pt] at (axis cs:2020,16000000000){M1\\16 bi · 5 nm};
 \node[font=\scriptsize,align=center,text=lacuna,fill=white,inner sep=2pt,xshift=8pt,yshift=17pt] at (axis cs:2020,54200000000){A100\\54,2 bi · 7 nm N7};
 \node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=-7pt,yshift=20pt] at (axis cs:2022,20000000000){M2\\20 bi · 5 nm (2ª ger.)};
-\node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=-20pt,yshift=-24pt] at (axis cs:2023,25000000000){M3\\25 bi · 3 nm};
+\node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=0pt,yshift=-24pt] at (axis cs:2023,25000000000){M3\\25 bi · 3 nm};
 \node[font=\scriptsize,align=center,text=ativo,fill=white,inner sep=2pt,xshift=0pt,yshift=23pt] at (axis cs:2024,28000000000){M4\\28 bi · 3 nm (2ª ger.)};
-\node[anchor=north west,align=left,font=\tiny,text=black!65] at (rel axis cs:.02,.97){Recorte 2020--2024\\Eixos ampliados\\Verde: Apple (SoC Arm)\\Âmbar: NVIDIA (GPU)};
+\node[anchor=north,align=center,font=\tiny,text=black!65] at (rel axis cs:.47,.97){Recorte 2020--2024\\Eixos ampliados\\Verde: Apple (SoC Arm)\\Âmbar: NVIDIA (GPU)};
 \end{semilogyaxis}
 \fi
 \end{tikzpicture}}

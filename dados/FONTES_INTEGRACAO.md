@@ -6,7 +6,7 @@ Seleção didática de **13 chips, de 1971 a 2024**, consultada em 29/10/2026. O
 
 O eixo vertical mostra **transistores por die**, em escala logarítmica; o horizontal, o ano de lançamento. Não representa o total em uma placa de computador. As contagens são os números publicados pelos fabricantes ou autores do projeto, geralmente arredondados. A linha dos marcos Intel apenas guia o olhar; não é um ajuste estatístico da Lei de Moore.
 
-O primeiro avanço apresenta oito marcos Intel. O segundo mantém esses pontos em cinza e acrescenta Apple M1–M4 e NVIDIA A100/GA100, com uma tabela de contagens e processos. A mesma escala é mantida nos dois avanços.
+O primeiro avanço apresenta oito marcos Intel. O segundo amplia o recorte **2020–2024**, com Apple M1–M4 e NVIDIA A100/GA100. Cada ponto traz chip, contagem e processo. O eixo X é linear no ano real de lançamento, com ticks anuais. Os limites dos eixos são próprios de cada etapa: a primeira cobre 1969–2027 e 1 mil–120 bilhões; a segunda cobre 2019,5–2024,7 e 10–80 bilhões. Ambas usam eixo Y logarítmico. A alteração de escala é indicada no gráfico e na legenda, e não se deve comparar a inclinação aparente entre as etapas.
 
 ## Fontes primárias
 

@@ -38,13 +38,13 @@ for family,mark in [('Apple','square*'),('NVIDIA','triangle*')]:
     rows=[r for r in ROWS if r['familia']==family]
     coords=' '.join(f"({r['ano']},{r['transistores']})" for r in rows)
     plot.append(fr'\addplot[only marks,{COLORS[family]},mark={mark},mark size=2.1pt] coordinates {{{coords}}};')
-recent_offsets={'M1':(0,-22),'A100':(8,17),'M2':(-7,20),'M3':(-20,-24),'M4':(0,23)}
+recent_offsets={'M1':(7,-13),'A100':(8,17),'M2':(-7,20),'M3':(0,-24),'M4':(0,23)}
 for r in ROWS:
     if r['familia']=='Intel': continue
     dx,dy=recent_offsets[r['rotulo']]
     label=tex(r['rotulo'])+r'\\'+tex(number(r['transistores']))+' · '+tex(r['processo_rotulo'])
     plot.append(fr'\node[font=\scriptsize,align=center,text={COLORS[r["familia"]]},fill=white,inner sep=2pt,xshift={dx}pt,yshift={dy}pt] at (axis cs:{r["ano"]},{r["transistores"]}){{{label}}};')
-plot += [r'\node[anchor=north west,align=left,font=\tiny,text=black!65] at (rel axis cs:.02,.97){Recorte 2020--2024\\Eixos ampliados\\Verde: Apple (SoC Arm)\\Âmbar: NVIDIA (GPU)};',
+plot += [r'\node[anchor=north,align=center,font=\tiny,text=black!65] at (rel axis cs:.47,.97){Recorte 2020--2024\\Eixos ampliados\\Verde: Apple (SoC Arm)\\Âmbar: NVIDIA (GPU)};',
          r'\end{semilogyaxis}',r'\fi',r'\end{tikzpicture}}']
 (ROOT/'slides/integracao_visual.tex').write_text('\n'.join(plot)+'\n',encoding='utf-8')
 frames=[r'% Gerado por scripts/gerar_integracao.py.',r'\begin{frame}{Integração: de milhares a bilhões de transistores}',r'\only<1|handout:0>{\figura{\graficoIntegracao{1}}\etapa{1/2}{Marcos Intel: mais transistores por circuito integrado.}}',r'\only<2|handout:1>{\figura{\graficoIntegracao{2}}\etapa{2/2}{Recorte 2020--2024: eixos ampliados para comparar SoCs Apple e GPU NVIDIA.}}',r'\fonte{Fontes primárias: Intel (guia histórico e Nehalem), ISSCC 2012 (Ivy Bridge), Apple Newsroom (M1--M4) e NVIDIA (GA100). Eixo vertical logarítmico; intervalos dos eixos mudam entre as etapas. Contagens por die, não por placa; processo é a designação publicada, não comprimento de Gate. Dados e links em dados/integracao\_processadores.csv.}',r'\end{frame}',r'\begin{frame}{Ler o gráfico: o que significa ``integrar mais''?}',r'\duas{\textcolor{blue_theme}{\large\textbf{O que contamos}}\par\medskip Mais dispositivos no mesmo circuito integrado.\par\medskip CPU, memórias, interfaces e aceleradores podem dividir o die.}{\textcolor{blue_theme}{\large\textbf{O que também importa}}\par\medskip Processo, área do die e função do chip.\par\medskip A contagem sozinha não mede desempenho nem densidade.}',r'\chamada{VLSI: integração de muitos dispositivos e conexões em um chip.}',r'\fonte{M1--M4 são SoCs com arquitetura Arm; A100 é uma GPU. O histórico é uma seleção didática de produtos, sem ajuste de uma curva universal de Moore. As contagens recentes abrangem o chip completo.}',r'\end{frame}']

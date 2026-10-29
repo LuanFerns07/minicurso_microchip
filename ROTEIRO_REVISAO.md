@@ -6,7 +6,7 @@ Três encontros de 120 minutos, em português, com figuras e discussão. As etap
 
 | Encontro | Roteiro | Tempo |
 | --- | --- | --- |
-| Aula 1 | Facilitadores; panorama histórico e contagens por die; materiais; junção PN; pausa; MOSFET; inversor e layout; fabricação e litografia; limites e integração 3D; atividade | 5 + 12 + 12 + 16 + 10 + 23 + 10 + 12 + 12 + 8 = 120 min |
+| Aula 1 | Facilitadores; panorama histórico, contagens por die, VLSI e integração 3D; materiais; junção PN; pausa; MOSFET; inversor e layout; fabricação e litografia; limites físicos; atividade | 5 + 18 + 12 + 16 + 10 + 23 + 10 + 12 + 6 + 8 = 120 min |
 | Aula 2 | Retomada; inversor, carga, atraso e energia; NAND; pausa; NOR; desenho e teste em duplas; composição e fechamento | 10 + 20 + 20 + 10 + 20 + 25 + 15 = 120 min |
 | Aula 3 | Prática no Cadence Virtuoso ainda pendente; encerramento com trilhas de estudo e panorama brasileiro | 95 + 25 = 120 min previstos |
 
@@ -31,7 +31,7 @@ Três encontros de 120 minutos, em português, com figuras e discussão. As etap
 
 1. Preservar as dependências: o público conhece material, junção, MOSFET e inversor antes do corte CMOS e da fabricação. A vista do circuito e a TEM nanométrica devem ser creditadas como amostras diferentes; só entram quando os arquivos reais estiverem locais.
 2. Distinguir quantidade de transistores, tamanho de referência do átomo, espaçamento na rede, resolução óptica e nome do nó. A curva de Moore é ideal e normalizada. A régua de 8 nm compara comprimentos, não conta átomos de um transistor.
-3. Manter a ordem régua atômica → bairros/prédio → CMOS 2.0, sem outros quadros entre esses assuntos. Usar a comparação bairros/andares para explicar proximidade e interconexões. CMOS 2.0 é uma proposta de integração heterogênea; produtos com memória empilhada já existem.
+3. No panorama, manter a ordem VLSI → NMOS/PMOS até SoC → bairros/prédio → CMOS 2.0. A régua atômica permanece após litografia, junto aos limites físicos. Nomear os terminais MOS como Source, Gate e Drain. Usar a comparação bairros de casas/andares para explicar proximidade e interconexões. CMOS 2.0 é uma proposta de integração heterogênea; produtos com memória empilhada já existem.
 4. Conferir se as figuras de PN e MOSFET permitem explicar difusão, depleção, inversão e controle da condução.
 5. Na aula 2, conferir se o participante consegue prever a saída pelo caminho elétrico antes da tabela-verdade.
 6. Elaborar a prática apenas quando solicitado, com circuito, biblioteca/PDK, alimentação, estímulos e resultados definidos. Validar os 95 minutos com execução real.
