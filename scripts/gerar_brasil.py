@@ -41,7 +41,7 @@ def create_poster(groups, orgs):
     rows.extend([r'\end{minipage}\hfill',r'\begin{minipage}[t]{.40\linewidth}\vspace{0pt}\centering',r'\resizebox{\linewidth}{!}{\mapaBrasil{1,2,3,4,5,6,7,8,9,10,11,12,13}}',r'\par\bigskip{\Large\color{azul}\textbf{54 organizações · 13 polos}}\par',r'\small 73 presenças: uma organização pode aparecer em vários polos.\par\medskip',r'$\bullet$ Empresa\quad $\circ$ Centro ou grupo de pesquisa\par\medskip',r'\footnotesize Pontos esquemáticos por polo; interiores representam áreas agregadas.\par\medskip',r'\href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Levantamento: Matheus Grossi · Brazil Silicon Roadmap}\par',r'\footnotesize Edição baseada na planilha PT-BR fornecida em 28/10/2026.\par\medskip',r'Contorno: \href{https://github.com/johan/world.geo.json/blob/master/countries/BRA.geo.json}{johan/world.geo.json}. Composição redesenhada em TikZ.\par\medskip',r'Desenho didático: Luan F. Nogueira e Luiz F. de Melo Soares.',r'\end{minipage}\hfill',r'\begin{minipage}[t]{.28\linewidth}\vspace{0pt}\small\raggedright'])
     for i in [7,10,13,11,8]:cluster(i)
     rows.extend([r'\end{minipage}',r'\end{document}'])
-    (ROOT/'apoio/mapa_brasil.tex').write_text('\n'.join(rows)+'\n')
+    (ROOT/'apoio/mapa_brasil.tex').write_text('\n'.join(rows)+'\n', encoding='utf-8')
 
 def main():
     orgs={r['organizacao']:r for r in csv.DictReader((ROOT/'dados/organizacoes_brasil.csv').open(encoding='utf-8'))}
@@ -62,7 +62,7 @@ def main():
         # Labels mostly outside the silhouette, so dense hubs remain readable.
         lines.append(fr'\ifnum\selecionado={i}\relax\ifdefined\SemRotulos\else\draw[{col},line width=.6pt]({x:.3f},{y:.3f})--({lx:.2f},{ly:.2f});\node[anchor=west,fill=white,inner sep=1.5pt,text={col},font=\scriptsize] at({lx:.2f},{ly:.2f}){{{tex(label)}}};\fi\node[circle,fill={col},text=white,inner sep=1.3pt,font=\tiny] at({x:.3f},{y:.3f}){{{i}}};\fi')
     lines.extend([r'}',r'\end{tikzpicture}}',r'\newcommand{\creditoBrasil}{\fonte{Levantamento: Matheus Grossi · \href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Brazil Silicon Roadmap}, planilha PT-BR fornecida. Mapa próprio; polos esquemáticos.}}'])
-    (ROOT/'slides/brasil_mapa.tex').write_text('\n'.join(lines)+'\n')
+    (ROOT/'slides/brasil_mapa.tex').write_text('\n'.join(lines)+'\n', encoding='utf-8')
     fragments=[r'% Gerado por scripts/gerar_brasil.py. Relação integral de 73 presenças.',r'\section{Âmbito Brasil}',r'\begin{frame}{Microeletrônica no Brasil}',r'\duas{\begingroup\def\SemRotulos{1}\figura{\mapaBrasil{1,2,3,4,8,9}}\endgroup}{\vspace{5mm}\textcolor{blue_theme}{\Huge 54}\ organizações\par\medskip\textcolor{blue_theme}{\Huge 13}\ polos\par\medskip Projeto • ferramentas • integração • fabricação • pesquisa}',r'\creditoBrasil',r'\end{frame}',r'\note{Os números são da planilha local fornecida, com 54 organizações e 73 presenças em 13 polos. Diferem do resumo de outra versão da página do repositório. Um nome pode aparecer em vários polos. O mapa é próprio, com contorno geográfico simplificado e localizações esquemáticas agregadas. As próximas páginas preservam toda a relação; destaque exemplos em vez de ler cada nome. Centros e grupos de pesquisa são distinguidos de empresas. Créditos do levantamento: Matheus Grossi, Brazil Silicon Roadmap.}']
     pages=[('Norte e Nordeste',[1,3,4]),('Centro-Oeste e Minas Gerais',[2,5,6]),('São Paulo · polo de Campinas',[7]),('São Paulo · outros polos',[10,13]),('Paraná e Santa Catarina',[11,8]),('Rio Grande do Sul',[9,12])]
     for title,ids in pages:
@@ -75,7 +75,7 @@ def main():
                 fragments.append(r'\noindent\parbox{\linewidth}{'+marker+' '+tex(org)+r'}\par')
             fragments.append(r'\medskip')
         fragments.extend([r'\end{multicols}',r'\end{column}',r'\end{columns}',r'\creditoBrasil',r'\end{frame}',r'\note{Relação da planilha PT-BR fornecida. Os polos abrangem cidades e proximidades ou áreas de interior; os pontos não indicam endereços individuais. As categorias e incertezas de atuação estão preservadas nos CSVs do projeto. Algumas organizações atuam em módulos, ferramentas ou eletrônica aplicada, sem confirmação de projeto local de CI/RTL. Os nomes estão aqui para consulta; escolha um ou dois exemplos para explicar a diversidade da cadeia.}'])
-    (ROOT/'slides/brasil_trecho.tex').write_text('\n'.join(fragments)+'\n')
+    (ROOT/'slides/brasil_trecho.tex').write_text('\n'.join(fragments)+'\n', encoding='utf-8')
     create_poster(groups, orgs)
     print(f'Mapa e seis páginas regionais: {len(orgs)} organizações, {sum(map(len,groups.values()))} presenças.')
 
