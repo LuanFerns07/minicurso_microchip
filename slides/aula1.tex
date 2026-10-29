@@ -2,37 +2,64 @@
 \title[Aula 1 • Do silício ao MOSFET]{\huge\textbf{Do transistor ao chip}}
 \begin{document}
 \capa{Aula 1 · Do silício ao MOSFET}{Observar, discutir e desenhar • oficina de 2 horas}
-\note{Apresentar a pergunta do curso: como uma tensão pode controlar outra até realizar uma operação lógica? A aula dura 120 minutos, incluindo pausa de 10 minutos e atividades. As figuras são modelos qualitativos, não resultados de simulação.}
 
 \section{Começo}
 \begin{frame}{Quem facilita a oficina}
-\duas{\textcolor{blue_theme}{\large\textbf{Luan F. Nogueira}}\par\medskip
-UFC • Polytech Montpellier\par\medskip
-\figura{\begin{tikzpicture}[scale=.7]\draw[blue_theme,line width=1.5pt] (0,0) rectangle (3,2);\foreach \x in {.4,.9,1.4,1.9,2.4}{\draw[blue_theme] (\x,0)--(\x,-.3);\draw[blue_theme] (\x,2)--(\x,2.3);}\node[align=center] at (1.5,1){RTL\\FPGA};\end{tikzpicture}}
-Experiência em IA embarcada e aceleradores RISC-V no imec.}{\textcolor{blue_theme}{\large\textbf{Luiz F. de Melo Soares}}\par\medskip
-UFC • Mines Saint-Étienne / ISMIN\par\medskip
-\figura{\begin{tikzpicture}[scale=.7]\draw[blue_theme,line width=1.5pt] (0,0)--(0,2)--(3,1)--cycle;\node at (.4,1.5){$+$};\node at (.4,.5){$-$};\draw[blue_theme] (3,1)--(3.6,1);\end{tikzpicture}}
-Experiência em projeto analógico CMOS, simulação e layout no CPPM.}
-\fonte{Mini-fichas baseadas nos currículos fornecidos.}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}
+\centering
+\includegraphics[height=2.35cm]{assets/facilitadores/luan.png}\par\smallskip
+{\small\color{blue_theme}\textbf{Luan F. Nogueira}}\par\smallskip
+{\scriptsize\textbf{Formação}\par
+Engenharia Elétrica · UFC\par
+Microeletrônica · Polytech Montpellier\par\medskip
+\textbf{Experiências}\par
+imec: projeto e verificação RTL\par
+Aceleradores RISC-V e FPGA\par
+HUPI: inteligência artificial embarcada\par}
+\end{column}
+\begin{column}{.48\textwidth}
+\centering
+\includegraphics[height=2.35cm]{assets/facilitadores/luiz.jpg}\par\smallskip
+{\small\color{blue_theme}\textbf{Luiz F. de Melo Soares}}\par\smallskip
+{\scriptsize\textbf{Formação}\par
+Engenharia Elétrica · UFC\par
+Microeletrônica · Mines Saint-Étienne/ISMIN\par\medskip
+\textbf{Experiências}\par
+CPPM: projeto analógico CMOS em 65 nm\par
+Simulação, layout e verificação física\par
+Cadence Virtuoso e Spectre\par}
+\end{column}
+\end{columns}
+\fonte{Fotos e trajetórias: currículos fornecidos pelos facilitadores. As formações incluem os percursos registrados nos documentos. Desenvolvimento do minicurso: Luan F. Nogueira e Luiz F. de Melo Soares.}
 \end{frame}
-\note{Apresentação de cerca de 3 minutos. As instituições descrevem os percursos registrados nos currículos, sem presumir titulação concluída ou vínculo atual. Luan conecta o curso a sistemas digitais; Luiz, a circuitos analógicos e implementação física. Não reproduzir dados pessoais de contato.}
 
-\begin{frame}{Três encontros, um percurso}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm]
-\foreach \x/\n/\t/\sub in {0/1/Silício/MOSFET,3.5/2/CMOS/Portas lógicas,7/3/Virtuoso/Prática e caminhos}{\node[circle,draw=blue_theme,line width=1.5pt,minimum size=12mm] at (\x,1){\Large\n};\node[align=center] at (\x,-.2){\textbf{\t}\\\sub};}
-\draw[seta] (.8,1)--(2.7,1);\draw[seta] (4.3,1)--(6.2,1);
+\begin{frame}{Roadmap da oficina · três aulas}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[blue_theme!30,line width=2pt] (.4,2.5)--(9.4,2.5);
+\foreach \x/\n/\titulo/\sub in {0/1/{Fundamentos}/{História e perspectivas\\Semicondutores e junção PN\\MOSFET e inversor CMOS},3.7/2/{Portas lógicas}/{Redes NMOS e PMOS\\Construção de NAND e NOR\\Composição e análise},7.4/3/{Projeto e caminhos}/{Prática no Virtuoso\\Esquema e simulação\\Áreas de estudo e âmbito Brasil}}{%
+\node[circle,fill=blue_theme,text=white,minimum size=10mm,font=\large\bfseries] at (\x+1.2,2.5){\n};
+\node[blue_theme,font=\bfseries] at (\x+1.2,1.55){\titulo};
+\node[align=center,text width=3.45cm,font=\scriptsize] at (\x+1.2,.4){\sub};
+\node[font=\scriptsize] at (\x+1.2,3.4){Aula \n · 2 horas};}
+\path[use as bounding box] (-.6,-.6) rectangle (10.7,3.9);
 \end{tikzpicture}}
-\chamada{Hoje: o material vira uma chave controlada por tensão.}
+\chamada{Da compreensão dos dispositivos à construção e análise de circuitos.}
 \end{frame}
-\note{Cada oficina dura duas horas. A prática da aula 3 continua reservada para elaboração posterior; seu encerramento traz o roadmap de áreas e o panorama Brasil. Pedir à turma um exemplo de produto que contenha chips.}
 
 \begin{frame}{Como vamos usar as duas horas?}
-\centering\begin{tabular}{lr}\toprule Conversa e apresentação & 10 min\\
-Materiais e portadores & 20 min\\Junção PN: ver e discutir & 20 min\\
-Pausa & 10 min\\MOSFET: formar e controlar o canal & 30 min\\
-CMOS: combinar duas chaves & 15 min\\Desenho e fechamento & 15 min\\\bottomrule\end{tabular}
+\centering\small\begin{tabular}{lr}\toprule
+Apresentação e percurso & 5 min\\
+História, litografia e perspectivas & 22 min\\
+Materiais e portadores & 15 min\\
+Junção PN e discussão & 18 min\\
+Pausa & 10 min\\
+MOSFET e controle do canal & 25 min\\
+Inversor CMOS e desenho físico & 15 min\\
+Atividade e fechamento & 10 min\\\bottomrule\end{tabular}
 \end{frame}
-\note{Os tempos são de blocos, não uma duração por página do PDF. As etapas visuais avançam dentro do mesmo quadro. Deixar a turma descrever o que mudou antes de explicar cada clique. Usar o material de consulta para aprofundamentos, sem ler as notas em voz alta.}
+
+\input{contexto_abertura.tex}
 
 \section{Materiais}
 \begin{frame}{Um chip é construído em camadas de ideias}
@@ -44,7 +71,6 @@ CMOS: combinar duas chaves & 15 min\\Desenho e fechamento & 15 min\\\bottomrule\
 \draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
 \chamada{Vamos começar pelo dispositivo.}
 \end{frame}
-\note{A hierarquia é conceitual. Não sugerir que blocos analógicos e memórias são necessariamente montados apenas de células lógicas comuns. Perguntar em que nível a turma já trabalhou: programação, placa, portas ou transistores.}
 
 \begin{frame}{Conduzir, isolar ou controlar?}
 \figura{\begin{tikzpicture}[x=.8cm,y=.8cm,font=\small]
@@ -57,7 +83,6 @@ CMOS: combinar duas chaves & 15 min\\Desenho e fechamento & 15 min\\\bottomrule\
 \chamada{No silício, a condução pode ser controlada.}
 \fonte{Bandas de energia esquemáticas, sem escala. Metais também podem ter banda parcialmente preenchida.}
 \end{frame}
-\note{Azul representa banda de valência e dourado, de condução. O eixo vertical é energia, não posição. Para o público iniciante, focar nos papéis dos materiais: metais conectam, dielétricos isolam e o semicondutor permite criar dispositivos controláveis. Não derivar estatística de portadores.}
 
 \begin{frame}{Silício: uma rede de ligações}
 \duas{\figura{\begin{tikzpicture}[scale=.85]
@@ -68,7 +93,6 @@ Ligações com os vizinhos.\par\medskip
 Energia térmica pode criar pares elétron--lacuna.}
 \fonte{Representação plana; a rede real é tridimensional.}
 \end{frame}
-\note{As ligações são apenas uma representação didática. Na geração térmica, um elétron e uma lacuna aparecem em conjunto. Em equilíbrio intrínseco suas concentrações são iguais; a dopagem permite alterar preferencialmente uma das populações.}
 
 \begin{frame}{Como uma lacuna se desloca?}
 \only<1|handout:0>{\figura{\begin{tikzpicture}[x=1.1cm]
@@ -82,7 +106,6 @@ Energia térmica pode criar pares elétron--lacuna.}
 \draw[-{Latex},very thick,lacuna] (4,-.7)--node[below]{lacuna}(5,-.7);\node[above] at (5,.5){novo estado vazio};
 \path[use as bounding box] (-.5,-1.5) rectangle (7.5,1.7);\end{tikzpicture}}\etapa{2/2}{O deslocamento equivalente da lacuna é oposto.}}
 \end{frame}
-\note{Pedir que alguém preveja onde fica o vazio depois do movimento. A figura representa ocupação de estados, não órbitas atômicas. Lacunas se comportam como portadores positivos; elétrons têm carga negativa. O sentido convencional da corrente não deve ser confundido com o movimento dos elétrons.}
 
 \begin{frame}{Dopagem: dois tipos de portador majoritário}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
@@ -93,7 +116,6 @@ Energia térmica pode criar pares elétron--lacuna.}
 \end{tikzpicture}}
 \chamada{Tipo N ou P não significa carga líquida no material.}
 \end{frame}
-\note{Mostrar somente portadores majoritários na figura. O volume neutro também contém íons dopantes que compensam aproximadamente a carga móvel. Há portadores minoritários em ambos os materiais. Perguntar o que acontecerá ao colocar N e P em contato.}
 
 \section{Junção PN}
 \begin{frame}{A região de depleção nasce do contato}
@@ -101,38 +123,33 @@ Energia térmica pode criar pares elétron--lacuna.}
 \only<2|handout:0>{\figura{\juncaoPN{1}}\etapa{2/3}{Portadores difundem e se recombinam.}}
 \only<3|handout:1>{\figura{\juncaoPN{2}}\etapa{3/3}{Íons expostos criam o campo interno.}}
 \end{frame}
-\note{Etapa 1: pedir a direção da difusão dos elétrons e das lacunas. Etapa 2: discutir por que a região perto da interface perde portadores móveis. Etapa 3: identificar íons negativos no lado P e positivos no lado N. O campo interno aponta de N para P. Em equilíbrio, deriva e difusão se compensam; depleção não significa ausência de toda carga. Desenhos sem escala; só majoritários são representados fora da faixa cinza.}
 
 \begin{frame}{Uma tensão externa muda a depleção}
 \only<1|handout:0>{\figura{\juncaoPN{3}}\etapa{1/2}{Direta: P positivo em relação a N.}}
 \only<2|handout:1>{\figura{\juncaoPN{4}}\etapa{2/2}{Direta estreita; reversa alarga a depleção.}}
 \end{frame}
-\note{Pedir para comparar a largura cinza entre os dois cliques. Em direta a barreira diminui e a corrente pode crescer fortemente; em reversa, há pequena fuga antes da ruptura. A seta mostra a direção do campo, não seu valor. Não fixar 0,7 V como tensão universal de condução. O material para consulta retoma os dois estados.}
 
 \begin{frame}{Da junção PN ao diodo}
 \figura{\begin{circuitikz}[scale=1.5]\draw (0,0) node[left]{P · ânodo} to[D] (3,0) node[right]{N · cátodo};\draw[-{Latex},blue_theme,thick] (.8,-.7)--node[below]{corrente convencional em direta}(2.2,-.7);\end{circuitikz}}
 \chamada{A tensão externa altera a barreira da junção.}
 \small\centering Direta: a corrente cresce fortemente.\quad Reversa: pequena fuga antes da ruptura.
 \end{frame}
-\note{O diodo é uma junção PN com terminais acessíveis. Em direta, P está positivo em relação a N e a corrente convencional vai do ânodo ao cátodo. A barra do símbolo marca o cátodo. Não apresentar 0,7 V como constante universal: corrente e tensão dependem do dispositivo e das condições.}
 
 \begin{frame}{Antes da pausa: leia a figura}
 \duas{\figura{\juncaoPN{2}}}{\vspace{7mm}\begin{enumerate}\item Que cargas estão na faixa cinza?\item Por que elas ficam ali?\item Qual tensão reduz a barreira?\end{enumerate}}
 \chamada{Explique ao colega usando o desenho.}
 \end{frame}
-\note{Reservar cerca de 5 minutos do bloco de junção PN. Respostas: íons dopantes fixos; os portadores difundem/recombinam e os deixam expostos; polarização direta. Usar a folha de atividades. A tarefa é argumentar a partir do desenho, não repetir nomes.}
 
 \begin{frame}{Pausa · 10 minutos}
-\chamada{Na volta: controlar um canal sem tocar nele.}
+\chamada{A seguir: estrutura e funcionamento dos transistores MOS.}
 \end{frame}
-\note{Pausa incluída nas duas horas.}
 
 \section{MOSFET}
 \begin{frame}{Conheça os terminais do MOSFET}
-\figura{\moscanal{0}}
-\chamada{Porta controla; fonte e dreno conduzem pelo canal.}
+\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.65cm}\moscanal{0}\end{adjustbox}\end{center}
+\chamada{A porta controla a formação do canal entre fonte e dreno.}
+\fonte{NMOS de enriquecimento, corte planar esquemático: corpo P e regiões n+. Modelo qualitativo, sem escala.}
 \end{frame}
-\note{Explicar G, S, D e corpo B. MOS: metal--óxido--semicondutor; FET: transistor de efeito de campo. O desenho é de um NMOS planar de enriquecimento. O corpo é do tipo P e as difusões, n+. O dielétrico separa eletricamente a porta do canal; não há fio da porta para dentro do semicondutor.}
 
 \begin{frame}{Ativar o MOSFET: acompanhe a superfície}
 \only<1|handout:0>{\figura{\moscanal{0}}\etapa{1/4}{Sem canal forte: chave ideal aberta.}}
@@ -140,7 +157,6 @@ Energia térmica pode criar pares elétron--lacuna.}
 \only<3|handout:0>{\figura{\moscanal{2}}\etapa{3/4}{Forma-se um canal de inversão.}}
 \only<4|handout:1>{\figura{\moscanal{3}}\etapa{4/4}{Uma diferença entre dreno e fonte produz corrente.}}
 \end{frame}
-\note{Fazer uma pausa a cada clique e pedir a mudança observada. A superfície P sofre depleção e depois inversão; o corpo não vira inteiro um material N. Os elétrons do canal não atravessam o dielétrico da porta. Na última etapa, a corrente convencional vai do dreno à fonte para VD maior que VS; os elétrons se deslocam no sentido oposto. O limiar é uma referência de inversão forte, e não uma fronteira de corrente exatamente nula.}
 
 \begin{frame}{Duas chaves complementares}
 \duas{\centering\textcolor{blue_theme}{\large\textbf{NMOS}}\par
@@ -151,8 +167,8 @@ Conduz se $V_{GS}>V_{TN}$.}{\centering\textcolor{blue_theme}{\large\textbf{PMOS}
 \[V_{SG}=V_S-V_G\]
 Conduz se $V_{SG}>|V_{TP}|$.}
 \chamada{Compare terminais, não apenas a tensão de porta.}
+\fonte{Modelo ideal de chave para MOSFETs de enriquecimento; a corrente real não se anula abruptamente no limiar.}
 \end{frame}
-\note{Modelo ideal de chave para MOSFETs de enriquecimento. No inversor, a fonte NMOS fica em GND e a fonte PMOS em VDD; assim, entrada alta liga NMOS e entrada baixa liga PMOS. Em redes com fontes elevadas a regra precisa de mais cuidado. Correntes de sub-limiar e demais efeitos ficam nas notas.}
 
 \begin{frame}{Qual chave está ligada?}
 \centering\small
@@ -160,7 +176,6 @@ Conduz se $V_{SG}>|V_{TP}|$.}
 \only<2|handout:1>{\begin{tabular}{llll}\toprule Tipo & Diferença & Comparação & Estado\\\midrule NMOS&$V_{GS}=0$ V&$0<0{,}4$&Cortado\\PMOS&$V_{SG}=1{,}0$ V&$1{,}0>0{,}4$&Ligado\\NMOS&$V_{GS}=0{,}2$ V&$0{,}2<0{,}4$&Cortado\\\bottomrule\end{tabular}\chamada{Porta alta não basta se a fonte também estiver alta.}}
 \fonte{Valores didáticos: limiares constantes $V_{TN}=|V_{TP}|=0{,}4$ V. Não são parâmetros do laboratório.}
 \end{frame}
-\note{Usar 5 minutos de resolução em duplas e revelar a correção. A terceira linha é o diagnóstico central: VG=1,2 V com VS=1 V resulta em VGS de apenas 0,2 V. Nos dispositivos reais, o limiar também pode depender do corpo e das condições de operação.}
 
 \begin{frame}{Três detalhes que o desenho simplifica}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm]
@@ -173,14 +188,12 @@ Conduz se $V_{SG}>|V_{TP}|$.}
 \item Dimensões $W$ e $L$ afetam corrente, carga e área.
 \item Uma chave real tem resistência e correntes de fuga.\end{itemize}
 \end{frame}
-\note{A vista superior é esquemática: L mede o percurso entre fonte e dreno; W mede a extensão transversal do canal. As junções PN entre corpo e difusões justificam as conexões de corpo. A fonte de um transistor empilhado não precisa coincidir com o corpo. Não derivar modelos de corrente ou regimes neste encontro.}
 
 \section{CMOS}
 \begin{frame}{Uma entrada, dois caminhos: inversor CMOS}
 \only<1|handout:0>{\figura{\inversorestado{0}}\chamada{$A=0$: PMOS carrega a saída.}}
 \only<2|handout:1>{\figura{\inversorestado{1}}\chamada{$A=1$: NMOS descarrega a saída.}}
 \end{frame}
-\note{Corpos omitidos: NMOS em GND e PMOS em VDD. Pedir que a turma percorra o caminho verde de cada estado e identifique o trecho cinza que interrompe a ligação ao outro trilho. A saída representa Y igual à negação de A. Durante a transição pode existir condução simultânea transitória; as duas figuras representam estados estáveis ideais.}
 
 \begin{frame}{A saída armazena carga}
 \duas{\figura{\begin{circuitikz}\draw(0,2) node[above]{$Y$} to[C,l=$C_L$] (0,0) node[ground]{};\end{circuitikz}}}{\vspace{8mm}\[Q=C_LV_Y\]\par\medskip
@@ -188,7 +201,6 @@ Carregar leva tempo.\par\medskip
 Descarregar também.\par\medskip
 Chave aberta não garante tensão zero.}
 \end{frame}
-\note{A capacitância de carga é um equivalente dos dispositivos, entradas seguintes e fios. Se ambos os caminhos forem retirados, a saída pode ficar flutuante e depender da carga anterior e das fugas. Retomar a pergunta sobre corrente zero não significar tensão zero. A aula 2 explorará o atraso com formas de onda.}
 
 \begin{frame}{Do esquema ao desenho físico}
 \duas{\centering\textcolor{blue_theme}{Esquema}\par\figura{\inversor}}{\centering\textcolor{blue_theme}{Geometrias e conexões}\par
@@ -203,7 +215,6 @@ Chave aberta não garante tensão zero.}
 \end{tikzpicture}}}
 \fonte{Ilustração de camadas e conexões; não é um layout fabricável nem verificado por regras de processo.}
 \end{frame}
-\note{O desenho à direita mostra apenas uma analogia de difusões, porta e metais. Contatos, regras geométricas e conexões de corpo foram simplificados e ele não deve ser usado para fabricar um circuito. Definir esquema como descrição de conectividade e layout como geometrias de processo. Apresentar DRC, LVS e extração apenas se houver pergunta.}
 
 \begin{frame}{Atividade: desenhe e conte a história}
 \begin{enumerate}\item Desenhe o inversor com alimentação, entrada e saída.
@@ -211,21 +222,28 @@ Chave aberta não garante tensão zero.}
 \item Explique o que acontece com a carga quando a entrada muda.\end{enumerate}
 \chamada{Qual transistor você retiraria para deixar a saída flutuante?}
 \end{frame}
-\note{Reservar 12 minutos: 6 de desenho, 3 de troca e 3 de discussão. Com o PMOS retirado e o NMOS cortado, não há recarga garantida; com o NMOS retirado e o PMOS cortado, não há descarga garantida. Avaliar caminhos completos, não a estética do desenho. As atividades impressas continuam disponíveis.}
 
 \begin{frame}{Para levar para a próxima oficina}
 \figura{\begin{tikzpicture}[node distance=8mm]
 \node[circle,draw=blue_theme,minimum size=13mm] (a){Material};\node[circle,draw=blue_theme,minimum size=13mm,right=of a] (b){Canal};\node[circle,draw=blue_theme,minimum size=13mm,right=of b] (c){Chave};\node[circle,draw=blue_theme,minimum size=13mm,right=of c] (d){Lógica};\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);\end{tikzpicture}}
 \chamada{Como descarregar uma saída somente quando A e B forem altos?}
 \end{frame}
-\note{Guardar a resposta: dois NMOS em série. Pedir um desenho para a aula seguinte, sem exigir tabela verdade ainda. Conferir se a turma distingue porta, canal e saída. Os conceitos detalhados ficam disponíveis nas notas.}
 
 \begin{frame}{Referências e créditos}
 \small\begin{itemize}\item Fathi Salem, \textit{ECE 410: VLSI Design}, Michigan State University. Notas fornecidas.
 \item J.-M. Dutertre, \textit{Digital Design (Introduction to)}, ISMIN, 2022. Figuras fornecidas.
-\item Mini-fichas: currículos de Luan e Luiz.
+\item Mini-fichas e fotografias: currículos de Luan e Luiz.
 \item Template Beamer UFC: Maurício Moreira Neto, modelo original 4:3.
 \item Figuras e sequências didáticas: elaboração para este minicurso.\end{itemize}
 \end{frame}
-\note{Os desenhos próprios resumem os conceitos das referências. Eles não representam simulação ou medição de um processo específico. Autoria do minicurso: Luan F. Nogueira e Luiz F. de Melo Soares.}
+\begin{frame}{Fontes da abertura histórica}
+\small\begin{itemize}
+\item \href{https://www.computerhistory.org/siliconengine/timeline/}{Computer History Museum: The Silicon Engine} — marcos históricos.
+\item Intel: \href{https://www.intel.com/content/www/us/en/newsroom/resources/moores-law.htm}{Lei de Moore} e \href{https://www.intel.com/pressroom/kits/quickreffam.htm}{processos históricos}.
+\item TSMC: relatórios anuais \href{https://investor.tsmc.com/static/annualReports/2020/english/index.html}{2020} e \href{https://investor.tsmc.com/static/annualReports/2025/english/index.html}{2025} — N5 e N2.
+\item ASML: \href{https://www.asml.com/en/technology/lithography-principles}{litografia} e \href{https://www.asml.com/en/company/stories/2024/5-things-high-na-euv}{EUV High-NA}.
+\item imec: \href{https://www.imec-int.com/en/articles/cmos-20-revolution}{CMOS 2.0} e \href{https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity}{integração 3D}.
+\end{itemize}
+\fonte{Consulta: 29/10/2026. Fontes completas e dados dos gráficos em dados/FONTES\_CONTEXTO.md no pacote completo. Figuras próprias; analogias e modelos sem escala.}
+\end{frame}
 \end{document}

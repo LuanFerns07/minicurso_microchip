@@ -7,8 +7,20 @@ material = Path(__file__).resolve().parent
 raiz = material.parent
 
 with ZipFile(raiz/'minicurso_cmos_completo.zip', 'w', ZIP_DEFLATED) as pacote:
-    pacote.write(raiz/'README.md', 'README.md')
-    for nome in ['README.md','compilar.sh','empacotar.py','CREDITOS_TEMPLATE.md','CITATION_TEMPLATE.cff']:
+    pacote.writestr('README.md', '''# Do transistor ao chip
+
+Oficinas em português, com duas horas por encontro.
+Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
+
+- [Aula 1](material/pdfs/aula1.pdf)
+- [Aula 2](material/pdfs/aula2.pdf)
+- [Encerramento da aula 3](material/pdfs/encerramento_aula3.pdf)
+- [Mapa do Brasil](material/pdfs/mapa_brasil.pdf)
+- [Fontes, instruções de compilação e demais materiais](material/README.md)
+
+O modelo Beamer UFC mantém o formato original 4:3.
+''')
+    for nome in ['README.md','compilar.sh','compilar.ps1','ROTEIRO_REVISAO.md','empacotar.py','CREDITOS_TEMPLATE.md','CITATION_TEMPLATE.cff']:
         pacote.write(material/nome, f'material/{nome}')
     for pasta in ['slides','apoio','pdfs','dados','scripts']:
         for arquivo in sorted((material/pasta).rglob('*')):
@@ -23,23 +35,27 @@ with ZipFile(raiz/'minicurso_cmos_beamer.zip','w',ZIP_DEFLATED) as pacote:
     for nome in ['CITATION_TEMPLATE.cff','CREDITOS_TEMPLATE.md']:
         pacote.write(material/nome,nome)
     pacote.write(material/'dados/CREDITOS_MAPA.md','CREDITOS_MAPA.md')
+    pacote.write(material/'dados/FONTES_CONTEXTO.md','FONTES_CONTEXTO.md')
+    pacote.write(material/'dados/processos_historicos.csv','processos_historicos.csv')
     pacote.writestr('LEIA_ME.md', '''# Do transistor ao chip — oficinas visuais de duas horas
 
 Luan F. Nogueira e Luiz F. de Melo Soares. Template UFC original 4:3.
 
 Use pdfLaTeX no Overleaf. `main.tex` compila a aula 1. Para trocar:
 
-- `\\input{aula1.tex}`: 25 quadros; 34 páginas com etapas.
+- `\\input{aula1.tex}`: 37 quadros; 49 páginas com etapas.
 - `\\input{aula2.tex}`: 27 quadros; 37 páginas com etapas.
 - `\\input{encerramento_aula3.tex}`: 17 quadros, incluindo âmbito Brasil.
 
 Você também pode selecionar diretamente um desses arquivos como principal.
 `*_resumo.tex` produz uma página de síntese por quadro.
-`*_notas.tex` inclui orientações para os facilitadores.
 
 A animação ocorre ao avançar as páginas: depleção, ativação do MOSFET,
 estados do inversor e das portas NAND/NOR. As figuras vetoriais estão em
-`visuais.tex`. Preserve `libs/` e os arquivos `brasil_*.tex`.
+`visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
+`contexto_visuais.tex`; preserve também `assets/`, `libs/` e `brasil_*.tex`.
+As fotos foram extraídas dos currículos fornecidos. Consulte FONTES_CONTEXTO.md
+para as fontes da história, gráficos, litografia e CMOS 2.0.
 
 Brasil: dados do Brazil Silicon Roadmap, de Matheus Grossi, via planilha
 PT-BR fornecida. Mapa redesenhado; 54 organizações, 73 presenças em 13 polos.

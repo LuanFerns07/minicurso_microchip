@@ -1,4 +1,4 @@
-param([string]$Python = 'python')
+﻿param([string]$Python = 'python')
 $ErrorActionPreference = 'Stop'
 Push-Location $PSScriptRoot
 try {
@@ -6,12 +6,14 @@ try {
     & $Python scripts/gerar_brasil.py
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao gerar a seção Brasil.' }
     New-Item -ItemType Directory -Force -Path build,pdfs | Out-Null
+    foreach ($obsolete in 'aula1_notas', 'aula2_notas', 'encerramento_aula3_notas', 'guia_facilitadores') {
+        Remove-Item -LiteralPath "pdfs/$obsolete.pdf" -ErrorAction SilentlyContinue
+    }
     $sources = @(
         'slides/aula1.tex', 'slides/aula2.tex', 'slides/encerramento_aula3.tex',
         'slides/aula1_resumo.tex', 'slides/aula2_resumo.tex', 'slides/encerramento_aula3_resumo.tex',
-        'slides/aula1_notas.tex', 'slides/aula2_notas.tex', 'slides/encerramento_aula3_notas.tex',
         'apoio/roadmap.tex', 'apoio/exercicios.tex', 'apoio/gabarito.tex',
-        'apoio/guia_facilitadores.tex', 'apoio/mapa_brasil.tex'
+        'apoio/mapa_brasil.tex'
     )
     foreach ($source in $sources) {
         $name = [IO.Path]::GetFileNameWithoutExtension($source)
@@ -28,5 +30,5 @@ try {
         Copy-Item -LiteralPath "build/$name.pdf" -Destination "pdfs/$name.pdf" -Force
         Write-Host "OK: $name"
     }
-    Write-Host 'Os 14 PDFs foram compilados em pdfs/.'
+    Write-Host 'Os 10 PDFs foram compilados em pdfs/.'
 } finally { Pop-Location }

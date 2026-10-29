@@ -1,0 +1,131 @@
+% Figuras originais para a abertura histórica. Referências: dados/FONTES_CONTEXTO.md.
+% As cores distinguem porta, canal e interconexões; desenhos sem escala.
+\newcommand{\linhaHistorica}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[seta] (0,0)--(10.3,0);
+\foreach \x/\ano/\titulo/\sub in {0.4/1947/Transistor/Bell Labs,2.8/1958--59/Circuito integrado/Kilby e Noyce,5.2/1960--63/MOS e CMOS/Controle por campo,7.6/1971/Microprocessador/Intel 4004,10/Hoje/Sistemas integrados/Múltiplas funções}{%
+\fill[blue_theme] (\x,0) circle(.09);
+\node[blue_theme,above=3mm,align=center,font=\small\bfseries] at (\x,0){\ano};
+\node[below=3mm,align=center,text width=2.25cm,font=\scriptsize] at (\x,0){\textbf{\titulo}\\[1mm]\sub};}
+% Dispositivo discreto, circuito, CPU, SoC: motivos conceituais.
+\draw[blue_theme,thick] (.05,1.5) rectangle (.75,2.25);
+\foreach \x in {.15,.4,.65}{\draw[blue_theme] (\x,1.5)--(\x,1.1);}
+\draw[blue_theme,thick] (2,1.2) rectangle (3.6,2.5);
+\foreach \x in {2.2,2.7,3.2}{\draw[blue_theme] (\x,1.6)--++(.2,.45)--++(.2,-.45);}
+\draw[blue_theme,thick] (4.6,1.4)--(5.8,1.4);\draw[blue_theme,thick] (4.6,1.65)--(5.8,1.65);\draw[blue_theme,line width=4pt] (4.9,2)--(5.5,2);
+\draw[blue_theme,thick] (6.8,1.2) rectangle (8.4,2.5);\node at (7.6,1.85){CPU};
+\draw[blue_theme,thick] (9.1,1.2) rectangle (10.9,2.5);
+\foreach \x/\y in {9.25/1.35,10.05/1.35,9.25/1.95,10.05/1.95}{\fill[blue_theme!20] (\x,\y) rectangle ++(.65,.4);}
+\path[use as bounding box] (-.8,-1.3) rectangle (11.2,2.9);
+\end{tikzpicture}}
+
+\newcommand{\graficoMoore}{%
+\begin{tikzpicture}[x=.86cm,y=.19cm,font=\small]
+\draw[->,blue_theme] (0,0)--(9,0) node[right]{anos};
+\draw[->,blue_theme] (0,0)--(0,19) node[above,align=center]{quantidade\\relativa};
+\foreach \y in {1,2,4,8,16}{\draw[gray!25] (0,\y)--(8,\y);\node[left] at (0,\y){\y};}
+\foreach \x in {0,2,4,6,8}{\draw (\x,0)--(\x,-.4) node[below]{\x};}
+\draw[blue_theme,very thick,domain=0:8,samples=60] plot (\x,{2^(\x/2)});
+\foreach \x/\y in {0/1,2/2,4/4,6/8,8/16}{\fill[blue_theme] (\x,\y) circle[x radius=.07,y radius=.32];}
+\node[align=center,fill=white,inner sep=2mm] at (3.6,14){\textbf{Dobrar a cada dois anos}\\$N(t)=N_0\,2^{t/2}$};
+\path[use as bounding box] (-1.4,-3) rectangle (10.2,24);
+\end{tikzpicture}}
+
+\newcommand{\graficoProcessos}{%
+\begin{tikzpicture}[x=.175cm,y=.79cm,font=\scriptsize]
+\fill[blue_theme!6] (47,-.1) rectangle (56,4.8);
+\draw[->,blue_theme] (0,0)--(57,0);\draw[->,blue_theme] (0,0)--(0,4.8);
+\node[anchor=west] at (0,5.15){Referência de processo (nm) · eixo logarítmico};
+\foreach \y/\t in {0/1,1/10,2/100,3/{1\,000},4/{10\,000}}{\draw[gray!25] (0,\y)--(56,\y);\node[left] at (0,\y){\t};}
+\draw[blue_theme,very thick] (0,4)--(7,3.4771)--(14,3.1761)--(22,2.9031)--(29,2.2553)--(37,1.6532);
+\foreach \x/\y/\valor/\ano in {0/4/{10\,000}/1971,14/3.1761/{1\,500}/1985,29/2.2553/180/2000,37/1.6532/45/2008}{%
+\fill[blue_theme] (\x,\y) circle[x radius=.45,y radius=.1];
+\ifnum\x>0\node[above=1.5mm] at (\x,\y){\valor};\fi\node[below=2mm] at (\x,0){\ano};}
+\foreach \x/\y/\nome/\ano in {49/.699/N5/2020,54/.301/N2/2025}{%
+\draw[lacuna,thick,fill=white] (\x,\y) circle[x radius=.5,y radius=.11];
+\node[above=2mm,lacuna] at (\x,\y){\nome};\node[below=2mm] at (\x,0){\ano};}
+\node[align=center,text width=1.7cm] at (51.5,3.4){Nós comerciais\\recentes};
+\node[anchor=west] at (0,-1.1){$1\,\mu$m = $1\,000$ nm};
+\path[use as bounding box] (-7,-1.5) rectangle (58,5.6);
+\end{tikzpicture}}
+
+\newcommand{\litografiaEtapa}[1]{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\fill[blue_theme!15] (0,0) rectangle (7,.7);\node at (3.5,.32){substrato};
+\ifnum#1<3
+\fill[blue_theme!65] (0,.7) rectangle (7,.95);
+\else
+\foreach \x in {0,2.8,5.6}{\fill[blue_theme!65] (\x,.7) rectangle ++(1.4,.25);}
+\fi
+\ifnum#1=1
+\fill[yellow!70] (0,.95) rectangle (7,1.3);
+\foreach \x in {1.4,4.2}{\fill[red!12] (\x,.95) rectangle ++(1.4,.35);\fill[red!10] (\x,1.4) rectangle ++(1.4,2.2);\draw[-{Latex},red] (\x+.7,3.5)--(\x+.7,1.45);}
+\draw[blue_theme,line width=4pt] (0,3.8)--(1.4,3.8) (2.8,3.8)--(4.2,3.8) (5.6,3.8)--(7,3.8);
+\node[left] at (0,3.8){máscara};\node[right,align=left,font=\scriptsize] at (7.2,2.6){Luz projetada\\sobre o resiste};
+\else
+\foreach \x in {0,2.8,5.6}{\fill[yellow!70] (\x,.95) rectangle ++(1.4,.35);}
+\ifnum#1=2
+\foreach \x in {2.1,4.9}{\draw[seta] (\x,2.6)--(\x,1.5);}
+\node[align=center] at (3.5,3.5){Revelação remove as partes expostas\\de um resiste positivo.};
+\else
+\foreach \x in {2.1,4.9}{\draw[-{Latex},thick,red] (\x,2.6)--(\x,.85);}
+\node[align=center] at (3.5,3.5){Gravação transfere o padrão\\à camada abaixo do resiste.};
+\fi\fi
+\draw[blue_theme] (0,0) rectangle (7,.7);
+\draw[-,blue_theme] (7,.82)--(7.6,.82) node[right,font=\scriptsize]{camada a padronizar};
+\draw[-,lacuna] (6.4,1.2)--(7.6,1.7) node[right,font=\scriptsize]{resiste};
+\path[use as bounding box] (-1.5,-.4) rectangle (10.1,4.5);
+\end{tikzpicture}}
+
+\newcommand{\transistoresModernos}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\foreach \x/\nome in {0/Planar,3.8/FinFET,7.6/{GAA · nanosheets}}{%
+\node[blue_theme,font=\small\bfseries] at (\x+1.25,3.2){\nome};
+\fill[gray!12] (\x,0) rectangle ++(2.5,.5);}
+% Cortes transversais ao canal. Dielétrico branco entre porta e silício.
+\fill[ativo!60] (.4,.5) rectangle (2.1,.85);
+\fill[blue_theme!70] (.35,1) rectangle (2.15,1.5);
+\fill[blue_theme!70] (4.35,.55) rectangle (5.75,2.4);
+\fill[white] (4.75,.5) rectangle (5.35,2.05);
+\fill[ativo!60] (4.87,.5) rectangle (5.23,1.93);
+\fill[blue_theme!70] (8.1,.65) rectangle (9.6,2.55);
+\foreach \y in {.9,1.5,2.1}{\fill[white,rounded corners=2pt] (8.3,\y) rectangle ++(1.1,.3);\fill[ativo!60,rounded corners=1pt] (8.4,\y+.08) rectangle ++(.9,.14);}
+\node[align=center,font=\scriptsize] at (1.25,-.5){Porta sobre\\a superfície};
+\node[align=center,font=\scriptsize] at (5.05,-.5){Porta envolve\\três faces};
+\node[align=center,font=\scriptsize] at (8.85,-.5){Porta envolve\\cada canal};
+\fill[blue_theme!70] (2,-1.45) rectangle ++(.25,.2);\node[right,font=\scriptsize] at (2.3,-1.35){porta};
+\fill[ativo!60] (5,-1.45) rectangle ++(.25,.2);\node[right,font=\scriptsize] at (5.3,-1.35){canal};
+\path[use as bounding box] (-.3,-1.7) rectangle (10.4,3.6);
+\end{tikzpicture}}
+
+\newcommand{\cidadeDados}[1]{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\ifnum#1=1
+\fill[blue_theme!5] (-.3,-.3) rectangle (3.3,3.3);\fill[ativo!5] (6.7,-.3) rectangle (10.3,3.3);
+\draw[blue_theme,thick,fill=white] (.4,.3) rectangle (2.6,2.7);\node[align=center] at (1.5,1.55){Memória\\\scriptsize bairro A};
+\draw[ativo,thick,fill=white] (7.4,.3) rectangle (9.6,2.7);\node[align=center] at (8.5,1.55){Processamento\\\scriptsize bairro B};
+\draw[line width=7pt,gray!30] (2.6,.7)--(4,.7)--(4,2.4)--(6,2.4)--(6,.7)--(7.4,.7);
+\draw[-{Latex},blue_theme,very thick] (2.6,.7)--(4,.7)--(4,2.4)--(6,2.4)--(6,.7)--(7.4,.7);
+\node[above,fill=white,inner sep=1pt,font=\scriptsize] at (5,2.6){transporte dos dados};
+\node[font=\scriptsize,align=center] at (5,-1){Mais distância e interconexões\\podem aumentar atraso e energia.};
+\else
+\draw[blue_theme,thick,fill=white] (2.1,0) rectangle (7.9,3.6);
+\fill[blue_theme!15] (2.15,2) rectangle (7.85,3.55);\fill[ativo!12] (2.15,.05) rectangle (7.85,1.6);
+\node at (4.4,2.75){Memória};\node at (4.4,.8){Processamento};
+\draw[<->,very thick,blue_theme] (6.9,1)--(6.9,2.8);\node[right,font=\scriptsize,fill=white,inner sep=1pt] at (8.1,1.8){dados};\draw[blue_theme] (7,1.8)--(8.1,1.8);
+\draw[blue_theme] (2.1,1.8)--(7.9,1.8);
+\node[align=center,font=\scriptsize] at (5,-1){Mesmo prédio, andares diferentes:\\conexões verticais curtas e numerosas.};
+\fi
+\path[use as bounding box] (-.4,-1.5) rectangle (10.4,4);
+\end{tikzpicture}}
+
+\newcommand{\pilhaCMOSdois}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\foreach \y/\cor/\titulo in {0/gray/Alimentação e acesso externo,1.2/ativo/Lógica densa,2.4/blue_theme/Memória,3.6/lacuna/Interfaces e funções especializadas}{%
+\fill[\cor!14] (0,\y)--(5,\y)--(5.8,\y+.45)--(.8,\y+.45)--cycle;
+\draw[\cor,thick] (0,\y)--(5,\y)--(5.8,\y+.45)--(.8,\y+.45)--cycle;
+\node[anchor=west,font=\scriptsize] at (6,\y+.2){\titulo};}
+\foreach \x in {1,2,3,4}{\draw[blue_theme,thick,densely dashed] (\x,.5)--(\x,3.5);}
+\node[anchor=west,font=\scriptsize,align=left] at (6,-.9){Conexões 3D densas\\entre camadas funcionais};
+\path[use as bounding box] (-.3,-1.4) rectangle (10.6,4.5);
+\end{tikzpicture}}

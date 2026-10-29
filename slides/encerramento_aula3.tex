@@ -4,7 +4,6 @@
 \title[Aula 3 • Caminhos e Brasil]{\huge\textbf{Do transistor ao chip}}
 \begin{document}
 \capa{Encerramento da aula 3 · Para onde seguir?}{Trilhas de estudo e microeletrônica no Brasil • cerca de 25 minutos}
-\note{Bloco final da oficina de duas horas. Reservar cerca de 95 minutos à futura prática e 25 ao encerramento; a prática continua sem roteiro elaborado. As páginas regionais do Brasil são consultáveis: destacar exemplos, sem ler toda a relação.}
 
 \section{Trilhas}
 \begin{frame}{Uma base, cinco caminhos que se conectam}
@@ -14,7 +13,6 @@
 \end{tikzpicture}}
 \chamada{Microeletrônica reúne essas áreas e outras especialidades.}
 \end{frame}
-\note{O objetivo é abrir possibilidades, não exigir escolha de carreira. Arquitetura conecta escolhas do sistema a implementações digitais; RF se apoia em analógica, sinais e eletromagnetismo. Nenhuma trilha é totalmente isolada.}
 
 \begin{frame}{Digital: implementar funções em hardware}
 \figura{\begin{tikzpicture}[node distance=8mm,font=\small]
@@ -22,7 +20,6 @@
 \begin{itemize}\item Estudar: lógica sequencial, HDL/RTL e verificação.
 \item Primeiro projeto: ULA de 4 bits com testes automáticos.\end{itemize}
 \end{frame}
-\note{HDL: linguagem de descrição de hardware. RTL: descrição no nível de transferências entre registradores. ULA: unidade lógica e aritmética. As setas mostram um percurso de estudo, não a conectividade interna de uma ULA. FPGA é uma possibilidade de prototipagem; ASIC tem outras etapas de implementação física.}
 
 \begin{frame}{Arquitetura: organizar a computação}
 \figura{\begin{tikzpicture}[node distance=12mm,font=\small]
@@ -34,7 +31,6 @@
 \begin{itemize}\item Estudar: instruções, caminho de dados e memória.
 \item Primeiro projeto: executar uma tarefa e contar ciclos.\end{itemize}
 \end{frame}
-\note{Diagrama funcional simplificado. A ISA é o contrato de instruções visível ao software; a microarquitetura organiza sua execução. Depois vêm temas como pipeline, caches e paralelismo. O trabalho de Luan com aceleradores ilustra a ligação com essa trilha.}
 
 \begin{frame}{Analógica: trabalhar com sinais contínuos}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
@@ -45,7 +41,6 @@
 \begin{itemize}\item Estudar: polarização, pequenos sinais e realimentação.
 \item Primeiro projeto: amplificador fonte comum.\end{itemize}
 \end{frame}
-\note{O desenho ilustra amplificação ideal de uma senoide, sem representar uma topologia ou ganho medido. O mesmo MOSFET passa a ser visto como dispositivo de controle contínuo de corrente. Projetos reais também precisam de ruído, estabilidade, faixa de saída e variações. O trabalho de Luiz com amplificadores e layout é um exemplo.}
 
 \begin{frame}{Sinais mistos: do sinal ao código}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
@@ -57,7 +52,6 @@
 \begin{itemize}\item Estudar: amostragem, quantização e conversores.
 \item Primeiro projeto: modelo de ADC de 3 bits.\end{itemize}
 \end{frame}
-\note{ADC: conversor analógico--digital. DAC faz a conversão no sentido oposto. O código mostrado é ilustrativo, sem correspondência numérica com as amostras desenhadas. A área também envolve interfaces de sensores, sincronização e convivência entre blocos analógicos e digitais.}
 
 \begin{frame}{RF integrada: comunicar por ondas}
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
@@ -68,7 +62,6 @@
 \begin{itemize}\item Estudar: analógica, sinais, impedâncias e eletromagnetismo.
 \item Primeiro projeto: rede LC de casamento de impedâncias.\end{itemize}
 \end{frame}
-\note{LC: indutor e capacitor. A cadeia é uma ilustração funcional de recepção, não um rádio completo. Ruído, linearidade, componentes parasitas e encapsulamento são importantes. Não definir a área por uma frequência de corte universal.}
 
 \begin{frame}{As trilhas se encontram em um produto}
 \figura{\begin{tikzpicture}[node distance=4mm,font=\small]
@@ -77,7 +70,6 @@
 \chamada{Exemplo: um nó de sensores sem fio.}
 \small\centering Projeto físico • verificação • processos • teste • encapsulamento • ferramentas
 \end{frame}
-\note{O processamento e a comunicação reais incluem interfaces e conversões adicionais. A arquitetura organiza dados, memória e consumo. O setor também precisa de funções transversais: não se resume a desenhar transistores ou escrever HDL. Cada bloco pode estar no mesmo chip ou em componentes separados.}
 
 \input{brasil_trecho.tex}
 
@@ -88,7 +80,6 @@
 \end{tikzpicture}}
 \chamada{Qual trilha? Qual primeiro projeto? Como demonstrar que funciona?}
 \end{frame}
-\note{Fechar com dois ou três relatos curtos. A turma pode registrar uma trilha, um pré-requisito e uma entrega. Não é preciso decidir uma carreira hoje. Os mapas e as listas ficam para consulta.}
 
 \begin{frame}{Créditos e caminhos de consulta}
 \small\begin{itemize}\item Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
@@ -97,5 +88,4 @@
 \item Continuação de estudos: \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004}, Salem e Dutertre.
 \item Template Beamer UFC: Maurício Moreira Neto.\end{itemize}
 \end{frame}
-\note{As localizações são polos agregados e não endereços. As incertezas e categorias da planilha estão preservadas nos dados derivados. O mapa não reproduz a imagem fornecida. As sequências de estudo e os pequenos projetos são propostas didáticas, não promessas de emprego ou ofertas de curso.}
 \end{document}

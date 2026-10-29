@@ -6,15 +6,13 @@ Oficinas em português, com **duas horas por encontro**. Desenvolvimento e facil
 
 | Material | Quadros | Páginas com as etapas |
 | --- | ---: | ---: |
-| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 25 | 34 |
+| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 37 | 49 |
 | [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 27 | 37 |
 | [Encerramento da aula 3 — Caminhos e Brasil](pdfs/encerramento_aula3.pdf) | 17 | 17 |
 
-Os quadros foram simplificados para privilegiar figuras, desenhos e discussão. As explicações extensas ficam nas notas. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
+Os quadros privilegiam figuras, desenhos e discussão. A abertura da aula 1 apresenta os facilitadores com fotos, o percurso das três oficinas e o contexto histórico da microeletrônica: Lei de Moore, miniaturização, litografia, limites de escala e CMOS 2.0. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
 
 - [Aula 1 resumida](pdfs/aula1_resumo.pdf), [aula 2 resumida](pdfs/aula2_resumo.pdf) e [encerramento resumido](pdfs/encerramento_aula3_resumo.pdf): uma página de síntese por quadro.
-- [Notas da aula 1](pdfs/aula1_notas.pdf), [notas da aula 2](pdfs/aula2_notas.pdf) e [notas do encerramento](pdfs/encerramento_aula3_notas.pdf).
-- [Guia dos facilitadores](pdfs/guia_facilitadores.pdf): cronogramas de 120 minutos e condução das figuras.
 - [Atividades](pdfs/exercicios.pdf) e [gabarito](pdfs/gabarito.pdf).
 - [Roadmap de estudos](pdfs/roadmap.pdf): A4 horizontal.
 - [Microeletrônica no Brasil — mapa e organizações](pdfs/mapa_brasil.pdf): pôster vetorial A3 horizontal.
@@ -51,13 +49,15 @@ bash compilar.sh
 
 No Windows, com Python e pdfLaTeX disponíveis no terminal, execute `.\compilar.ps1`. Para selecionar o Python, use `.\compilar.ps1 -Python 'C:\caminho\python.exe'`. Consulte [o roteiro de revisão](ROTEIRO_REVISAO.md) para a organização do conteúdo.
 
-O script usa os dados locais para gerar a seção Brasil e compila os 14 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
+O script usa os dados locais para gerar a seção Brasil e compila os 10 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
 
 - `slides/aula1.tex`, `slides/aula2.tex`, `slides/encerramento_aula3.tex`: apresentações.
 - `slides/visuais.tex`: desenhos parametrizados e cores de estados.
+- `slides/contexto_abertura.tex` e `slides/contexto_visuais.tex`: história, litografia, gráficos e integração 3D.
+- `slides/assets/facilitadores/`: fotografias extraídas dos currículos.
+- `dados/FONTES_CONTEXTO.md` e `dados/processos_historicos.csv`: bibliografia e dados dos gráficos da abertura.
 - `slides/comum.tex`: comandos compartilhados; o tema está na classe original `slides/libs/ufc_format.cls`.
 - `slides/*_resumo.tex`: ativa o modo `handout` para produzir a síntese.
-- `slides/*_notas.tex`: acrescenta as notas dos facilitadores.
 - `dados/*.csv`: índice derivado da planilha necessário ao mapa.
 - `scripts/gerar_brasil.py`: recompõe mapa, listas e pôster a partir dos CSVs.
 - `scripts/importar_planilha_brasil.py`: atualiza os CSVs a partir de uma planilha local indicada como argumento.
@@ -69,7 +69,7 @@ Para atualizar os pacotes de entrega depois de compilar:
 python3 empacotar.py
 ```
 
-O ZIP Beamer contém os fontes e as figuras necessários ao Overleaf. Use pdfLaTeX e escolha a apresentação principal, sua versão `resumo` ou `notas`.
+O ZIP Beamer contém os fontes e as figuras necessários ao Overleaf. Use pdfLaTeX e escolha a apresentação principal, ou sua versão `resumo`.
 
 ## Git e fontes de referência
 
@@ -80,8 +80,12 @@ git -C material status
 git -C material log --oneline
 ```
 
-São versionados os fontes, os scripts, as figuras necessárias à compilação e os dados derivados do mapa. PDFs gerados, ZIPs, currículos, planilhas originais, referências em PDF, textos extraídos e a cópia integral do template original ficam fora do versionamento. O brasão e o fundo de `slides/libs/` são dependências visuais do template.
+São versionados os fontes, os scripts, as figuras necessárias à compilação e os dados derivados do mapa. Os PDFs de entrega são versionados, conforme a organização incorporada ao repositório. ZIPs, currículos completos, planilhas originais, referências em PDF, textos extraídos e a cópia integral do template original ficam fora do versionamento. O brasão e o fundo de `slides/libs/` são dependências visuais do template.
 
-Referências técnicas: Fathi Salem, *ECE 410: VLSI Design*; J.-M. Dutertre, *Digital Design (Introduction to)*, 2022; [Steve Ward — CMOS](https://computationstructures.org/notes/cmos/notes.html); [MIT 6.004](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/). Mini-fichas baseadas nos currículos fornecidos. Template UFC: Maurício Moreira Neto; [créditos](CREDITOS_TEMPLATE.md).
+Referências técnicas: Fathi Salem, *ECE 410: VLSI Design*; J.-M. Dutertre, *Digital Design (Introduction to)*, 2022; [Steve Ward — CMOS](https://computationstructures.org/notes/cmos/notes.html); [MIT 6.004](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/). Mini-fichas e fotos extraídas dos currículos fornecidos. Fontes primárias da contextualização histórica: [dados/FONTES_CONTEXTO.md](dados/FONTES_CONTEXTO.md). Template UFC: Maurício Moreira Neto; [créditos](CREDITOS_TEMPLATE.md).
 
-Os desenhos são qualitativos, sem escala e sem resultados medidos ou simulados. Os exemplos de tensões não definem um PDK. As notas explicitam as simplificações de portadores, corpo, carga e chaves ideais.
+Os desenhos são qualitativos, sem escala e sem resultados medidos ou simulados. Os exemplos de tensões não definem um PDK. As legendas indicam as simplificações dos modelos. No gráfico histórico, referências de processo e nomes comerciais recentes são distinguidos; não se trata de uma medida uniforme do comprimento do transistor.
+
+## Ritmo da aula 1
+
+Apresentação e percurso: 5 min; contexto histórico e perspectivas: 22 min; materiais: 15 min; junção PN e discussão: 18 min; pausa: 10 min; MOSFET: 25 min; CMOS e desenho físico: 15 min; atividade e fechamento: 10 min. Total: **120 minutos**. Os PDFs de notas e o guia de condução foram retirados; permanecem as apresentações, resumos, atividades e gabarito.
