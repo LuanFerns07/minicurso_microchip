@@ -16,10 +16,12 @@ Library: \cod{minicurso_cmos}\par Cell: \cod{a3_inv}\par View/Type: \cod{layout}
 A vista ainda está vazia: criar a vista não gera um layout concluído.
 }{Próxima operação: gerar os dispositivos a partir do schematic no Layout XL, posicionar PMOS acima e NMOS abaixo e iniciar as conexões. As janelas intermediárias não foram registradas.}
 
-\telaAmpla{A3 · 04 — Relacionar as conexões físicas}{43-layout-inversor.png}{%
-Gates → vin.\quad Drains → vout.\quad PMOS acima; NMOS abaixo.\par
-Conferir alimentação, contatos de corpo e pinos físicos.
-}{A captura registra a montagem, não uma aprovação de DRC/LVS. As etapas de geração, posicionamento e roteamento não têm capturas intermediárias no roteiro.}
+\telaPasso{A3 · 04 — Relacionar o layout atualizado}{43-layout-inversor.png}{%
+\acao{PMOS superior}{Source e corpo em \cod{vdd!}.}
+\acao{NMOS inferior}{Source e corpo em \cod{gnd!}.}
+\acao{vin}{Gates dos dois dispositivos.}
+\acao{vout}{Drains dos dois dispositivos.}
+}{Comparar com \cod{a3_inv/schematic} e conferir camadas, contatos e nomes das redes. Esta é a captura atualizada da montagem; os resultados das verificações aparecem nas próximas etapas.}
 
 \begin{frame}{A3 · 05 — Configurar a tecnologia no Assura}
 \small
@@ -33,27 +35,49 @@ Em \textbf{Assura → Technology…}, selecionar:\par\smallskip
 \fonte{O caminho é específico do servidor do minicurso; em outra instalação, localizar o arquivo correspondente no PDK. Reconhecer as regras é uma configuração anterior à verificação do layout.}
 \end{frame}
 
-\telaPasso{A3 · 06 — Configurar e executar DRC}{44-configuracao-drc-assura.png}{%
-\acao{Assura → Run DRC}{\cod{a3_inv/layout}\par Area To Be Checked = Full}
-\acao{Regras}{\cod{gpdk045_av}\par Rule Set = default\par \cod{assuraDRC.rul}}
-\acao{Execução}{Run Name: \cod{a3_inv_drc}. Diretório com permissão de escrita.}
-}{A captura tem Run Name vazio: preencher antes de executar. Examinar o relatório e corrigir violações. Ainda não há relatório final de DRC registrado.}
+\duasTelas{A3 · 06 — Localizar o DRC no Assura}{47-menu-assura-drc.png}{44-configuracao-drc-assura.png}{%
+No layout: Assura → Run DRC…}{%
+Configuração de referência:\par gpdk045\_av · default\par Regras: assuraDRC.rul
+}{As regras precisam estar reconhecidas antes da execução. O próximo formulário registra a versão final usada na verificação.}
 
-\telaPasso{A3 · 07 — Comparar schematic e layout no LVS}{45-configuracao-lvs-assura.png}{%
-\acao{Assura → Run LVS}{Selecionar schematic e layout de \cod{a3_inv}.}
-\acao{Arquivos reconhecidos}{\cod{extract.rul}\par\cod{compare.rul}\par\cod{LVSinclude.rsf}}
-\acao{Execução}{Run Name: \cod{a3_inv_lvs}. Usar diretório separado do DRC.}
-}{Tecnologia \cod{gpdk045_av}, Rule Set default. Os arquivos ficam em assura/. Conferir o relatório; regras preenchidas não comprovam correspondência entre os circuitos.}
+\telaPasso{A3 · 07 — Executar DRC na versão final}{48-formulario-drc-final.png}{%
+\acao{Design}{\cod{a3_inv/layout}\par Área: Full}
+\acao{Regras}{\cod{gpdk045_av}\par default · \cod{assuraDRC.rul}}
+\acao{Executar}{Conferir nome e diretório na sessão; preservar os resultados.}
+}{A captura tem Run Name vazio e Run Directory = ponto. Escolher dados de execução válidos no ambiente; o formulário sozinho não é o resultado do DRC.}
 
-\begin{frame}{A3 · 08 — Concluir com evidências de DRC e LVS}
+\telaPasso{A3 · 08 — Resultado registrado: DRC sem erros}{46-drc-sem-erros.png}{%
+\acao{Mensagem do Assura}{\textbf{No DRC errors found.}}
+\acao{O que ela confirma}{As regras de DRC executadas não encontraram violações nesta versão do layout.}
+\acao{Próximo passo}{Conferir a correspondência elétrica pelo LVS.}
+}{Se o layout mudar durante uma correção, repetir o DRC na versão alterada. A captura é o resultado fornecido para o minicurso.}
+
+\duasTelas{A3 · 09 — Localizar o LVS no Assura}{49-menu-assura-lvs.png}{45-configuracao-lvs-assura.png}{%
+No layout: Assura → Run LVS…}{%
+Configuração de referência:\par extract.rul · compare.rul\par LVSinclude.rsf
+}{Comparar schematic e layout da mesma célula \cod{a3_inv}. Tecnologia gpdk045\_av, Rule Set default.}
+
+\telaPasso{A3 · 10 — Executar a comparação final de LVS}{50-formulario-lvs-final.png}{%
+\acao{Vistas de a3\_inv}{\cod{schematic}\par\cod{layout}}
+\acao{Regras}{\cod{extract.rul}\par\cod{compare.rul}\par\cod{LVSinclude.rsf}}
+\acao{Executar}{Conferir nome/diretório e ler o resumo.}
+}{Biblioteca \cod{minicurso_cmos}, tecnologia gpdk045\_av e Rule Set default. O resultado mostrado a seguir identifica a execução como \cod{a3_inv}.}
+
+\telaPasso{A3 · 11 — Resultado registrado: LVS corresponde}{51-lvs-match.png}{%
+\acao{Mensagem do Assura}{\textbf{Schematic and Layout Match.}}
+\acao{Resumo}{Zero divergências de redes, dispositivos, pinos e parâmetros.}
+\acao{Navegação}{Yes permite visualizar os resultados da nova execução.}
+}{A janela também indica Total DRC violations: 0. A pergunta de navegação não é uma falha de LVS; a correspondência já está informada no resumo.}
+
+\begin{frame}{A3 · 12 — Concluir com as evidências de DRC e LVS}
 \figura{\begin{tikzpicture}[node distance=12mm,font=\small]
-\node[draw=blue_theme,align=center,minimum width=2.5cm,minimum height=1.2cm] (a){\textbf{DRC}\\Regras geométricas};
-\node[draw=blue_theme,right=of a,align=center,minimum width=2.5cm,minimum height=1.2cm] (b){\textbf{LVS}\\Correspondência elétrica};
-\node[draw=blue_theme,right=of b,align=center,minimum width=2.5cm,minimum height=1.2cm] (c){\textbf{Registrar}\\Relatórios finais};
+\node[draw=blue_theme,align=center,minimum width=2.5cm,minimum height=1.2cm] (a){\textbf{DRC}\\Sem erros};
+\node[draw=blue_theme,right=of a,align=center,minimum width=2.5cm,minimum height=1.2cm] (b){\textbf{LVS}\\Schematic/Layout Match};
+\node[draw=blue_theme,right=of b,align=center,minimum width=2.5cm,minimum height=1.2cm] (c){\textbf{Registrar}\\Preservar resultados};
 \draw[seta] (a)--(b);\draw[seta] (b)--(c);
 \node[below=10mm of b,font=\scriptsize,align=center] (d){Alterou o layout?\\Repetir as verificações pertinentes.};
 \draw[seta] (d.west)-|(a.south);
 \end{tikzpicture}}
-\chamada{Critério: DRC sem violações e LVS com correspondência.}
-\fonte{Esses resultados ainda não foram documentados no Quick Start. A aula termina em DRC/LVS; extração de parasitas e simulação após extração ficam fora do escopo. Depois, retomar o encerramento e o roadmap.}
+\chamada{O layout verificado corresponde ao schematic do inversor.}
+\fonte{Conclusão apoiada nas capturas de DRC e LVS fornecidas. A aula termina nessas verificações; extração de parasitas e simulação após extração ficam fora do escopo. Retomar o encerramento e o roadmap.}
 \end{frame}

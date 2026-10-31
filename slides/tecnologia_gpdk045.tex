@@ -1,7 +1,7 @@
 % Introdução curta, compartilhada entre a aula 1 e o roteiro de bancada.
 \begingroup
 \begin{frame}{Nossa tecnologia na prática: gpdk045}
-\begin{center}\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=3.35cm}\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \draw[blue_theme,thick,fill=blue_theme!6] (3.7,0) rectangle (6.4,2.2);
 \node[blue_theme,font=\bfseries] at (5.05,1.35){gpdk045};\node[font=\scriptsize] at (5.05,.65){CMOS genérico · 45 nm};
 \node[align=center,font=\scriptsize] (a) at (1.1,3){\textbf{Schematic}\\Símbolos e terminais};
@@ -10,7 +10,7 @@
 \node[align=center,font=\scriptsize] (d) at (9,-.55){\textbf{Verificação}\\Regras DRC/LVS};
 \draw[seta] (3.7,1.7)--(a);\draw[seta] (6.4,1.7)--(b);\draw[seta] (3.7,.3)--(c);\draw[seta] (6.4,.3)--(d);
 \path[use as bounding box] (-.5,-1.15) rectangle (10.6,3.65);
-\end{tikzpicture}\end{center}
+\end{tikzpicture}\end{adjustbox}\end{center}
 {\small\centering Na nossa montagem: $V_{DD}=1$ V, $W=120$ nm, $L=45$ nm.\par
 \texttt{nmos1v} / \texttt{pmos1v} · um finger · multiplicador 1.\par}
 \fonte{PDK = Process Design Kit. Fonte: \href{https://community.cadence.com/cadence_technology_forums/f/custom-ic-design/36796/basics-of-pdk/1349734}{Cadence — Basics of PDK}: kit genérico para ensino e demonstração. Parâmetros aplicados: Quick Start da prática; 1 V é a alimentação usada neste minicurso.}
@@ -35,6 +35,6 @@ $V_{TN}$: limiar\qquad $W/L$: razão geométrica\par\medskip
 Modelo ideal & Referência & Dobrar W & Dobrar L\\\midrule
 Corrente relativa & $1\times$ & $2\times$ & $0{,}5\times$\\\bottomrule
 \end{tabular}
-\fonte{Mesmas tensões, mobilidade, Cox e limiar. Para o módulo da corrente PMOS, usar $\mu_p$, $V_{SG}$ e $|V_{TP}|$. Fonte: \href{https://web.mit.edu/6.101/www/s2020/handouts/L06.pdf}{MIT 6.101, aula 6, pp. 19–20}. A lei quadrática explica tendências; a simulação em 45 nm usa os modelos do PDK e não precisa seguir exatamente essas proporções. W maior também aumenta capacitâncias.}
+\fonte{Tabela para um NMOS em saturação, com mesmas tensões, mobilidade, Cox e limiar. Para o módulo da corrente PMOS, usar $\mu_p$, $V_{SG}$ e $|V_{TP}|$. Fonte: \href{https://web.mit.edu/6.101/www/s2020/handouts/L06.pdf}{MIT 6.101, aula 6, pp. 19–20}. A lei quadrática explica tendências; a simulação em 45 nm usa os modelos do PDK e não precisa seguir exatamente essas proporções. W maior também aumenta capacitâncias.}
 \end{frame}
 \endgroup

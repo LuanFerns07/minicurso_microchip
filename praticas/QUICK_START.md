@@ -1,7 +1,5 @@
 # Quick Start — Práticas de CMOS no Cadence Virtuoso
 
-Versão visual: [roteiro em PDF](../pdfs/praticas_cmos.pdf), com as capturas e etapas organizadas por aula. Na adaptação para apresentação, os terminais MOS são nomeados Source, Gate e Drain.
-
 Documento em construção a partir das montagens e capturas reais do minicurso. Este roteiro é separado das apresentações existentes.
 
 ## Percurso das três aulas
@@ -671,3 +669,6 @@ A prática termina com o inversor implementado em layout e validado no Assura:
 Não será realizada extração de parasitas nem simulação pós-layout neste minicurso. As simulações de funcionamento apresentadas na aula 2 são do schematic; a aula 3 verifica as regras físicas e a correspondência elétrica da implementação com esse schematic.
 
 **Perguntas de fechamento:** onde estão os dois transistores no layout? Como reconhecer entrada, saída e alimentação? Qual é a função dos contatos de poço e substrato? O que o DRC verifica e o que o LVS compara?
+=======
+**Conclusão da aula 3:** o layout do inversor passou pelo DRC e corresponde ao schematic no LVS. A atividade demonstrou a passagem dos transistores e conexões do schematic para a implementação física e suas verificações. A validação registrada refere-se à versão verificada; alterações posteriores no layout exigem novas verificações. A aula termina aqui, sem extração de parasitas ou simulação após extração.
+

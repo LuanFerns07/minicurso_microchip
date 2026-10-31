@@ -42,7 +42,7 @@ with ZipFile(raiz/'minicurso_cmos_beamer.zip','w',ZIP_DEFLATED) as pacote:
     pacote.write(material/'dados/CREDITOS_MAPA.md','CREDITOS_MAPA.md')
     pacote.write(material/'dados/FONTES_CONTEXTO.md','FONTES_CONTEXTO.md')
     pacote.write(material/'dados/processos_historicos.csv','processos_historicos.csv')
-    for nome in ['FONTES_INTEGRACAO.md','CREDITOS_MICROGRAFIAS.md','integracao_processadores.csv','micrografias_fontes.json']:
+    for nome in ['FONTES_INTEGRACAO.md','CREDITOS_MICROGRAFIAS.md','integracao_processadores.csv','micrografias_fontes.json','FONTES_PDK.md']:
         pacote.write(material/'dados'/nome,nome)
     pacote.writestr('LEIA_ME.md', '''# Do transistor ao chip — oficinas visuais de duas horas
 
@@ -50,10 +50,10 @@ Luan F. Nogueira e Luiz F. de Melo Soares. Template UFC original 4:3.
 
 Use pdfLaTeX no Overleaf. `main.tex` compila a aula 1. Para trocar:
 
-- `\\input{aula1.tex}`: 39 quadros; 54 páginas nesta edição com etapas.
+- `\\input{aula1.tex}`: 41 quadros; 56 páginas nesta edição com etapas.
 - `\\input{aula2.tex}`: 28 quadros; 44 páginas com etapas.
 - `\\input{encerramento_aula3.tex}`: 11 slides: 3 de preparação/pausa e 8 para os 15 minutos após a prática.
-- `\\input{praticas_cmos.tex}`: 40 slides de consulta para acompanhar as três práticas.
+- `\\input{praticas_cmos.tex}`: 47 slides de consulta para acompanhar as três práticas.
 - `\\input{consulta_brasil.tex}`: 8 slides de consulta, com todas as organizações por polo.
 
 Você também pode selecionar diretamente um desses arquivos como principal.
@@ -66,6 +66,7 @@ prédio e CMOS 2.0. Os terminais MOS são Source, Gate e Drain. As figuras vetor
 `trilhas_visuais.tex`. A abertura histórica usa `contexto_abertura.tex` e
 `contexto_visuais.tex`. A fabricação e as perspectivas usam `fabricacao_aula1.tex`,
 `perspectivas_aula1.tex`, `fisica_fabricacao_visuais.tex` e `cidade_visuais.tex`.
+O dimensionamento usa `tecnologia_gpdk045.tex` e `dimensionamento_visuais.tex`.
 Preserve também `assets/`, `libs/` e `brasil_*.tex`.
 Os retratos vêm dos currículos. As fotos antigas do componente foram retiradas.
 As duas micrografias reais selecionadas ainda não foram obtidas por bloqueio
@@ -83,8 +84,8 @@ o mapa A3 e os dados derivados estão no pacote completo. O roteiro visual usa
 `praticas/QUICK_START.md` e as capturas originais de `praticas/imagens/`,
 incluídas também neste pacote. Há 5 minutos de pausa antes de cada prática.
 Tempos de prática: 50 minutos na aula 1, 60 na aula 2 e 95 na aula 3.
-O encerramento da aula 3 ocupa 15 minutos; DRC/LVS ainda não têm relatório
-final documentado. As listas regionais estão em `consulta_brasil.tex`,
+O encerramento da aula 3 ocupa 15 minutos. As novas capturas registram DRC
+sem erros e correspondência LVS para a versão verificada do layout. As listas regionais estão em `consulta_brasil.tex`,
 para consulta fora desse tempo.
 ''')
 
