@@ -12,11 +12,16 @@
 \fonte{Retomada do fechamento da aula 1. R puxa Y para a alimentação; os Gates recebem A/B. A condição de condução da rede NMOS e o valor de Y são coisas diferentes.}
 \end{frame}
 
-\begin{frame}{Duas horas para construir e explicar portas}
-\centering\begin{tabular}{lr}\toprule Retomada e níveis lógicos & 10 min\\
-Inversor: forma de onda, carga e energia & 20 min\\Da carga resistiva à NAND & 20 min\\
-Pausa & 10 min\\NOR e comparação & 20 min\\Desenho e teste entre duplas & 25 min\\
-Composição e fechamento & 15 min\\\bottomrule\end{tabular}
+\begin{frame}{Duas horas: prever e simular as portas}
+\centering\small\begin{tabular}{lr}\toprule
+Retomada e níveis lógicos & 5 min\\
+Inversor: carga, atraso e energia & 10 min\\
+Da carga resistiva à NAND & 10 min\\
+NOR e redes duais & 10 min\\
+Desafio de desenho entre duplas & 8 min\\
+Composição, formas de onda e referências & 12 min\\
+Pausa antes da prática & 5 min\\
+Prática: inversor, NAND e NOR & 60 min\\\bottomrule\end{tabular}
 \end{frame}
 
 \begin{frame}{Um bit representa uma faixa de tensão}
@@ -115,10 +120,6 @@ Quatro transistores.}
 \fonte{Modelos de falhas estáveis: saída sem caminho definido ou alimentação ligada diretamente ao GND. Na comutação real, pode haver breve condução simultânea.}
 \end{frame}
 
-\begin{frame}{Pausa · 10 minutos}
-\chamada{Na volta: basta A ou B para descarregar a saída?}
-\end{frame}
-
 \section{NOR}
 \begin{frame}{NOR: qualquer entrada alta faz a saída descer}
 \duas{\figura{\norcircuito}}{\vspace{8mm}\[Y=\overline{A+B}\]\par\bigskip
@@ -152,7 +153,7 @@ Quatro transistores.}
 \fonte{As expressões nas redes representam condições de condução. Trocar série por paralelo constrói a rede dual; os Gates mantêm os mesmos sinais A/B.}
 \end{frame}
 
-\begin{frame}{Oficina de desenho · 25 minutos}
+\begin{frame}{Desafio de desenho · 8 minutos}
 \begin{enumerate}\item Construa e confira NAND2 e NOR2 em dupla.
 \item Troque o desenho: o colega deve prever as quatro saídas.
 \item Estenda uma porta para três entradas e explique a nova condição.\end{enumerate}
@@ -208,6 +209,11 @@ Quatro transistores.}
 \item Em uma NOR com entradas 01, quem descarrega?
 \item O que muda eletricamente quando uma porta comuta?\end{enumerate}
 \chamada{Uma resposta, um caminho no desenho.}
+\end{frame}
+
+\begin{frame}{Pausa · 5 minutos}
+\chamada{Na volta: montar e simular inversor, NAND e NOR.}
+\small\centering Abra o roteiro prático no módulo da aula 2.
 \end{frame}
 
 \begin{frame}{Referências e créditos}

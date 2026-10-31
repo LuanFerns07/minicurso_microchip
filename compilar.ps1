@@ -13,7 +13,7 @@ try {
     }
     $sources = @(
         'slides/aula1.tex', 'slides/aula2.tex', 'slides/encerramento_aula3.tex',
-        'slides/aula1_resumo.tex', 'slides/aula2_resumo.tex', 'slides/encerramento_aula3_resumo.tex', 'slides/consulta_brasil.tex',
+        'slides/aula1_resumo.tex', 'slides/aula2_resumo.tex', 'slides/encerramento_aula3_resumo.tex', 'slides/consulta_brasil.tex', 'slides/praticas_cmos.tex',
         'apoio/roadmap.tex', 'apoio/exercicios.tex', 'apoio/gabarito.tex',
         'apoio/mapa_brasil.tex', 'apoio/integracao_processadores.tex'
     )
@@ -32,5 +32,5 @@ try {
         Copy-Item -LiteralPath "build/$name.pdf" -Destination "pdfs/$name.pdf" -Force
         Write-Host "OK: $name"
     }
-    Write-Host 'Os 12 PDFs foram compilados em pdfs/.'
+    Write-Host 'Os 13 PDFs foram compilados em pdfs/.'
 } finally { Pop-Location }

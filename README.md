@@ -8,9 +8,10 @@ Os terminais MOS são nomeados **Source, Gate e Drain**; “portas lógicas” c
 
 | Material | Quadros | Páginas com as etapas |
 | --- | ---: | ---: |
-| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 42 | 60 |
+| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 39 | 54 |
 | [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 28 | 44 |
-| [Encerramento da aula 3 — Caminhos e Brasil](pdfs/encerramento_aula3.pdf) | 8 | 8 |
+| [Aula 3 — preparação e encerramento](pdfs/encerramento_aula3.pdf) | 11 | 11 |
+| [Roteiro visual — práticas no Virtuoso](pdfs/praticas_cmos.pdf) | 40 | 40 |
 | [Consulta — organizações no Brasil](pdfs/consulta_brasil.pdf) | 8 | 8 |
 
 Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurso contínuo: facilitadores e história → contagens reais, VLSI e composição NMOS/PMOS → SoC → transporte de dados e CMOS 2.0 → materiais e junção PN → MOSFET e inversor CMOS → estrutura física e fabricação → litografia, escala atômica e limites físicos. O bloco de fabricação vem depois dos dispositivos que ele precisa construir. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
@@ -22,14 +23,14 @@ Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurs
 - [Histórico de integração: gráfico e tabela](pdfs/integracao_processadores.pdf): A4 horizontal, 13 chips com contagens e processos documentados.
 - [Microeletrônica no Brasil — mapa e organizações](pdfs/mapa_brasil.pdf): pôster vetorial A3 horizontal.
 
-A prática da aula 3 no **Cadence Virtuoso será elaborada posteriormente**. O encerramento tem **8 slides, para cerca de 15 minutos**, reservando **105 minutos** à futura prática. As seis páginas de listas regionais passaram para uma apresentação de consulta, preservando a relação integral de organizações e os créditos. O tempo da prática será validado quando seu roteiro for elaborado.
+As práticas das três aulas estão documentadas em [praticas/QUICK_START.md](praticas/QUICK_START.md). O [roteiro visual em PDF](pdfs/praticas_cmos.pdf) organiza **44 capturas reais em três módulos**: caracterização DC de NMOS/PMOS; inversor/NAND/NOR em transiente; layout do inversor e DRC/LVS. A nomenclatura dos terminais no PDF segue Source, Gate e Drain.
+
+Todas as apresentações têm **pausa de 5 minutos antes da prática e da bibliografia preparatória**. Nas aulas 1 e 2, ela aparece ao final da parte expositiva. Na aula 3, os três primeiros slides preparam a prática; depois do layout, retomar os oito slides de encerramento. O roteiro prático preserva o estado das evidências do Quick Start: há curvas e transientes registrados; os relatórios finais de DRC/LVS ainda não foram documentados. Extração e simulação após extração ficam fora do escopo.
 
 ## O que é animado
 
 - Histórico de contagens por die: marcos Intel, SoCs Apple M1–M4 e GPU NVIDIA A100.
 - Deslocamento de uma lacuna após o movimento de um elétron.
-- Difusão, recombinação e surgimento da depleção na junção PN.
-- Mudança da largura de depleção em polarização direta e reversa.
 - Depleção da superfície do NMOS, formação do canal e condução.
 - Caminhos de carga/descarga do inversor.
 - Estados 00 → 01 → 11 → 10 de NAND e NOR, com transistores habilitados em verde.
@@ -64,7 +65,7 @@ bash compilar.sh
 
 No Windows, com Python e pdfLaTeX disponíveis no terminal, execute `.\compilar.ps1`. Para selecionar o Python, use `.\compilar.ps1 -Python 'C:\caminho\python.exe'`. Consulte [o roteiro de revisão](ROTEIRO_REVISAO.md) para a organização do conteúdo.
 
-O script usa os dados locais para gerar a seção Brasil e o gráfico de integração e compila os 12 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
+O script usa os dados locais para gerar a seção Brasil e o gráfico de integração e compila os 13 PDFs em `pdfs/`. Registros e arquivos intermediários ficam em `build/`. A compilação não depende de acesso à internet.
 
 - `slides/aula1.tex`, `slides/aula2.tex`, `slides/encerramento_aula3.tex`: apresentações.
 - `slides/visuais.tex`: desenhos parametrizados e cores de estados.
@@ -78,6 +79,8 @@ O script usa os dados locais para gerar a seção Brasil e o gráfico de integra
 - `slides/portas_visuais.tex`: construção da NAND, falhas, energia e estímulos da aula 2.
 - `slides/trilhas_visuais.tex`: diagramas das cinco trilhas e integração de funções da aula 3.
 - `slides/consulta_brasil.tex`: apresentação complementar com todas as organizações por polo.
+- `slides/praticas_cmos.tex` e `slides/praticas_aula*.tex`: roteiro prático Beamer, com as imagens originais de `praticas/imagens/`.
+- `praticas/QUICK_START.md`: fonte textual das etapas e dos parâmetros, inclusive pendências de documentação.
 - `slides/assets/facilitadores/`: fotografias extraídas dos currículos.
 - `dados/FONTES_CONTEXTO.md` e `dados/processos_historicos.csv`: bibliografia e dados dos gráficos da abertura.
 - `slides/comum.tex`: comandos compartilhados; o tema está na classe original `slides/libs/ufc_format.cls`.
@@ -110,15 +113,21 @@ Referências técnicas: Fathi Salem, *ECE 410: VLSI Design*; J.-M. Dutertre, *Di
 
 Os diagramas de dispositivos e as analogias são qualitativos, sem resultados medidos ou simulados; as réguas de comprimentos indicam suas escalas. Os exemplos de tensões não definem um PDK. As legendas indicam as simplificações dos modelos. No gráfico histórico, referências de processo e nomes comerciais recentes são distinguidos; não se trata de uma medida uniforme do comprimento do transistor.
 
-## Ritmo da aula 1
+## Ritmo dos três encontros
 
-Apresentação e percurso: 5 min; panorama, VLSI e integração 3D: 18 min; materiais: 12 min; junção PN e discussão: 16 min; pausa: 10 min; MOSFET: 23 min; CMOS e desenho físico: 10 min; fabricação e litografia: 12 min; limites físicos: 6 min; atividade e fechamento: 8 min. Total: **120 minutos**. Os PDFs de notas e o guia de condução foram retirados; permanecem as apresentações, resumos, atividades e gabarito.
+Cada encontro totaliza **120 minutos**, incluindo prática e pausa. A junção PN foi reduzida a **um quadro estático**: depleção, campo interno e a relação com o diodo. Os tempos abaixo são uma proposta de condução, a validar durante a execução.
 
-## Ritmo das aulas 2 e 3
+| Encontro | Parte expositiva/preparação | Pausa | Prática | Encerramento |
+| --- | ---: | ---: | ---: | ---: |
+| Aula 1 | 65 min | 5 min | 50 min: curvas NMOS/PMOS | incluído nos 65 min |
+| Aula 2 | 55 min | 5 min | 60 min: inversor/NAND/NOR | incluído nos 55 min |
+| Aula 3 | 5 min | 5 min | 95 min: layout e DRC/LVS | 15 min |
 
-Na aula 2: retomada e níveis lógicos (10 min); inversor, carga, atraso e energia (20 min); da carga resistiva à NAND (20 min); pausa (10 min); NOR e redes duais (20 min); desenho e teste entre duplas (25 min); composição, previsão das ondas e fechamento (15 min). Total: **120 minutos**.
+Aula 1: apresentação/panorama (17 min), materiais/PN (9 min), MOSFET (15 min), inversor e desenho físico (7 min), fabricação/litografia/limites (9 min), atividade/próxima oficina/referências (8 min). Pausa ao final, antes das referências e da prática.
 
-A aula 3 reserva **105 minutos à prática** e **15 ao encerramento**: síntese do percurso (2 min), cinco trilhas (5 min), integração no produto (2 min), âmbito Brasil (3 min) e próximo projeto/créditos (3 min). A apresentação de consulta Brasil não integra esse tempo; pode ser explorada depois da oficina.
+Aula 2: retomada (5 min), inversor/carga/atraso/energia (10 min), NAND (10 min), NOR e dualidade (10 min), desafio entre duplas (8 min), composição/ondas/referências (12 min). Pausa ao final, antes das referências e da prática.
+
+Aula 3: abrir a apresentação de preparação/encerramento; passar a pausa e as referências; usar o módulo 3 do roteiro visual durante o layout; retomar a apresentação no slide de encerramento. A consulta Brasil permanece complementar aos 15 minutos finais.
 
 ## Micrografias pendentes
 

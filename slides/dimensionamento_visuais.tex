@@ -1,0 +1,47 @@
+% Esboços vetoriais de inversores CMOS. Geometrias ilustrativas, sem DRC.
+\newcommand{\inversorGeometria}[2]{%
+% #1 = W em nm, #2 = L em nm. Apenas as dimensões do canal são proporcionais.
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,line join=round]
+\pgfmathsetmacro{\alturaW}{#1/150}
+\pgfmathsetmacro{\larguraL}{#2/150}
+\pgfmathsetmacro{\direita}{1.1+\larguraL}
+\pgfmathsetmacro{\gatex}{.55+.5*\larguraL}
+\pgfmathsetmacro{\contatod}{\direita-.22}
+\fill[ativo!9,draw=ativo!35,dashed,rounded corners=3pt] (-.15,2.15) rectangle (\direita+.15,2.75+\alturaW);
+\fill[blue_theme!9,draw=blue_theme!35,dashed,rounded corners=3pt] (-.15,-.15) rectangle (\direita+.15,.4+\alturaW);
+\fill[ativo!40,draw=ativo!80!black] (0,2.45) rectangle (\direita,2.45+\alturaW);
+\fill[blue_theme!40,draw=blue_theme] (0,.1) rectangle (\direita,.1+\alturaW);
+% Gate comum cruza as duas regiões ativas, como no esboço de um inversor.
+\fill[red!55,draw=red!75!black] (.55,-.25) rectangle (.55+\larguraL,2.75+\alturaW);
+\foreach \y in {.1,2.45}{%
+  \fill[black!45] (.15,\y+.5*\alturaW-.08) rectangle (.31,\y+.5*\alturaW+.08);
+  \fill[black!45] (\contatod-.08,\y+.5*\alturaW-.08) rectangle (\contatod+.08,\y+.5*\alturaW+.08);}
+% Metal de Source, Gate e Drain.
+\draw[line width=1pt,black!65] (.23,2.45+.5*\alturaW)--(-.3,2.45+.5*\alturaW)--(-.3,4.75) node[above,font=\scriptsize]{$\VDD$};
+\draw[line width=1pt,black!65] (.23,.1+.5*\alturaW)--(-.3,.1+.5*\alturaW)--(-.3,-.7) node[ground]{};
+\draw[line width=1pt,black!65] (\contatod,2.45+.5*\alturaW)--(\direita+.35,2.45+.5*\alturaW)--(\direita+.35,.1+.5*\alturaW)--(\contatod,.1+.5*\alturaW);
+\draw[line width=1pt,black!65] (\direita+.35,1.7)--(\direita+.7,1.7) node[right,font=\scriptsize]{$Y$};
+\draw[line width=1pt,red!75!black] (\gatex,1.7)--(-.7,1.7) node[left,font=\scriptsize]{$A$};
+\draw[<->,blue_theme] (-.78,.1)--node[left,font=\scriptsize]{$W$}(-.78,.1+\alturaW);
+\draw[densely dotted,blue_theme] (.55,-.25)--(.55,-.55) (.55+\larguraL,-.25)--(.55+\larguraL,-.55);
+\draw[<->,blue_theme] (.55,-.48)--node[below,font=\scriptsize]{$L$}(.55+\larguraL,-.48);
+\path[use as bounding box] (-1.1,-1.05) rectangle (2.9,5.2);
+\end{tikzpicture}}
+\newcommand{\tresInversoresGeometria}{%
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.32\textwidth}\centering
+\textcolor{blue_theme}{\textbf{Referência}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=3.7cm}\inversorGeometria{120}{45}\end{adjustbox}\par
+{\scriptsize $W=120$ nm; $L=45$ nm\par $W/L\approx2{,}67$}
+\end{column}
+\begin{column}{.32\textwidth}\centering
+\textcolor{ativo}{\textbf{Dobrar W}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=3.7cm}\inversorGeometria{240}{45}\end{adjustbox}\par
+{\scriptsize $W=240$ nm; $L=45$ nm\par $W/L\approx5{,}33$}
+\end{column}
+\begin{column}{.32\textwidth}\centering
+\textcolor{blue_theme}{\textbf{Dobrar L}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=3.7cm}\inversorGeometria{120}{90}\end{adjustbox}\par
+{\scriptsize $W=120$ nm; $L=90$ nm\par $W/L\approx1{,}33$}
+\end{column}
+\end{columns}}

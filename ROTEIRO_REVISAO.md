@@ -6,9 +6,9 @@ Três encontros de 120 minutos, em português, com figuras e discussão. As etap
 
 | Encontro | Roteiro | Tempo |
 | --- | --- | --- |
-| Aula 1 | Facilitadores; panorama histórico, contagens por die, VLSI e integração 3D; materiais; junção PN; pausa; MOSFET; inversor e layout; fabricação e litografia; limites físicos; atividade | 5 + 18 + 12 + 16 + 10 + 23 + 10 + 12 + 6 + 8 = 120 min |
-| Aula 2 | Retomada da série/paralelo; inversor, carga, atraso e energia; R → PMOS e NAND; pausa; NOR e De Morgan; desenho e teste em duplas; composição, previsão das ondas e fechamento | 10 + 20 + 20 + 10 + 20 + 25 + 15 = 120 min |
-| Aula 3 | Prática no Cadence Virtuoso ainda pendente; encerramento com trilhas de estudo e panorama brasileiro | 105 + 15 = 120 min previstos |
+| Aula 1 | Fundamentos com PN em um quadro; pausa antes das referências; caracterização DC de NMOS/PMOS | 65 + 5 + 50 = 120 min |
+| Aula 2 | Construção CMOS; pausa antes das referências; prática de inversor, NAND e NOR | 55 + 5 + 60 = 120 min |
+| Aula 3 | Preparação; pausa e referências; layout/DRC/LVS; retomada das trilhas e Brasil | 5 + 5 + 95 + 15 = 120 min |
 
 ## Arquivos que controlam o conteúdo
 
@@ -21,7 +21,9 @@ Três encontros de 120 minutos, em português, com figuras e discussão. As etap
 - `slides/previa_portas.tex`: encerramento com chaves, diodos e MOSFETs em série/paralelo.
 - `slides/assets/facilitadores/`: fotos extraídas dos currículos fornecidos.
 - `slides/aula2.tex` e `slides/portas_visuais.tex`: série/paralelo, inversor, R → rede PMOS, NAND/NOR e previsão das ondas.
-- `slides/encerramento_aula3.tex` e `slides/trilhas_visuais.tex`: 8 slides de síntese, trilhas, integração de funções, panorama Brasil e próximo projeto.
+- `slides/encerramento_aula3.tex` e `slides/trilhas_visuais.tex`: 3 slides de preparação/pausa/referências e 8 slides de encerramento, trilhas e Brasil.
+- `slides/praticas_cmos.tex` e `slides/praticas_aula*.tex`: roteiro visual dos três módulos, com 44 capturas originais.
+- `praticas/QUICK_START.md`: fonte das etapas e parâmetros; manter as pendências de documentação identificadas.
 - `slides/consulta_brasil.tex`: capa, panorama e seis páginas regionais, para consulta fora dos 15 minutos finais.
 - `slides/comum.tex` e `slides/visuais.tex`: comandos, circuitos e figuras compartilhados.
 - `apoio/exercicios.tex` e `apoio/gabarito.tex`: atividades e respostas.
@@ -35,8 +37,8 @@ Três encontros de 120 minutos, em português, com figuras e discussão. As etap
 3. No panorama, manter a ordem VLSI → NMOS/PMOS até SoC → bairros/prédio → CMOS 2.0. A régua atômica permanece após litografia, junto aos limites físicos. Nomear os terminais MOS como Source, Gate e Drain. Usar a comparação bairros de casas/andares para explicar proximidade e interconexões. CMOS 2.0 é uma proposta de integração heterogênea; produtos com memória empilhada já existem.
 4. Conferir se as figuras de PN e MOSFET permitem explicar difusão, depleção, inversão e controle da condução.
 5. Na aula 2, conferir se o participante consegue prever a saída pelo caminho elétrico antes da tabela-verdade.
-6. Elaborar a prática apenas quando solicitado, com circuito, biblioteca/PDK, alimentação, estímulos e resultados definidos. Validar os 105 minutos com execução real.
-7. O encerramento principal tem oito slides e um panorama Brasil. A apresentação de consulta Brasil preserva as seis páginas regionais com todas as organizações. O levantamento não foi alterado nesta revisão.
+6. Manter o roteiro visual alinhado ao Quick Start. Usar as curvas e os transientes registrados; não declarar DRC/LVS aprovados sem os relatórios. A aula 2 não inclui a curva DC do inversor, e a aula 3 termina em DRC/LVS, sem extração e simulação após extração.
+7. Os oito slides de encerramento continuam após a prática; os três slides iniciais da aula 3 incluem a pausa de 5 minutos antes das referências. Há um panorama Brasil no encerramento. A apresentação de consulta Brasil preserva as seis páginas regionais com todas as organizações. O levantamento não foi alterado nesta revisão.
 8. Sincronizar slides, resumos, atividades, gabarito e documentação após alterações. Preservar o Beamer UFC 4:3.
 
 ## Compilar no Windows
@@ -53,4 +55,4 @@ Para escolher o Python:
 .\compilar.ps1 -Python 'C:\caminho\python.exe'
 ```
 
-O comando gera a seção Brasil em UTF-8, executa duas passagens de pdfLaTeX por documento e atualiza os **12 PDFs** em `pdfs/`. Registros e intermediários ficam em `build/`. Os pacotes LaTeX do projeto devem estar instalados. No Linux, use `bash compilar.sh`.
+O comando gera a seção Brasil em UTF-8, executa duas passagens de pdfLaTeX por documento e atualiza os **13 PDFs** em `pdfs/`. Registros e intermediários ficam em `build/`. Os pacotes LaTeX do projeto devem estar instalados. No Linux, use `bash compilar.sh`.

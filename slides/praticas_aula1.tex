@@ -1,0 +1,82 @@
+\section{Prática 1}
+\telaPasso{A1 · 01 — Criar a biblioteca}{01-nova-biblioteca.png}{%
+\hypertarget{pratica1}{}%
+\acao{Library Manager}{File → New → Library}
+\acao{Nome}{\cod{minicurso_cmos}}
+\acao{Tecnologia}{Vincular à tecnologia existente \cod{gpdk045}.}
+}{A captura mostra o menu. A janela de vinculação tecnológica não foi registrada.}
+
+\duasTelas{A1 · 02 — Criar a célula de teste}{02-nova-celula.png}{03-configuracao-celula.png}{%
+File → New → Cell View}{%
+Library: \cod{minicurso_cmos}\par Cell: \cod{a1_tb_nmos}\par View/Type: \cod{schematic}\par Open with: Schematics L
+}{Confirmar os campos e clicar em OK.}
+
+\telaAmpla{A1 · 03 — Reconhecer o editor}{04-schematic-vazio.png}{%
+Confira no título: biblioteca \cod{minicurso_cmos}, célula \cod{a1_tb_nmos} e vista \cod{schematic}.
+}{Com o foco na área de desenho, a tecla i abre Add Instance neste ambiente; Esc encerra a inserção.}
+
+\telaPasso{A1 · 04 — Inserir o NMOS}{05-nmos1v.png}{%
+\acao{Add Instance}{\cod{gpdk045/nmos1v}\par View: \cod{symbol}}
+\acao{Modelo}{\cod{g45n1svt}}
+\acao{Dimensões iniciais}{$L=45$ nm; $W=120$ nm.\par Um finger; multiplicador 1.}
+}{Gate à esquerda, Drain acima, Source abaixo e corpo à direita, na orientação registrada.}
+
+\duasTelas{A1 · 05 — Fontes e referências}{06-fonte-vdc.png}{07-simbolo-vdd.png}{%
+\cod{analogLib/vdc}: duas fontes independentes para Gate e Drain.}{%
+\cod{analogLib/vdd}: identifica a rede; a tensão vem de uma fonte. Inserir também \cod{analogLib/gnd}.
+}{Os símbolos vdd/gnd nomeiam redes; não aplicam tensão por si sós. A seleção específica de gnd não foi capturada.}
+
+\telaAmpla{A1 · 06 — Conectar o teste do NMOS}{11-montagem-nmos-com-referencia-vdd.png}{%
+Source e corpo → GND.\quad Gate → positivo de V0.\quad Drain → positivo de V3.
+}{V0 = vgs; V3 = vds. Negativos das fontes em GND. V2 = 1 V explica a rede vdd, mas não está ligada a Gate ou Drain neste teste.}
+
+\telaPasso{A1 · 07 — Conferir a fonte de alimentação}{09-propriedades-vdc.png}{%
+\acao{Instância mostrada}{\cod{V2}}
+\acao{DC voltage}{\cod{1} = 1 V}
+\acao{Demais fontes}{Em V0 usar \cod{vgs}; em V3 usar \cod{vds}.}
+}{A janela é de V2, não das fontes parametrizadas V0 e V3. Conferir também seus negativos em GND.}
+
+\telaPasso{A1 · 08 — Conferir o dispositivo}{10-propriedades-nmos.png}{%
+\acao{Instância}{\cod{NM0}}
+{\scriptsize\begin{tabular}{ll}Modelo & \cod{g45n1svt}\\Length & \cod{45n}\\Total Width & \cod{120n}\\Fingers & 1\\Multiplier & 1\end{tabular}}\par\medskip
+\textbf{Check and Save}\par Examinar conexões e avisos.
+}{Bodytie Type = None não substitui a conexão explícita do corpo ao Source/GND. Proximidade gráfica não garante ligação elétrica.}
+
+\duasTelas{A1 · 09 — Abrir o ADE Assembler}{12-launch-ade.png}{13-inicio-assembler.png}{%
+No schematic: Launch → ADE Assembler.}{%
+A sessão abre com a aba maestro e o painel Data View.
+}{O fluxo registrado é do Assembler. O Explorer aparece no menu, mas não tem um passo a passo separado neste material.}
+
+\duasTelas{A1 · 10 — Criar e conferir o teste}{14-data-view.png}{15-primeiro-teste.png}{%
+Na seção Tests, definir um teste para \cod{minicurso_cmos/a1_tb_nmos}.}{%
+Simulator: \cod{spectre}.\par Conferir Analyses e Design Variables no teste criado.
+}{A janela intermediária de seleção do design não foi capturada. Use variáveis do próprio teste nesta caracterização.}
+
+\telaAmpla{A1 · 11 — Parametrizar VGS}{19-variaveis-varredura-vgs.png}{%
+\cod{vgs}: From/To; Step Type = Auto; From = \cod{100m}; To = \cod{700m}; Total Steps = 5.
+}{Valores registrados na família: 0,10; 0,25; 0,40; 0,55; 0,70 V. A referência vds = 500m é substituída pela varredura DC.}
+
+\telaPasso{A1 · 12 — Varrer VDS em DC}{16-analise-dc-vds.png}{%
+{\scriptsize\begin{tabular}{@{}ll@{}}Análise & \cod{dc}\\Sweep Variable & Design Variable\\Variable Name & \cod{vds}\\Range & Start-Stop\\Start / Stop & 0 / 1 V\\Sweep Type & Automatic\end{tabular}}\par\medskip
+Marcar Save DC Operating Point e Enabled; confirmar em OK.
+}{Para cada VGS, a análise percorre VDS de 0 a 1 V. O título deste formulário mostra ADE Explorer, dentro do fluxo registrado no Assembler.}
+
+\telaPasso{A1 · 13 — Selecionar corrente e executar}{17-saidas-e-execucao.png}{%
+\acao{Saída}{Corrente no terminal Drain de NM0:\par\cod{/NM0/D}}
+\acao{Conferir antes de executar}{Análise DC, variáveis e configuração dos modelos do PDK.}
+\acao{Executar}{Botão triangular verde. Salvar a sessão.}
+}{Selecionar um terminal mede corrente; selecionar uma rede mede tensão. A configuração dos modelos e a seleção no schematic ainda não têm captura.}
+
+\telaAmpla{A1 · 14 — Ler as curvas do NMOS}{18-curvas-id-vds.png}{%
+Horizontal: VDS, 0–1 V.\quad Vertical: corrente em Drain, em $\mu$A.\par
+Cada curva mantém VGS fixo; elevar VGS aumenta a condução.
+}{A curva de VGS = 0,70 V chega a aproximadamente 10 µA em VDS = 1 V. Não exigir um patamar horizontal nem extrair o limiar apenas desta figura.}
+
+\telaAmpla{A1 · 15 — Montar o teste do PMOS}{20-montagem-pmos.png}{%
+\cod{a1_tb_pmos}: Source e corpo em VDD = 1 V.\par
+$V_{SG}=V_S-V_G$ e $V_{SD}=V_S-V_D$: positivos das fontes no Source.
+}{PM0: g45p1svt, L = 45 nm, W = 120 nm, multiplicador 1. Negativos das fontes de controle em Gate e Drain, respectivamente.}
+
+\telaAmpla{A1 · 16 — Comparar as curvas do PMOS}{21-curvas-pmos.png}{%
+Varrer \cod{vsd} de 0 a 1 V e repetir para \cod{vsg}: 0,10; 0,25; 0,40; 0,55; 0,70 V.
+}{A saída mostrada é /PM0/S, corrente em Source, e não /PM0/D. Comparar polaridades e terminal medido; W e L iguais não garantem correntes iguais.}
