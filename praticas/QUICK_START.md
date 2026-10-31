@@ -544,9 +544,9 @@ Usar a comparação entre as duas vistas para localizar as futuras conexões: po
 
 ### 4. Relacionar o layout montado ao schematic
 
-A captura registra o layout montado do inversor ao lado de seu schematic: PMOS na parte superior, NMOS na inferior e conexões de entrada, saída e alimentação desenhadas. As etapas intermediárias de geração, posicionamento e roteamento ainda não foram capturadas; esta imagem documenta o resultado da montagem.
+A captura atualizada registra o layout montado do inversor: PMOS na parte superior, NMOS na inferior e conexões de entrada, saída e alimentação desenhadas. Esta imagem substitui a versão anterior e apresenta as regiões de contato de corpo junto às conexões de alimentação. As etapas intermediárias de geração, posicionamento e roteamento ainda não foram capturadas; esta imagem documenta o resultado da montagem.
 
-![Layout montado do inversor e schematic de referência](imagens/43-layout-inversor.png)
+![Layout atualizado do inversor com conexões de entrada, saída e alimentação](imagens/43-layout-inversor.png)
 
 | Parte do circuito | Identificação na imagem |
 | --- | --- |
@@ -557,11 +557,11 @@ A captura registra o layout montado do inversor ao lado de seu schematic: PMOS n
 | Alimentação superior | Interconexão vertical à esquerda do PMOS, identificada como `vdd!` |
 | Referência inferior | Interconexão vertical à esquerda do NMOS, identificada como `gnd!` |
 
-**Leitura guiada:** seguir `vin` até as portas dos dois transistores; seguir `vout` até os dois drenos; localizar as conexões das fontes aos respectivos trilhos. Relacionar cada percurso ao schematic mostrado ao lado. Usar a paleta de camadas para confirmar os nomes das camadas e os contatos, em vez de identificá-los apenas por suas cores.
+**Leitura guiada:** seguir `vin` até as portas dos dois transistores; seguir `vout` até os dois drenos; localizar as conexões das fontes aos respectivos trilhos. Relacionar cada percurso ao schematic de `a3_inv`, abrindo as duas vistas para comparação. Usar a paleta de camadas para confirmar os nomes das camadas e os contatos, em vez de identificá-los apenas por suas cores.
 
 **Conexões de corpo:** as anotações de corpo aparecem nos dispositivos, mas a imagem, isoladamente, não comprova a implementação e a continuidade dos contatos de poço e substrato. Conferir no layout os contatos físicos e sua ligação a `vdd!` no PMOS e `gnd!` no NMOS. Um nome de rede ou uma anotação de terminal não substitui essa verificação.
 
-**Situação:** a montagem física foi apresentada. Ainda não foram registrados resultados de DRC, LVS ou extração; portanto, o roteiro não declara o layout aprovado nem uma simulação após extração concluída.
+**Situação:** a montagem física foi apresentada. O DRC sem erros foi registrado no ponto 9. O LVS confirmou correspondência entre schematic e layout, conforme o ponto 10; extração de parasitas e simulação após extração estão fora do escopo desta aula.
 
 **Próximo checkpoint:** registrar a configuração e o relatório de DRC; depois conferir LVS contra `a3_inv/schematic`, incluindo terminais, nomes das redes e contatos de corpo. Corrigir os erros indicados antes da extração e da comparação de simulações.
 
@@ -603,7 +603,7 @@ Abrir **Assura → Run DRC**. A captura mostra a tecnologia **`gpdk045_av`**, o 
 
 ![Regras de DRC reconhecidas pelo Assura](imagens/44-configuracao-drc-assura.png)
 
-Preencher **Run Name**, por exemplo `a3_inv_drc`, e escolher um **Run Directory** com permissão de escrita. A captura ainda mostra Run Name vazio e Run Directory como `.`. Executar, examinar o relatório e corrigir as violações antes de prosseguir. Ainda não foi apresentado um resultado de execução do DRC.
+Preencher **Run Name**, por exemplo `a3_inv_drc`, e escolher um **Run Directory** com permissão de escrita. A captura ainda mostra Run Name vazio e Run Directory como `.`. Executar, examinar o relatório e corrigir as violações antes de prosseguir. O resultado da execução está registrado no ponto 9: No DRC errors found.
 
 ### 8. Conferir a configuração de LVS
 
@@ -618,3 +618,43 @@ Abrir **Assura → Run LVS**. Selecionar o schematic e o layout da mesma célula
 Preencher **Run Name**, por exemplo `a3_inv_lvs`, e usar um diretório de execução com permissão de escrita, preferencialmente separado do DRC. Executar e registrar a comparação entre schematic e layout. Os arquivos preenchidos confirmam o reconhecimento da configuração, mas ainda não comprovam que o LVS foi executado ou que os circuitos correspondem.
 
 **Critério de fechamento da aula 3:** registrar DRC sem violações e LVS com correspondência entre schematic e layout. Se forem necessárias alterações no layout durante a correção, repetir as verificações pertinentes. Por decisão do minicurso, esta aula termina em DRC e LVS; extração de parasitas e simulação após extração ficam fora do escopo.
+
+### 9. Executar o DRC e registrar o resultado
+
+No layout, acessar **Assura → Run DRC…**.
+
+![Menu de execução do DRC no Assura](imagens/47-menu-assura-drc.png)
+
+Conferir o design **minicurso_cmos / a3_inv / layout**, área **Full**, tecnologia **gpdk045_av**, Rule Set **default** e o arquivo **assuraDRC.rul**, conforme o formulário registrado.
+
+![Formulário de DRC da versão final do layout](imagens/48-formulario-drc-final.png)
+
+A captura do formulário mostra Run Name vazio e Run Directory como `.`; não inferir dela um nome de execução diferente. Usar os dados do ambiente ao executar e preservar os arquivos gerados para consulta.
+
+Após a execução, o Assura apresentou **No DRC errors found.**
+
+![Resultado do Assura: nenhum erro de DRC encontrado](imagens/46-drc-sem-erros.png)
+
+**Resultado registrado:** DRC sem erros para a versão do layout verificada. Isso confirma o atendimento às regras executadas; a correspondência elétrica com o schematic será verificada separadamente pelo LVS.
+
+**Próximo checkpoint:** executar **Assura → Run LVS…** usando `a3_inv/schematic` e `a3_inv/layout` e registrar o resultado da comparação. O resultado de LVS está registrado no ponto 10: Schematic and Layout Match. Se o layout for alterado para corrigir diferenças de LVS, repetir o DRC na versão alterada.
+
+### 10. Executar o LVS e concluir a validação
+
+No layout, acessar **Assura → Run LVS…**.
+
+![Menu de execução do LVS no Assura](imagens/49-menu-assura-lvs.png)
+
+Conferir a biblioteca **minicurso_cmos**, célula **a3_inv**, origem **schematic** e implementação **layout**. Manter a tecnologia **gpdk045_av**, Rule Set **default** e as regras `extract.rul`, `compare.rul` e `LVSinclude.rsf` do PDK, conforme o formulário registrado.
+
+![Formulário final de comparação LVS](imagens/50-formulario-lvs-final.png)
+
+Executar e ler o resumo. Na execução apresentada, identificada como **a3_inv**, o Assura informou **Schematic and Layout Match**.
+
+![Resultado LVS: schematic e layout correspondem](imagens/51-lvs-match.png)
+
+O resumo registra zero divergências de redes, dispositivos, pinos e parâmetros, além de zero problemas de dispositivos malformados, curtos de labels e aberturas de labels. A janela também informa **Total DRC violations: 0**; o resultado próprio de DRC sem erros já foi registrado no ponto 9.
+
+A pergunta sobre fechar o projeto atual e visualizar a nova execução trata da navegação entre resultados. Selecionar **Yes** para visualizar os resultados da nova execução; o resultado de correspondência já está indicado no resumo mostrado.
+
+**Conclusão da aula 3:** o layout do inversor passou pelo DRC e corresponde ao schematic no LVS. A atividade demonstrou a passagem dos transistores e conexões do schematic para a implementação física e suas verificações. A validação registrada refere-se à versão verificada; alterações posteriores no layout exigem novas verificações. A aula termina aqui, sem extração de parasitas ou simulação após extração.
