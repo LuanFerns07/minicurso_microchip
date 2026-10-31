@@ -506,7 +506,7 @@ Executar a análise e exibir as tensões **A, B e Y**, conforme os resultados do
 
 Usar a célula `minicurso_cmos/a3_inv` com um PMOS e um NMOS, mantendo **W = 120 nm**, **L = 45 nm** e multiplicador **1**, conforme a captura. A fonte ideal de alimentação não aparece no schematic preparado para o layout; ela deve permanecer no circuito de teste.
 
-A montagem registrada mantém os terminais `vin` e `vout` e usa símbolos de alimentação **`vdd_inherit`** e **`gnd_inherit`**, exibindo as referências **`vdd!`** e **`gnd!`**. Portanto, este passo a passo acompanha as conexões herdadas mostradas, em vez da proposta inicial de quatro pinos explícitos `vin`, `vout`, `VDD` e `VSS`. Conferir os nomes efetivos das redes ao gerar terminais físicos e configurar LVS e extração; não substituir esses nomes silenciosamente por nomes locais diferentes.
+A montagem registrada mantém os terminais `vin` e `vout` e usa símbolos de alimentação **`vdd_inherit`** e **`gnd_inherit`**, exibindo as referências **`vdd!`** e **`gnd!`**. Portanto, este passo a passo acompanha as conexões herdadas mostradas, em vez da proposta inicial de quatro pinos explícitos `vin`, `vout`, `VDD` e `VSS`. Conferir os nomes efetivos das redes ao gerar terminais físicos e configurar o LVS; não substituir esses nomes silenciosamente por nomes locais diferentes.
 
 ### 2. Abrir o Layout XL e criar a vista
 
@@ -563,7 +563,7 @@ A captura atualizada registra o layout montado do inversor: PMOS na parte superi
 
 **Situação:** a montagem física foi apresentada. O DRC sem erros foi registrado no ponto 9. O LVS confirmou correspondência entre schematic e layout, conforme o ponto 10; extração de parasitas e simulação após extração estão fora do escopo desta aula.
 
-**Próximo checkpoint:** registrar a configuração e o relatório de DRC; depois conferir LVS contra `a3_inv/schematic`, incluindo terminais, nomes das redes e contatos de corpo. Corrigir os erros indicados antes da extração e da comparação de simulações.
+**Próximo checkpoint:** registrar a configuração e o relatório de DRC; depois conferir LVS contra `a3_inv/schematic`, incluindo terminais, nomes das redes e contatos de corpo. Corrigir os erros indicados e repetir as verificações até obter DRC sem erros e correspondência no LVS. Os resultados finais estão nos pontos 9 e 10.
 
 ### 5. Etapas seguintes
 
@@ -658,3 +658,17 @@ O resumo registra zero divergências de redes, dispositivos, pinos e parâmetros
 A pergunta sobre fechar o projeto atual e visualizar a nova execução trata da navegação entre resultados. Selecionar **Yes** para visualizar os resultados da nova execução; o resultado de correspondência já está indicado no resumo mostrado.
 
 **Conclusão da aula 3:** o layout do inversor passou pelo DRC e corresponde ao schematic no LVS. A atividade demonstrou a passagem dos transistores e conexões do schematic para a implementação física e suas verificações. A validação registrada refere-se à versão verificada; alterações posteriores no layout exigem novas verificações. A aula termina aqui, sem extração de parasitas ou simulação após extração.
+
+### 11. Fechamento da aula 3
+
+A prática termina com o inversor implementado em layout e validado no Assura:
+
+- **DRC:** No DRC errors found.
+- **LVS:** Schematic and Layout Match, sem divergências de redes, dispositivos, pinos ou parâmetros.
+
+Não será realizada extração de parasitas nem simulação pós-layout neste minicurso. As simulações de funcionamento apresentadas na aula 2 são do schematic; a aula 3 verifica as regras físicas e a correspondência elétrica da implementação com esse schematic.
+
+**Perguntas de fechamento:** onde estão os dois transistores no layout? Como reconhecer entrada, saída e alimentação? Qual é a função dos contatos de poço e substrato? O que o DRC verifica e o que o LVS compara?
+=======
+**Conclusão da aula 3:** o layout do inversor passou pelo DRC e corresponde ao schematic no LVS. A atividade demonstrou a passagem dos transistores e conexões do schematic para a implementação física e suas verificações. A validação registrada refere-se à versão verificada; alterações posteriores no layout exigem novas verificações. A aula termina aqui, sem extração de parasitas ou simulação após extração.
+
