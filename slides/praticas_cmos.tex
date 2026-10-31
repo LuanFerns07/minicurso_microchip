@@ -1,0 +1,59 @@
+\input{comum.tex}
+\input{dimensionamento_visuais.tex}
+\graphicspath{{../praticas/imagens/}{praticas/imagens/}}
+\newcommand{\cod}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\acao}[2]{\textcolor{blue_theme}{\textbf{#1}}\par\smallskip #2\par\medskip}
+\newcommand{\telaPasso}[4]{%
+\begin{frame}{#1}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.59\textwidth}\centering\includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{#2}\end{column}
+\begin{column}{.38\textwidth}{\small #3}\end{column}
+\end{columns}
+\fonte{\textbf{Conferir:} #4}
+\end{frame}}
+\newcommand{\telaAmpla}[4]{%
+\begin{frame}{#1}
+\begin{center}\includegraphics[width=.97\linewidth,height=4.1cm,keepaspectratio]{#2}\end{center}
+{\small #3\par}
+\fonte{#4}
+\end{frame}}
+\newcommand{\duasTelas}[6]{%
+\begin{frame}{#1}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}\centering\includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{#2}\par\smallskip{\scriptsize #4}\end{column}
+\begin{column}{.48\textwidth}\centering\includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{#3}\par\smallskip{\scriptsize #5}\end{column}
+\end{columns}
+\fonte{\textbf{Conferir:} #6}
+\end{frame}}
+\title[Práticas • Virtuoso]{\huge\textbf{Do transistor ao chip}}
+\begin{document}
+\capa{Roteiro visual de práticas · Cadence Virtuoso}{NMOS/PMOS • portas CMOS • layout e DRC/LVS}
+\section{Percurso}
+\begin{frame}{Três módulos para acompanhar na bancada}
+\centering\small\begin{tabular}{lll}\toprule
+Módulo & O que construir & Tempo reservado\\\midrule
+\hyperlink{pratica1}{\textbf{Aula 1}} & Testes DC de NMOS e PMOS & 50 min\\[2mm]
+\hyperlink{pratica2}{\textbf{Aula 2}} & Inversor, NAND e NOR & 60 min\\[2mm]
+\hyperlink{pratica3}{\textbf{Aula 3}} & Layout, DRC e LVS do inversor & 95 min\\\bottomrule
+\end{tabular}\par\bigskip
+\textbf{Ambiente das capturas}\par
+Virtuoso Studio IC23.1 · \cod{gpdk045} · Spectre\par
+ADE Assembler · Layout XL · Assura
+\fonte{Adaptação de praticas/QUICK\_START.md, incorporado ao projeto. Os nomes de menu permanecem como na interface. Source, Gate e Drain nomeiam os terminais MOS. A pausa de 5 minutos está nas apresentações, antes de cada prática.}
+\end{frame}
+\input{tecnologia_gpdk045.tex}
+\input{praticas_aula1.tex}
+\input{praticas_aula2.tex}
+\input{praticas_aula3.tex}
+\section{Créditos}
+\begin{frame}{Referências e créditos}
+\small\begin{itemize}
+\item Desenvolvimento: \textbf{Luan F. Nogueira e Luiz F. de Melo Soares}.
+\item Fonte das etapas, parâmetros e capturas reais: \textit{Quick Start — Práticas de CMOS no Cadence Virtuoso}, fornecido para este minicurso, edição incorporada em 31/10/2026.
+\item As imagens são as capturas originais de \cod{praticas/imagens/}; não são telas geradas ou resultados produzidos por esta adaptação.
+\item PDK e dimensionamento: Cadence, \href{https://web.mit.edu/6.101/www/s2020/handouts/L06.pdf}{MIT 6.101 — MOSFETs}; fontes e hipóteses nos três quadros introdutórios.
+\item Template Beamer UFC: Maurício Moreira Neto. Modelo original 4:3.
+\end{itemize}
+\fonte{O roteiro textual completo acompanha o pacote de entrega. Configurações sem captura e verificações ainda sem relatório são identificadas nas respectivas etapas.}
+\end{frame}
+\end{document}

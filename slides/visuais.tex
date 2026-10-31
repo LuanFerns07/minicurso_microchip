@@ -51,7 +51,7 @@
 \node at (1.5,2.2){$n^+$};\node at (8.5,2.2){$n^+$};
 \fill[gray!40,draw=blue_theme] (2.7,2.85) rectangle (7.3,3.08);
 \fill[eletron!55,draw=blue_theme] (2.7,3.08) rectangle (7.3,3.55);
-\node at (5,.5){Corpo P};\node at (1.5,3.9){Fonte};\node at (8.5,3.9){Dreno};\node at (5,4){Porta};
+\node at (5,.5){Corpo P};\node at (1.5,3.9){Source};\node at (8.5,3.9){Drain};\node at (5,4){Gate};
 \draw (1.5,2.8)--(1.5,3.6);\draw (8.5,2.8)--(8.5,3.6);\draw (5,3.55)--(5,3.8);
 \node[font=\scriptsize,anchor=west] at (8.1,4.72){Dielétrico};\draw[-{Latex},black!50] (8.1,4.35)--(7.65,4.35)--(7.25,2.97);
 \ifnum#1<1
@@ -62,7 +62,7 @@
  \foreach \x in {3,4,5,6,7}{\node[eletron,font=\scriptsize] at (\x,2.1){$-$};}
  \foreach \x in {3.2,4.4,5.6,6.8}{\node[red] at (\x,3.32){$+$};}
  \ifnum#1=1
-  \node at (5,4.75){A tensão de porta aumenta};
+  \node at (5,4.75){A tensão de Gate aumenta};
   \draw[-{Latex},lacuna,thick] (4,1.55)--(4,.8);\draw[-{Latex},lacuna,thick] (6,1.55)--(6,.8);
   \node[font=\scriptsize] at (5,-.65){Lacunas se afastam da superfície: depleção};
  \else

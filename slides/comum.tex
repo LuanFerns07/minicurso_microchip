@@ -1,7 +1,8 @@
 % Modelo Beamer UFC original de Maurício Moreira Neto.
 \ifdefined\Resumo\PassOptionsToClass{handout}{beamer}\fi
 \documentclass{libs/ufc_format}
-\usepackage{amsmath,amssymb,booktabs,tikz,circuitikz}
+\usepackage{amsmath,amssymb,booktabs,tikz,circuitikz,pgfplots}
+\pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
 % A geometria 4:3 e todos os elementos do tema vêm da classe ORIGINAL.
 % Não substituir fundo, logo, cabeçalho, rodapé, fontes ou blocos do template.
@@ -61,9 +62,12 @@
 \draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};\draw (nc.G) node[left]{$C$};
 \end{circuitikz}}
 \input{visuais.tex}
+\input{contexto_visuais.tex}
+\input{fisica_fabricacao_visuais.tex}
+\input{cidade_visuais.tex}
+\input{integracao_visual.tex}
+\input{previa_portas.tex}
 \newcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=5.1cm}#1\end{adjustbox}\end{center}}
 \author[L. Nogueira / L. Soares]{\texorpdfstring{Luan F. Nogueira\\Luiz F. de Melo Soares}{Luan F. Nogueira e Luiz F. de Melo Soares}}
 \institute[UFC]{\department{Minicurso de Microeletrônica}\\\ufc}
 \date{SEELECT}
-\setbeamertemplate{note page}{\vspace{2mm}{\large\bfseries\color{blue_theme}Notas dos facilitadores}\par\vspace{1mm}{\small\insertshorttitle\quad •\quad Slide \insertframenumber}\par\vspace{3mm}\hrule\vspace{3mm}\small\insertnote}
-\ifdefined\Notas\setbeameroption{show notes}\fi

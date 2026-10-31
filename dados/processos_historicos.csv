@@ -1,0 +1,9 @@
+ano,referencia,valor_nm,natureza,fonte
+1971,Intel 4004,10000,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+1978,Intel 8086,3000,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+1985,Intel 386 DX,1500,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+1993,Intel Pentium,800,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+2000,Intel Pentium 4,180,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+2008,Intel Atom Z500,45,referência histórica de processo,https://www.intel.com/pressroom/kits/quickreffam.htm
+2020,TSMC N5,5,nome comercial de geração,https://investor.tsmc.com/static/annualReports/2020/english/index.html
+2025,TSMC N2,2,nome comercial de geração,https://investor.tsmc.com/static/annualReports/2025/english/index.html

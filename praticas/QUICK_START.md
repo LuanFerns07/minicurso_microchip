@@ -1,5 +1,7 @@
 # Quick Start — Práticas de CMOS no Cadence Virtuoso
 
+Versão visual: [roteiro em PDF](../pdfs/praticas_cmos.pdf), com as capturas e etapas organizadas por aula. Na adaptação para apresentação, os terminais MOS são nomeados Source, Gate e Drain.
+
 Documento em construção a partir das montagens e capturas reais do minicurso. Este roteiro é separado das apresentações existentes.
 
 ## Percurso das três aulas

@@ -1,0 +1,88 @@
+% Figuras vetoriais da aula 2. Verde identifica dispositivos habilitados.
+\newcommand{\construirNAND}[1]{%
+\begin{circuitikz}[scale=.8,transform shape,font=\small]
+\path[use as bounding box] (-3,-3.7) rectangle (3.5,3.3);
+\ifnum#1=1
+  \draw (0,2.6) node[above]{$\VDD$} to[R,l=$R$] (0,.5);
+\else
+  \node[pmos] (pa) at (-1.2,1.7) {};\node[pmos] (pb) at (1.4,1.7) {};
+  \draw (pa.S)--(-1.2,2.6)--(1.4,2.6)--(pb.S);\node[above] at (.1,2.6){$\VDD$};
+  \draw (pa.D)--(-1.2,.5)--(1.4,.5)--(pb.D);
+  \draw (pa.G) node[left]{$A$};\draw (pb.G) node[left]{$B$};
+\fi
+\node[nmos] (na) at (0,-.7) {};\node[nmos] (nb) at (0,-2.3) {};
+\draw (0,.5)--(na.D);\draw (na.S)--(nb.D);\draw (nb.S)--(0,-3.15) node[ground]{};
+\draw (na.G) node[left]{$A$};\draw (nb.G) node[left]{$B$};
+\draw (0,.5) to[short,*-] (2.15,.5) node[right]{$Y$};
+\end{circuitikz}}
+
+\newcommand{\redesDuais}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[blue_theme,font=\bfseries] at (1.7,3.6){Rede NMOS};
+\node[blue_theme,font=\bfseries] at (7.9,3.6){Rede PMOS};
+\node[align=center] at (1.7,2.5){Série\\$A\cdot B$};
+\only<1|handout:0>{\node[black!45] at (7.9,2.5){?};}
+\only<2|handout:1>{\node[align=center] at (7.9,2.5){Paralelo\\$\overline A+\overline B$};}
+\draw[<->,blue_theme,thick] (3.2,2.5)--node[above,font=\scriptsize]{trocar}(6.1,2.5);
+\node[align=center] at (1.7,.7){Paralelo\\$A+B$};
+\only<1|handout:0>{\node[black!45] at (7.9,.7){?};}
+\only<2|handout:1>{\node[align=center] at (7.9,.7){Série\\$\overline A\cdot\overline B$};}
+\draw[<->,blue_theme,thick] (3.2,.7)--node[above,font=\scriptsize]{trocar}(6.1,.7);
+\node[font=\scriptsize,black!65] at (4.8,-.35){Condições de condução das redes, com entradas binárias estáveis};
+\path[use as bounding box] (-.2,-.65) rectangle (10,4);
+\end{tikzpicture}}
+
+\newcommand{\falhasRedes}{%
+\begin{circuitikz}[font=\small]
+\foreach \x in {0,5.5}{%
+  \draw (\x,3.1) node[above]{$\VDD$} -- (\x,2.8);
+  \draw (\x,1.4) to[short,*-] (\x+.8,1.4) node[right]{$Y$};
+  \draw (\x,.1) node[ground]{};
+  \draw (\x+.8,1.4) to[C,l=$C_L$] (\x+.8,-.1) node[ground]{};}
+\draw[cortado] (0,2.8) to[nos] (0,1.4) to[nos] (0,.1);
+\draw[red,thick] (5.5,2.8)--(5.5,.1);
+\foreach \y in {2.25,1.85,.95,.55}{\draw[red,fill=white,line width=.7pt] (5.5,\y) circle(.035);}
+% Chaves ideais fechadas: as lâminas unem os pares de contatos.
+\draw[red,line width=1.6pt] (5.5,2.25)--(5.5,1.85) (5.5,.95)--(5.5,.55);
+\draw[-{Latex},red,very thick] (4.9,2.7)--(4.9,.4);
+\node[align=center,font=\scriptsize] at (.4,-1.45){\textbf{Duas redes abertas}\\Y depende da carga anterior e das fugas};
+\node[align=center,font=\scriptsize] at (5.9,-1.45){\textbf{Duas redes fechadas}\\Caminho direto entre alimentação e GND};
+\path[use as bounding box] (-1.8,-1.95) rectangle (8.2,3.6);
+\end{circuitikz}}
+
+\newcommand{\ondaNAND}[1]{%
+\begin{tikzpicture}[x=1.05cm,y=.8cm,font=\small]
+\foreach \x/\ab in {0/00,2/01,4/11,6/10}{%
+  \fill[blue_theme!4] (\x,-.25) rectangle (\x+1.95,5.05);
+  \node[blue_theme,font=\scriptsize] at (\x+1,5.35){$AB=\ab$};}
+\foreach \x in {2,4,6}{\draw[dashed,black!25] (\x,-.2)--(\x,5.05);}
+\foreach \y/\nome in {4/A,2/B,0/Y}{\node[left] at (-.25,\y+.4){$\nome$};}
+\draw[blue_theme,very thick] (0,4)--(4,4)--(4,4.8)--(8,4.8);
+\draw[blue_theme,very thick] (0,2)--(2,2)--(2,2.8)--(6,2.8)--(6,2)--(8,2);
+\ifnum#1=1
+  \foreach \x in {1,3,5,7}{\node[black!45] at (\x,.4){?};}
+\else
+  \draw[ativo,very thick] (0,.8)--(4,.8)--(4,0)--(6,0)--(6,.8)--(8,.8);
+\fi
+\draw[->] (0,-.5)--(8.3,-.5) node[right]{$t$};
+\path[use as bounding box] (-.8,-.9) rectangle (8.8,5.8);
+\end{tikzpicture}}
+
+\newcommand{\cicloEnergia}[1]{%
+\begin{circuitikz}[font=\small]
+\path[use as bounding box] (-2,-2.7) rectangle (7.1,3);
+\node[above] at (0,2.4){$\VDD$};
+\draw (0,.4) to[short,*-] (2.3,.4) node[right]{$Y$};
+\draw (1.5,.4) to[C,l=$C_L$] (1.5,-1.8) node[ground]{};
+\ifnum#1=1
+  \draw (0,2.4) to[R,l=$R_P$] (0,.4);
+  \draw[black!40] (0,.4) to[nos] (0,-1.8) node[ground,black]{};
+  \draw[-{Latex},ativo,very thick] (-.65,2)--(-.65,.4)--(.75,.4);
+  \node[align=left,anchor=west] at (3.5,1){\textbf{Carregar}\\A alimentação fornece energia.\\Parte é armazenada em $C_L$.};
+\else
+  \draw[black!40] (0,2.4) to[nos] (0,.4);
+  \draw (0,.4) to[R,l_=$R_N$] (0,-1.8) node[ground]{};
+  \draw[-{Latex},ativo,very thick] (.8,-.1)--(.55,-.1)--(.55,-1.5);
+  \node[align=left,anchor=west] at (3.5,1){\textbf{Descarregar}\\A energia armazenada é dissipada.\\Repetir transições consome energia.};
+\fi
+\end{circuitikz}}

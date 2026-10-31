@@ -1,0 +1,22 @@
+{
+  "consulta": "2026-10-29",
+  "imagens": [
+    {
+      "arquivo": "vlsi_nise.jpg",
+      "url": "https://www.nisenet.org/sites/default/files/images/catalog/10831/2000x.jpg",
+      "pagina": "https://www.nisenet.org/catalog/media/zoom_microchip_video",
+      "autoria": "NISE Network / Lawrence Hall of Science",
+      "licenca": "CC BY-NC-SA 3.0 US, conforme página do recurso",
+      "licenca_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+      "descricao": "Imagem estática do recurso Zoom into a Microchip; circuito integrado mais antigo, processo não identificado."
+    },
+    {
+      "arquivo": "gaa_imec.jpg",
+      "url": "https://drupal.imec-int.com/sites/default/files/2025-06/Figure%201%20-%20TEM%20GAA%20nanosheet%20transistors.jpg",
+      "pagina": "https://www.imec-int.com/en/articles/outer-wall-forksheet-bridge-nanosheet-and-cfet-device-architectures-logic-technology",
+      "autoria": "imec, Figure 1 — TEM image of GAA nanosheet devices, 2025",
+      "licenca": "Direitos do titular; reprodução identificada de figura científica para contexto didático",
+      "descricao": "Micrografia eletrônica TEM de dispositivos GAA nanosheet. Preservar a figura e as barras de escala originais."
+    }
+  ]
+}

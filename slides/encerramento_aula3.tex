@@ -1,101 +1,133 @@
 \input{comum.tex}
-\usepackage{multicol}
+\input{trilhas_visuais.tex}
 \input{brasil_mapa.tex}
-\title[Aula 3 • Caminhos e Brasil]{\huge\textbf{Do transistor ao chip}}
+\renewcommand{\figura}[1]{\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.35cm}#1\end{adjustbox}\end{center}}
+\title[Aula 3 • Layout e caminhos]{\huge\textbf{Do transistor ao chip}}
 \begin{document}
-\capa{Encerramento da aula 3 · Para onde seguir?}{Trilhas de estudo e microeletrônica no Brasil • cerca de 25 minutos}
-\note{Bloco final da oficina de duas horas. Reservar cerca de 95 minutos à futura prática e 25 ao encerramento; a prática continua sem roteiro elaborado. As páginas regionais do Brasil são consultáveis: destacar exemplos, sem ler toda a relação.}
+
+\section{Antes da prática}
+\capa{Aula 3 · Do schematic ao layout}{Preparação: 5 min • pausa: 5 min • prática: 95 min • encerramento: 15 min}
+\begin{frame}{Pausa · 5 minutos}
+\chamada{Na volta: layout do inversor, DRC e LVS.}
+\small\centering A prática termina nas verificações DRC e LVS.\par\medskip
+Depois, retomamos as trilhas de estudo e o panorama Brasil.
+\end{frame}
+\begin{frame}{Referências para a prática}
+\small\begin{itemize}
+\item Roteiro: \textit{Quick Start — Práticas de CMOS no Cadence Virtuoso}, fornecido para o minicurso.
+\item Capturas: Virtuoso Studio IC23.1, PDK \texttt{gpdk045}; fluxo Layout XL e Assura do ambiente registrado.
+\item Autoria do material: Luan F. Nogueira e Luiz F. de Melo Soares.
+\end{itemize}
+\chamada{Siga o módulo da aula 3 no PDF do roteiro prático.}
+\fonte{Ao concluir a prática, retome a apresentação a partir do próximo slide, de encerramento.}
+\end{frame}
+
+\capa{Encerramento da aula 3 · Para onde seguir?}{Após a prática no Virtuoso • cerca de 15 minutos}
+
+\section{O percurso}
+\begin{frame}{Do dispositivo ao resultado que conseguimos explicar}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[align=center] (a) at (0,0){\textbf{Aula 1}\\Source, Gate, Drain\\Canal e controle};
+\node[align=center] (b) at (4,0){\textbf{Aula 2}\\Redes CMOS\\Previsão lógica};
+\node[align=center] (c) at (8,0){\textbf{Aula 3}\\Esquema e estímulos\\Formas de onda};
+\draw[seta,shorten <=1mm,shorten >=1mm] (a.east)--(b.west);\draw[seta,shorten <=1mm,shorten >=1mm] (b.east)--(c.west);
+\node[nmos,scale=.65] (q) at (0,-1.6) {};
+\draw (q.D)--(0,-1);\draw (q.S)--(0,-2.3) node[ground]{};
+\draw (q.G)--++(-.3,0) node[left,font=\scriptsize]{$A$};
+\node[nand port,scale=.7] (g) at (4,-1.6) {};
+\draw (g.in 1)--++(-.25,0);\draw (g.in 2)--++(-.25,0);\draw (g.out)--++(.3,0);
+\draw[ativo,thick] (7.2,-1.5)--(8,-1.5)--(8.2,-2)--(8.8,-2);
+\path[use as bounding box] (-1.7,-2.5) rectangle (9.7,1);
+\end{tikzpicture}}
+\chamada{Que caminho elétrico explica a saída que observamos?}
+\fonte{Síntese para discussão após a prática. Os traços são ilustrativos, sem resultados de simulação atribuídos ao Virtuoso.}
+\end{frame}
 
 \section{Trilhas}
-\begin{frame}{Uma base, cinco caminhos que se conectam}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\node[circle,draw=blue_theme,fill=white,minimum size=22mm,align=center](base)at(0,0){MOSFET\\e CMOS};
-\foreach \y/\t/\ex in {2.4/Digital/Portas e RTL,1.2/Arquitetura/Processadores,0/Analógica/Amplificadores,-1.2/Sinais mistos/Conversores,-2.4/RF/Comunicação}{\node[anchor=west,align=left] (p\y) at(3.2,\y){\textbf{\t}\\\ex};\draw[seta](base.east)--(3,\y);}
-\end{tikzpicture}}
-\chamada{Microeletrônica reúne essas áreas e outras especialidades.}
+\begin{frame}{Digital e arquitetura: duas escalas de projeto}
+\duas{\centering\textcolor{blue_theme}{\large\textbf{Digital}}\par
+\figura{\digitalTrilha}\small
+Lógica combinacional e sequencial\par\medskip
+\textbf{Próxima base}\par lógica sequencial, HDL/RTL e verificação\par\medskip
+\textbf{Primeiro projeto}\par ULA de 4 bits com testes
+}{\centering\textcolor{ativo}{\large\textbf{Computer Architecture}}\par
+\figura{\arquiteturaTrilha}\small
+Processador $\leftrightarrow$ memória\par\medskip
+\textbf{Próxima base}\par instruções, caminho de dados e hierarquia de memória\par\medskip
+\textbf{Primeiro projeto}\par executar uma tarefa e contar ciclos}
 \end{frame}
-\note{O objetivo é abrir possibilidades, não exigir escolha de carreira. Arquitetura conecta escolhas do sistema a implementações digitais; RF se apoia em analógica, sinais e eletromagnetismo. Nenhuma trilha é totalmente isolada.}
 
-\begin{frame}{Digital: implementar funções em hardware}
-\figura{\begin{tikzpicture}[node distance=8mm,font=\small]
-\node[draw=blue_theme,minimum width=2cm,minimum height=1cm](a){Portas};\node[draw=blue_theme,minimum width=2cm,minimum height=1cm,right=of a](b){Registradores};\node[draw=blue_theme,minimum width=2cm,minimum height=1cm,right=of b](c){ULA};\draw[seta](a)--(b);\draw[seta](b)--(c);\end{tikzpicture}}
-\begin{itemize}\item Estudar: lógica sequencial, HDL/RTL e verificação.
-\item Primeiro projeto: ULA de 4 bits com testes automáticos.\end{itemize}
+\begin{frame}{Analógica, sinais mistos e RF}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.32\textwidth}\centering
+\textcolor{blue_theme}{\textbf{Analógica}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=2.35cm}\analogicaTrilha\end{adjustbox}\par\smallskip
+{\scriptsize Polarização e pequenos sinais\par\medskip\textbf{Experimentar:}\par amplificador common-source}
+\end{column}
+\begin{column}{.32\textwidth}\centering
+\textcolor{ativo}{\textbf{Mixed-signal}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=2.35cm}\mistoTrilha\end{adjustbox}\par\smallskip
+{\scriptsize Amostragem e quantização\par\medskip\textbf{Experimentar:}\par modelo de ADC de 3 bits}
+\end{column}
+\begin{column}{.32\textwidth}\centering
+\textcolor{blue_theme}{\textbf{RF integrada}}\par
+\begin{adjustbox}{max width=\linewidth,max totalheight=2.35cm}\rfTrilha\end{adjustbox}\par\smallskip
+{\scriptsize Impedâncias e eletromagnetismo\par\medskip\textbf{Experimentar:}\par rede LC de casamento}
+\end{column}
+\end{columns}
+\chamada{O mesmo MOSFET pode participar de funções diferentes.}
+\fonte{Diagramas conceituais, sem dimensionamento. O amplificador requer polarização; os valores de LC dependem da frequência e das impedâncias.}
 \end{frame}
-\note{HDL: linguagem de descrição de hardware. RTL: descrição no nível de transferências entre registradores. ULA: unidade lógica e aritmética. As setas mostram um percurso de estudo, não a conectividade interna de uma ULA. FPGA é uma possibilidade de prototipagem; ASIC tem outras etapas de implementação física.}
 
-\begin{frame}{Arquitetura: organizar a computação}
-\figura{\begin{tikzpicture}[node distance=12mm,font=\small]
-\node[draw=blue_theme,minimum width=2cm,minimum height=2cm,align=center](r){Banco de\\registradores};
-\node[draw=blue_theme,minimum width=1.7cm,minimum height=1.2cm,right=of r](u){ULA};\node[draw=blue_theme,minimum width=2cm,minimum height=2cm,right=of u](m){Memória};
-\draw[seta](r)--(u);\draw[seta](u)--(m);\draw[seta](m.south)--++(0,-.7)-|(r.south);
-\node[above=8mm of u](c){Controle e instruções};\draw[seta](c)--(u);
-\end{tikzpicture}}
-\begin{itemize}\item Estudar: instruções, caminho de dados e memória.
-\item Primeiro projeto: executar uma tarefa e contar ciclos.\end{itemize}
-\end{frame}
-\note{Diagrama funcional simplificado. A ISA é o contrato de instruções visível ao software; a microarquitetura organiza sua execução. Depois vêm temas como pipeline, caches e paralelismo. O trabalho de Luan com aceleradores ilustra a ligação com essa trilha.}
-
-\begin{frame}{Analógica: trabalhar com sinais contínuos}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\draw[blue_theme,thick,domain=0:2,samples=70]plot(\x,{.3*sin(360*\x)});
-\draw[seta](2.4,0)--(3,0);\draw[blue_theme,thick](3.3,-1)--(3.3,1)--(5.2,0)--cycle;\node at(3.6,.45){$+$};\node at(3.6,-.45){$-$};\draw[seta](5.4,0)--(6,0);
-\draw[ativo,thick,domain=6.3:8.3,samples=70]plot(\x,{.9*sin(360*\x)});
-\end{tikzpicture}}
-\begin{itemize}\item Estudar: polarização, pequenos sinais e realimentação.
-\item Primeiro projeto: amplificador fonte comum.\end{itemize}
-\end{frame}
-\note{O desenho ilustra amplificação ideal de uma senoide, sem representar uma topologia ou ganho medido. O mesmo MOSFET passa a ser visto como dispositivo de controle contínuo de corrente. Projetos reais também precisam de ruído, estabilidade, faixa de saída e variações. O trabalho de Luiz com amplificadores e layout é um exemplo.}
-
-\begin{frame}{Sinais mistos: do sinal ao código}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\draw[blue_theme,thick,domain=0:2.5,samples=70]plot(\x,{.7*sin(180*\x)});
-\draw[seta](2.9,0)--(3.5,0);\node[draw=blue_theme,minimum width=1.7cm,minimum height=1.3cm](c)at(4.6,0){ADC};\draw[seta](5.6,0)--(6.2,0);
-\node[align=left,font=\ttfamily\small] at(7.1,0){001\\011\\110\\100};
-\node at(1.2,-1.3){Tensão};\node at(4.6,-1.3){Amostragem};\node at(7.1,-1.3){Bits};
-\end{tikzpicture}}
-\begin{itemize}\item Estudar: amostragem, quantização e conversores.
-\item Primeiro projeto: modelo de ADC de 3 bits.\end{itemize}
-\end{frame}
-\note{ADC: conversor analógico--digital. DAC faz a conversão no sentido oposto. O código mostrado é ilustrativo, sem correspondência numérica com as amostras desenhadas. A área também envolve interfaces de sensores, sincronização e convivência entre blocos analógicos e digitais.}
-
-\begin{frame}{RF integrada: comunicar por ondas}
-\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
-\draw[blue_theme,line width=1.5pt](0,-1)--(0,1.2);\draw[blue_theme,line width=1.5pt](-.6,1.2)--(0,.6)--(.6,1.2);
-\draw[blue_theme](-.8,.2)arc(210:150:1);\draw[blue_theme](.8,1.2)arc(30:-30:1);
-\draw[seta](.5,-.4)--(1.5,-.4);\node[draw=blue_theme,minimum width=2cm,minimum height=1.1cm]at(2.7,-.4){Amplificador};\draw[seta](3.9,-.4)--(4.7,-.4);\node[draw=blue_theme,minimum width=2cm,minimum height=1.1cm]at(5.9,-.4){Misturador};\draw[seta](7.1,-.4)--(8,-.4);
-\end{tikzpicture}}
-\begin{itemize}\item Estudar: analógica, sinais, impedâncias e eletromagnetismo.
-\item Primeiro projeto: rede LC de casamento de impedâncias.\end{itemize}
-\end{frame}
-\note{LC: indutor e capacitor. A cadeia é uma ilustração funcional de recepção, não um rádio completo. Ruído, linearidade, componentes parasitas e encapsulamento são importantes. Não definir a área por uma frequência de corte universal.}
-
-\begin{frame}{As trilhas se encontram em um produto}
-\figura{\begin{tikzpicture}[node distance=4mm,font=\small]
-\node[draw=blue_theme,align=center,minimum width=1.5cm,minimum height=1cm](s){Sensor};\node[draw=blue_theme,align=center,minimum width=1.8cm,minimum height=1cm,right=of s](a){Analógica};\node[draw=blue_theme,align=center,minimum width=1.5cm,minimum height=1cm,right=of a](d){ADC};\node[draw=blue_theme,align=center,minimum width=1.6cm,minimum height=1cm,right=of d](p){Digital};\node[draw=blue_theme,align=center,minimum width=1.3cm,minimum height=1cm,right=of p](r){RF};\draw[seta](s)--(a);\draw[seta](a)--(d);\draw[seta](d)--(p);\draw[seta](p)--(r);
-\end{tikzpicture}}
+\begin{frame}{As trilhas se encontram no mesmo produto}
+\figura{\produtoIntegrado}
 \chamada{Exemplo: um nó de sensores sem fio.}
-\small\centering Projeto físico • verificação • processos • teste • encapsulamento • ferramentas
+\fonte{Organização funcional ilustrativa; não representa o layout, a área ou o processo de um produto específico. Retoma a integração de funções discutida na aula 1.}
 \end{frame}
-\note{O processamento e a comunicação reais incluem interfaces e conversões adicionais. A arquitetura organiza dados, memória e consumo. O setor também precisa de funções transversais: não se resume a desenhar transistores ou escrever HDL. Cada bloco pode estar no mesmo chip ou em componentes separados.}
 
-\input{brasil_trecho.tex}
+\section{Âmbito Brasil}
+\begin{frame}{Microeletrônica no Brasil: onde essas áreas aparecem}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.61\textwidth}
+\begin{center}\begin{adjustbox}{max width=\linewidth,max totalheight=4.55cm}\mapaBrasil{1,2,3,4,5,6,7,8,9,10,11,12,13}\end{adjustbox}\end{center}
+\end{column}
+\begin{column}{.37\textwidth}
+{\small\textcolor{blue_theme}{\textbf{54 organizações · 13 polos}}\par\medskip
+\textbf{Exemplos do levantamento}\par\smallskip
+\scriptsize Zilia · Manaus\par
+HWiT · Campina Grande\par
+SENAI CIMATEC · Salvador\par
+Cadence · Belo Horizonte\par
+EnSilica · Campinas\par
+Chipus · Florianópolis\par\medskip
+\textbf{Relação integral:}\par PDF de consulta Brasil e mapa A3.\par
+Empresas e centros de pesquisa são distinguidos nessa relação.}
+\end{column}
+\end{columns}
+\creditoBrasil
+\end{frame}
 
 \section{Próximo passo}
-\begin{frame}{Escolha uma pergunta e faça um pequeno projeto}
-\figura{\begin{tikzpicture}[node distance=10mm,font=\small]
-\node[circle,draw=blue_theme,minimum size=15mm](a){Escolher};\node[circle,draw=blue_theme,minimum size=15mm,right=of a](b){Estudar};\node[circle,draw=blue_theme,minimum size=15mm,right=of b](c){Construir};\node[circle,draw=blue_theme,minimum size=15mm,right=of c](d){Explicar};\draw[seta](a)--(b);\draw[seta](b)--(c);\draw[seta](c)--(d);
+\begin{frame}{Um próximo projeto que você consegue testar}
+\figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[blue_theme!25,line width=2pt] (0,1.8)--(9,1.8);
+\foreach \x/\n/\t/\d in {0/1/Perguntar/{O que o circuito\\deve fazer?},3/2/Construir/{Qual base preciso\\para começar?},6/3/Conferir/{Que teste mostrará\\se funcionou?}}{%
+\node[circle,fill=blue_theme,text=white,minimum size=8mm] at (\x+1.2,1.8){\n};
+\node[blue_theme,font=\bfseries] at (\x+1.2,.9){\t};
+\node[align=center,font=\scriptsize] at (\x+1.2,0){\d};}
+\path[use as bounding box] (-.4,-.8) rectangle (9.4,2.5);
 \end{tikzpicture}}
-\chamada{Qual trilha? Qual primeiro projeto? Como demonstrar que funciona?}
+\chamada{Escolha uma trilha, uma pergunta e uma evidência.}
+\fonte{O roadmap A4 detalha pré-requisitos e projetos nas cinco áreas. As trilhas se cruzam; o percurso não precisa ser linear.}
 \end{frame}
-\note{Fechar com dois ou três relatos curtos. A turma pode registrar uma trilha, um pré-requisito e uma entrega. Não é preciso decidir uma carreira hoje. Os mapas e as listas ficam para consulta.}
 
-\begin{frame}{Créditos e caminhos de consulta}
-\small\begin{itemize}\item Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
-\item Levantamento Brasil: \textbf{Matheus Grossi}, \href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Brazil Silicon Roadmap}; planilha PT-BR fornecida.
+\begin{frame}{Créditos e materiais para continuar}
+\small\begin{itemize}
+\item Desenvolvimento: Luan F. Nogueira e Luiz F. de Melo Soares.
+\item Brasil: \textbf{Matheus Grossi}, \href{https://github.com/MattGrossi12/brazil_silicon_roadmap}{Brazil Silicon Roadmap}; dados derivados da planilha PT-BR fornecida.
 \item Contorno: \href{https://github.com/johan/world.geo.json/blob/master/countries/BRA.geo.json}{johan/world.geo.json}; mapa redesenhado em TikZ.
-\item Continuação de estudos: \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004}, Salem e Dutertre.
-\item Template Beamer UFC: Maurício Moreira Neto.\end{itemize}
+\item Consulta: roadmap A4, mapa A3 e apresentação Brasil com a relação completa por polo.
+\item Referências: Salem, Dutertre e \href{https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/}{MIT 6.004}. Template UFC: Maurício Moreira Neto.
+\end{itemize}
 \end{frame}
-\note{As localizações são polos agregados e não endereços. As incertezas e categorias da planilha estão preservadas nos dados derivados. O mapa não reproduz a imagem fornecida. As sequências de estudo e os pequenos projetos são propostas didáticas, não promessas de emprego ou ofertas de curso.}
 \end{document}

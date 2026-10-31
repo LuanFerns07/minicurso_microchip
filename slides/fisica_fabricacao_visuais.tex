@@ -1,0 +1,108 @@
+% Diagramas didáticos originais. Sem parâmetros de um PDK.
+\newcommand{\corteCMOS}[1]{%
+\begin{tikzpicture}[x=.88cm,y=.88cm,font=\small]
+\path[use as bounding box] (-.4,-.7) rectangle (11.4,5.4);
+\fill[blue_theme!10] (0,0) rectangle (11,1.4);
+\fill[lacuna!17] (.55,.2) rectangle (5.05,1.4);
+\draw[lacuna,thick] (.55,1.4)--(.55,.2)--(5.05,.2)--(5.05,1.4);
+\fill[gray!35] (5.35,.9) rectangle (6.45,1.4);
+\node[font=\scriptsize] at (2.8,.5){poço N};
+\node[font=\scriptsize] at (8.1,.45){substrato P};
+\node[blue_theme,font=\bfseries] at (2.8,-.35){PMOS};
+\node[blue_theme,font=\bfseries] at (8.55,-.35){NMOS};
+\ifnum#1>1
+\fill[white] (0,1.4) rectangle (11,1.54);
+\foreach \x/\tipo/\cor in {1.1/{p$^+$}/lacuna,3.5/{p$^+$}/lacuna,7/{n$^+$}/eletron,9.4/{n$^+$}/eletron}{%
+\fill[\cor!40] (\x,1) rectangle ++(.9,.4);\node[font=\scriptsize] at (\x+.45,1.18){\tipo};}
+\foreach \x in {2.2,8.15}{\fill[lacuna!65] (\x,1.43) rectangle ++(.9,.1);\fill[blue_theme!65] (\x,1.59) rectangle ++(.9,.38);}
+\ifnum#1=2
+\draw[blue_theme] (2.65,2.05)--(2.65,2.6) node[above,font=\scriptsize]{Gate};
+\draw[lacuna] (8.6,1.48)--(9.5,2.5) node[above,font=\scriptsize]{dielétrico};
+\node[font=\scriptsize,align=center] at (5.5,3.9){Os dois dispositivos têm regiões de Source e Drain\\e um Gate isolado do semicondutor.};
+\fi
+\else
+\node[font=\scriptsize,align=center] at (5.5,3.5){Regiões com dopagens diferentes\\permitem construir os dispositivos complementares.};
+\draw[blue_theme] (5.9,1.4)--(5.9,2.15) node[above,font=\scriptsize]{isolação};
+\fi
+\ifnum#1=3
+\foreach \x in {1.55,3.95,7.45,9.85}{\fill[black!55] (\x-.075,1.4) rectangle (\x+.075,2.55);}
+\draw[line width=2pt,ativo] (1.55,2.55)--(1.55,3.55) node[above]{$\VDD$};
+\draw[line width=2pt,ativo] (9.85,2.55)--(9.85,3.55) node[above]{GND};
+\draw[line width=2pt,blue_theme] (3.95,2.55)--(3.95,3)--(7.45,3)--(7.45,2.55);
+\draw[line width=2pt,blue_theme] (5.8,3)--(5.8,3.55) node[above]{$Y$};
+\draw[line width=1.6pt,lacuna] (2.65,1.97)--(2.65,4.7)--(8.6,4.7)--(8.6,1.97);
+\node[above,lacuna] at (5.6,4.7){entrada $A$};
+\node[font=\scriptsize,anchor=west] at (0,2.55){\strut};
+\fi
+\draw[blue_theme] (0,0) rectangle (11,1.4);
+\end{tikzpicture}}
+
+\newcommand{\cicloFabricacao}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\foreach \x in {0,3.2,6.4}{\fill[blue_theme!15] (\x,1.5) rectangle ++(2.2,.55);}
+\fill[blue_theme!65] (0,2.05) rectangle (2.2,2.4);
+\fill[blue_theme!65] (3.2,2.05) rectangle (5.4,2.4);
+\foreach \x in {3.2,4.65}{\fill[lacuna!60] (\x,2.4) rectangle ++(.75,.3);}
+\foreach \x in {6.4,7.85}{\fill[blue_theme!65] (\x,2.05) rectangle ++(.75,.35);}
+\node[font=\bfseries,blue_theme] at (1.1,3.45){Criar uma camada};
+\node[font=\bfseries,blue_theme] at (4.3,3.45){Definir um padrão};
+\node[font=\bfseries,blue_theme] at (7.5,3.45){Modificar o material};
+\node[align=center,font=\scriptsize] at (1.1,.7){Crescer ou depositar\\isolantes e condutores};
+\node[align=center,font=\scriptsize] at (4.3,.7){Litografia no resiste\\e alinhamento};
+\node[align=center,font=\scriptsize] at (7.5,.7){Gravar, dopar ou abrir\\acesso às camadas};
+\draw[seta] (2.4,2.15)--(3,2.15);\draw[seta] (5.6,2.15)--(6.2,2.15);
+\draw[seta] (7.5,.1)--(7.5,-.6)--(1.1,-.6)--(1.1,.1);
+\node[fill=white,inner sep=2pt,font=\scriptsize] at (4.3,-.6){Repetir com novas máscaras e materiais};
+\path[use as bounding box] (-.5,-1) rectangle (9,4);
+\end{tikzpicture}}
+
+\newcommand{\escalaAtomica}{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[blue_theme,font=\bfseries] at (1.9,4.1){Tamanho de referência};
+\shade[inner color=blue_theme!5,outer color=blue_theme!35] (1.9,1.9) circle(.85);
+\node[blue_theme,font=\large] at (1.9,1.9){Si};
+\draw[<->,blue_theme] (1.05,.65)--node[below,font=\scriptsize]{diâmetro covalente $\approx0{,}228$ nm}(2.75,.65);
+\node[blue_theme,font=\bfseries] at (7.2,4.1){Distância na rede cristalina};
+\draw[blue_theme!40,line width=2pt] (6,1.9)--(8.35,1.9);
+\foreach \x in {6,8.35}{\shade[inner color=blue_theme!5,outer color=blue_theme!35] (\x,1.9) circle(1.14);\node[blue_theme] at (\x,1.9){Si};}
+\draw[densely dashed,blue_theme!50] (6,1.9)--(6,3.45);\draw[densely dashed,blue_theme!50] (8.35,1.9)--(8.35,3.45);
+\draw[<->,blue_theme] (6,3.35)--node[above,font=\scriptsize]{$\approx0{,}235$ nm}(8.35,3.35);
+\node[align=center,font=\scriptsize] at (7.2,.3){Separação entre vizinhos mais próximos.\\A organização real é tridimensional.};
+\path[use as bounding box] (-.2,-.4) rectangle (10,4.6);
+\end{tikzpicture}}
+
+\newcommand{\reguaAtomica}{%
+\begin{tikzpicture}[x=.74cm,y=1cm,font=\small]
+\node[anchor=west,blue_theme,font=\bfseries] at (0,4.3){Comprimentos físicos em uma mesma escala};
+\draw[<->,lacuna,thick] (0,3.5)--node[above,font=\scriptsize]{13,5 nm · comprimento de onda EUV}(13.5,3.5);
+\draw[<->,blue_theme,thick] (0,2.5)--node[above,font=\scriptsize]{8 nm · resolução nominal High-NA}(8,2.5);
+\draw[blue_theme!35,line width=.8pt] (0,1.5)--(8,1.5);
+\foreach \i in {0,...,34}{\fill[blue_theme!65] ({\i*.235},1.5) circle[x radius=.095,y radius=.07];}
+\node[anchor=west,font=\scriptsize] at (0,.9){8 nm $\approx$ 34 separações de 0,235 nm};
+\node[anchor=west,align=left,font=\scriptsize,text width=3.1cm] at (9.1,1.9){\textbf{``2 nm'' é o nome do nó.}\\Não é uma medida física única do transistor.};
+\draw[blue_theme!30] (8.65,.7)--(8.65,2.8);
+\node[anchor=west,font=\scriptsize] at (0,-.05){Régua unidimensional ilustrativa; não representa a estrutura de um transistor.};
+\path[use as bounding box] (-.4,-.4) rectangle (14,4.7);
+\end{tikzpicture}}
+
+\newcommand{\barreiraTunelamento}[1]{%
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\def\largura{2.7}\ifnum#1=2\def\largura{.85}\fi
+\draw[-{Latex},blue_theme] (.2,.3)--(.2,4) node[above,font=\scriptsize]{energia};
+\fill[blue_theme!12] (3.4,.55) rectangle (3.4+\largura,3.2);
+\draw[blue_theme,very thick] (.5,.55)--(3.4,.55)--(3.4,3.2)--(3.4+\largura,3.2)--(3.4+\largura,.55)--(10.1,.55);
+\draw[lacuna,dashed] (.5,1.6)--(10.1,1.6);
+\node[anchor=west,font=\scriptsize,lacuna] at (.7,1.95){energia do elétron};
+\draw[-{Latex},eletron,very thick] (.8,1.6)--(2.9,1.6);
+\fill[eletron] (1.1,1.6) circle(.09);
+\draw[<->,blue_theme] (3.4,3.65)--node[above,font=\scriptsize]{espessura da barreira}(3.4+\largura,3.65);
+\ifnum#1=1
+\draw[-{Latex},eletron!35,dashed,line width=.6pt] (6.3,1.6)--(7.5,1.6);
+\node[font=\scriptsize,align=center] at (8,2.65){Transmissão menor\\para esta barreira};
+\else
+\draw[-{Latex},red,very thick] (4.6,1.6)--(8,1.6);
+\node[font=\scriptsize,align=center] at (7.3,2.65){Maior probabilidade\\de atravessar};
+\fi
+\node[font=\scriptsize,anchor=west] at (.7,-.1){Diagrama de energia: a altura representa energia, não uma parede física.};
+\path[use as bounding box] (-.2,-.55) rectangle (10.5,4.35);
+\end{tikzpicture}}

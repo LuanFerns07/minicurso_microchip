@@ -1,0 +1,26 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[landscape,margin=14mm,top=22mm,bottom=18mm,headheight=25pt]{geometry}
+\input{estilo.tex}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\definecolor{blue_theme}{RGB}{0,83,134}\definecolor{ativo}{RGB}{0,132,75}\definecolor{lacuna}{RGB}{199,123,0}
+\makeatletter\def\input@path{{../slides/}}\makeatother
+\input{integracao_visual.tex}
+\begin{document}
+\titulo{Histórico de integração em processadores}{Luan F. Nogueira e Luiz F. de Melo Soares · contagens por die · seleção 1971--2024}
+\begin{minipage}[t]{.48\linewidth}\vspace{0pt}\centering\resizebox{\linewidth}{!}{\graficoIntegracao{2}}\par\smallskip\footnotesize O gráfico amplia o recorte 2020--2024; a tabela reúne a série completa. CPU, SoC e GPU têm funções e áreas diferentes. Contagem não equivale a desempenho ou densidade. Nós de processo não medem uniformemente o comprimento do Gate.\end{minipage}\hfill
+\begin{minipage}[t]{.49\linewidth}\vspace{0pt}\scriptsize\begin{tabular}{rllrr}\toprule Ano&Chip&Classe&Transistores&Processo\\\midrule
+1971&4004&CPU&2,3 mil&10 $\mu$m\\
+1978&8086&CPU&29 mil&3 $\mu$m\\
+1985&386 DX&CPU&275 mil&1,5 $\mu$m\\
+1993&Pentium&CPU&3,1 mi&800 nm\\
+2000&Pentium 4&CPU&42 mi&180 nm\\
+2006&Core 2 Duo&CPU&291 mi&65 nm\\
+2008&Core i7&CPU&731 mi&45 nm\\
+2012&Ivy Bridge&CPU + GPU&1,4 bi&22 nm\\
+2020&M1&SoC Arm&16 bi&5 nm\\
+2020&A100&GPU&54,2 bi&7 nm N7\\
+2022&M2&SoC Arm&20 bi&5 nm (2ª ger.)\\
+2023&M3&SoC Arm&25 bi&3 nm\\
+2024&M4&SoC Arm&28 bi&3 nm (2ª ger.)\\
+\bottomrule\end{tabular}\par\medskip\footnotesize Fontes: Intel, Apple, NVIDIA e artigo de Ivy Bridge no ISSCC 2012. Links individuais, revisões selecionadas e observações no CSV e no documento FONTES\_INTEGRACAO.md.\end{minipage}
+\end{document}

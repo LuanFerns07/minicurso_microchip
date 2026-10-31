@@ -1,0 +1,89 @@
+\section{Prática 2}
+\telaPasso{A2 · 01 — Montar o inversor}{22-montagem-inversor.png}{%
+\hypertarget{pratica2}{}%
+\acao{Célula}{\cod{a2_inv}}
+\acao{Entrada vin}{Gates unidos.}
+\acao{Saída vout}{Drains unidos.}
+\acao{Alimentação}{PMOS: Source/corpo em VDD. NMOS: Source/corpo em GND.}
+}{W = 120 nm; L = 45 nm; multiplicador 1; VDD = 1 V. A fonte mostrada está no schematic: evitar duplicá-la no testbench.}
+
+\duasTelas{A2 · 02 — Criar a vista symbol}{23-menu-criar-symbol.png}{24-cellview-symbol.png}{%
+Create → Cellview → From Cellview…}{%
+\cod{a2_inv}: From View = schematic; To View = symbol; Tool = schematicSymbol.
+}{Conferir biblioteca e célula; manter Display Cellview e Edit Options marcados.}
+
+\duasTelas{A2 · 03 — Organizar os pinos e o desenho}{25-opcoes-symbol.png}{26-symbol-inversor.png}{%
+Left Pins: \cod{vin}.\par Right Pins: \cod{vout}.\par Top/Bottom Pins vazios nesta versão.}{%
+Ajustar o desenho, preservando terminais, pontos de conexão e rótulos da célula/instância.
+}{O símbolo representa a função; o comportamento elétrico continua no schematic. A personalização gráfica não foi capturada passo a passo.}
+
+\duasTelas{A2 · 04 — Conferir as duas vistas}{27-vista-symbol.png}{28-vista-schematic.png}{%
+A vista \cod{symbol} será instanciada no teste.}{%
+A vista \cod{schematic} mantém os transistores e suas conexões.
+}{Ambas pertencem a \cod{minicurso_cmos/a2_inv}. Nesta versão, o símbolo expõe apenas vin/vout; a alimentação interna continua necessária.}
+
+\telaPasso{A2 · 05 — Montar o testbench do inversor}{29-testbench-inversor.png}{%
+\acao{Célula}{\cod{a2_tb_inv}}
+\acao{Instância I0}{\cod{a2_inv/symbol}}
+\acao{Entrada}{V0 entre vin e GND.}
+\acao{Saída}{Selecionar a tensão de \cod{/vout} no ADE.}
+}{Conferir a alimentação interna. Os parâmetros completos de pulso do inversor não foram registrados; o desenho da fonte não confirma seus tempos.}
+
+\telaAmpla{A2 · 06 — Conferir a inversão no tempo}{30-transiente-inversor.png}{%
+\textcolor{purple}{Roxo: /vout.}\quad\textcolor{orange}{Laranja: /vin.}\par
+Nos intervalos estáveis: entrada alta → saída baixa; entrada baixa → saída alta.
+}{Resultado registrado entre 0 e 40 ns. O objetivo é a função lógica; curva de transferência DC do inversor e investigação dos picos ficam fora desta aula.}
+
+\telaPasso{A2 · 07 — Construir a NAND}{31-schematic-nand.png}{%
+\acao{Célula}{\cod{a2_nand2}}
+\acao{Subida}{PMOS em paralelo.}
+\acao{Descida}{NMOS em série.}
+\acao{A, B e Y}{Manter exatamente os mesmos nomes no circuito, símbolo e teste.}
+}{Y é o nó comum dos Drains PMOS e do Drain do NMOS superior. O nó entre NMOS é interno. Corpos NMOS em GND e PMOS em VDD, inclusive nas pilhas.}
+
+\duasTelas{A2 · 08 — Símbolo e teste da NAND}{32-symbol-nand.png}{37-testbench-nand.png}{%
+Entradas A/B à esquerda; saída Y à direita. Preservar os pontos de conexão.}{%
+\cod{a2_tb_nand2}: duas fontes vpulse, com negativos em GND; medir A, B e Y.
+}{Conferir alimentação de 1 V e executar Check and Save. W = 120 nm, L = 45 nm, multiplicador 1 por transistor.}
+
+\telaPasso{A2 · 09 — Construir a NOR}{34-schematic-nor.png}{%
+\acao{Célula}{\cod{a2_nor2}}
+\acao{Subida}{PMOS em série.}
+\acao{Descida}{NMOS em paralelo.}
+\acao{Corpos}{Todos os PMOS em VDD; todos os NMOS em GND.}
+}{Y une o Drain do PMOS inferior aos Drains NMOS. O nó entre PMOS é interno. Os símbolos de alimentação não substituem a fonte de 1 V.}
+
+\duasTelas{A2 · 10 — Símbolo e teste da NOR}{35-symbol-nor.png}{38-testbench-nor.png}{%
+Repetir a geração de symbol com A/B à esquerda e Y à direita.}{%
+\cod{a2_tb_nor2}: aplicar os mesmos quatro estados usados na NAND e medir A, B e Y.
+}{Conferir os nomes das redes, a alimentação e as ligações de corpo. Executar Check and Save antes do ADE.}
+
+\begin{frame}{A2 · 11 — Configurar os estímulos e tran}
+\small\centering
+\begin{tabular}{lll}\toprule
+Campo & Entrada A & Entrada B\\\midrule
+Voltage 1 / Voltage 2 & 0 / 1 V & 0 / 1 V\\
+Delay time & 0 & 0\\
+Pulse Width & 5 ns & 10 ns\\
+Period & 10 ns & 20 ns\\
+Rise time na NAND & 100 ps & 100 ps\\
+Rise time na NOR & 20 ps & 20 ps\\\bottomrule
+\end{tabular}\par\bigskip
+\textbf{Análise:} tran\qquad\textbf{Stop Time:} \cod{40n}\par\medskip
+A alterna mais rápido que B; observar as quatro combinações.
+\fonte{Delay = 0 e Stop Time = 40n foram informados pelo responsável; tempos de subida aparecem nos testbenches. Para descida, 100 ps é a referência sugerida no roteiro, sem captura de confirmação. A configuração completa do pulso do inversor permanece não registrada.}
+\end{frame}
+
+\telaPasso{A2 · 12 — Validar a NAND nos intervalos estáveis}{33-transiente-nand.png}{%
+{\scriptsize\centering\begin{tabular}{rccc}\toprule $t$ & A&B&Y\\\midrule
+2 ns&1&1&0\\7 ns&0&1&1\\12 ns&1&0&1\\17 ns&0&0&1\\\bottomrule\end{tabular}\par}\medskip
+\textcolor{red}{A: vermelho.}\par\textcolor{ativo}{B: verde.}\par\textcolor{purple}{Y: magenta.}\par\medskip
+$Y=\overline{AB}$
+}{Ler longe das bordas, após o assentamento. Glitches e picos não são objeto de investigação nesta atividade.}
+
+\telaPasso{A2 · 13 — Validar a NOR nos intervalos estáveis}{36-transiente-nor.png}{%
+{\scriptsize\centering\begin{tabular}{rccc}\toprule $t$ & A&B&Y\\\midrule
+2 ns&1&1&0\\7 ns&0&1&0\\12 ns&1&0&0\\17 ns&0&0&1\\\bottomrule\end{tabular}\par}\medskip
+\textcolor{cyan!70!black}{A: ciano.}\par\textcolor{purple}{B: roxo.}\par\textcolor{orange}{Y: laranja.}\par\medskip
+$Y=\overline{A+B}$
+}{Saída alta somente em 00. Os gráficos registrados verificam a lógica das três portas; a próxima aula leva o inversor ao layout.}
