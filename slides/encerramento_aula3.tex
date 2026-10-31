@@ -29,18 +29,21 @@ Depois, retomamos as trilhas de estudo e o panorama Brasil.
 \figura{\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
 \node[align=center] (a) at (0,0){\textbf{Aula 1}\\Source, Gate, Drain\\Canal e controle};
 \node[align=center] (b) at (4,0){\textbf{Aula 2}\\Redes CMOS\\Previsão lógica};
-\node[align=center] (c) at (8,0){\textbf{Aula 3}\\Esquema e estímulos\\Formas de onda};
+\node[align=center] (c) at (8,0){\textbf{Aula 3}\\Implementação física\\DRC e LVS};
 \draw[seta,shorten <=1mm,shorten >=1mm] (a.east)--(b.west);\draw[seta,shorten <=1mm,shorten >=1mm] (b.east)--(c.west);
 \node[nmos,scale=.65] (q) at (0,-1.6) {};
 \draw (q.D)--(0,-1);\draw (q.S)--(0,-2.3) node[ground]{};
 \draw (q.G)--++(-.3,0) node[left,font=\scriptsize]{$A$};
 \node[nand port,scale=.7] (g) at (4,-1.6) {};
 \draw (g.in 1)--++(-.25,0);\draw (g.in 2)--++(-.25,0);\draw (g.out)--++(.3,0);
-\draw[ativo,thick] (7.2,-1.5)--(8,-1.5)--(8.2,-2)--(8.8,-2);
+\fill[ativo!25,draw=ativo] (7.4,-1.45) rectangle (8.6,-1.05);
+\fill[blue_theme!25,draw=blue_theme] (7.4,-2.1) rectangle (8.6,-1.7);
+\fill[red!55] (7.9,-2.25) rectangle (8.1,-.9);
+\draw[black!65,thick] (8.4,-1.25)--(8.9,-1.25)--(8.9,-1.9)--(8.4,-1.9);
 \path[use as bounding box] (-1.7,-2.5) rectangle (9.7,1);
 \end{tikzpicture}}
 \chamada{Que caminho elétrico explica a saída que observamos?}
-\fonte{Síntese para discussão após a prática. Os traços são ilustrativos, sem resultados de simulação atribuídos ao Virtuoso.}
+\fonte{Síntese para discussão após a prática. Diagramas conceituais do percurso: dispositivo, função lógica e implementação física.}
 \end{frame}
 
 \section{Trilhas}

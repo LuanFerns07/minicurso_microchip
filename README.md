@@ -8,10 +8,10 @@ Os terminais MOS são nomeados **Source, Gate e Drain**; “portas lógicas” c
 
 | Material | Quadros | Páginas com as etapas |
 | --- | ---: | ---: |
-| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 39 | 54 |
+| [Aula 1 — Do silício ao MOSFET](pdfs/aula1.pdf) | 41 | 56 |
 | [Aula 2 — Portas CMOS](pdfs/aula2.pdf) | 28 | 44 |
 | [Aula 3 — preparação e encerramento](pdfs/encerramento_aula3.pdf) | 11 | 11 |
-| [Roteiro visual — práticas no Virtuoso](pdfs/praticas_cmos.pdf) | 40 | 40 |
+| [Roteiro visual — práticas no Virtuoso](pdfs/praticas_cmos.pdf) | 47 | 47 |
 | [Consulta — organizações no Brasil](pdfs/consulta_brasil.pdf) | 8 | 8 |
 
 Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurso contínuo: facilitadores e história → contagens reais, VLSI e composição NMOS/PMOS → SoC → transporte de dados e CMOS 2.0 → materiais e junção PN → MOSFET e inversor CMOS → estrutura física e fabricação → litografia, escala atômica e limites físicos. O bloco de fabricação vem depois dos dispositivos que ele precisa construir. As etapas visuais de um mesmo quadro preservam o número do rodapé: avance pelo PDF em modo de apresentação para animar o processo.
@@ -23,9 +23,9 @@ Os quadros privilegiam figuras, desenhos e discussão. A aula 1 segue um percurs
 - [Histórico de integração: gráfico e tabela](pdfs/integracao_processadores.pdf): A4 horizontal, 13 chips com contagens e processos documentados.
 - [Microeletrônica no Brasil — mapa e organizações](pdfs/mapa_brasil.pdf): pôster vetorial A3 horizontal.
 
-As práticas das três aulas estão documentadas em [praticas/QUICK_START.md](praticas/QUICK_START.md). O [roteiro visual em PDF](pdfs/praticas_cmos.pdf) organiza **44 capturas reais em três módulos**: caracterização DC de NMOS/PMOS; inversor/NAND/NOR em transiente; layout do inversor e DRC/LVS. A nomenclatura dos terminais no PDF segue Source, Gate e Drain.
+As práticas das três aulas estão documentadas em [praticas/QUICK_START.md](praticas/QUICK_START.md). O [roteiro visual em PDF](pdfs/praticas_cmos.pdf) organiza **50 capturas reais em três módulos**: caracterização DC de NMOS/PMOS; inversor/NAND/NOR em transiente; layout do inversor e DRC/LVS. A nomenclatura dos terminais no PDF segue Source, Gate e Drain.
 
-Todas as apresentações têm **pausa de 5 minutos antes da prática e da bibliografia preparatória**. Nas aulas 1 e 2, ela aparece ao final da parte expositiva. Na aula 3, os três primeiros slides preparam a prática; depois do layout, retomar os oito slides de encerramento. O roteiro prático preserva o estado das evidências do Quick Start: há curvas e transientes registrados; os relatórios finais de DRC/LVS ainda não foram documentados. Extração e simulação após extração ficam fora do escopo.
+Todas as apresentações têm **pausa de 5 minutos antes da prática e da bibliografia preparatória**. Nas aulas 1 e 2, ela aparece ao final da parte expositiva. Na aula 3, os três primeiros slides preparam a prática; depois do layout, retomar os oito slides de encerramento. O roteiro prático preserva o estado das evidências do Quick Start: há curvas e transientes registrados e as novas capturas mostram DRC sem erros e correspondência LVS para a versão verificada do inversor. Extração e simulação após extração ficam fora do escopo.
 
 ## O que é animado
 
@@ -79,6 +79,7 @@ O script usa os dados locais para gerar a seção Brasil e o gráfico de integra
 - `slides/portas_visuais.tex`: construção da NAND, falhas, energia e estímulos da aula 2.
 - `slides/trilhas_visuais.tex`: diagramas das cinco trilhas e integração de funções da aula 3.
 - `slides/consulta_brasil.tex`: apresentação complementar com todas as organizações por polo.
+- `slides/tecnologia_gpdk045.tex` e `slides/dimensionamento_visuais.tex`: PDK, geometrias W/L e lei quadrática com hipóteses; fontes em `dados/FONTES_PDK.md`.
 - `slides/praticas_cmos.tex` e `slides/praticas_aula*.tex`: roteiro prático Beamer, com as imagens originais de `praticas/imagens/`.
 - `praticas/QUICK_START.md`: fonte textual das etapas e dos parâmetros, inclusive pendências de documentação.
 - `slides/assets/facilitadores/`: fotografias extraídas dos currículos.
@@ -111,7 +112,7 @@ São versionados os fontes, os scripts, as figuras necessárias à compilação 
 
 Referências técnicas: Fathi Salem, *ECE 410: VLSI Design*; J.-M. Dutertre, *Digital Design (Introduction to)*, 2022; [Steve Ward — CMOS](https://computationstructures.org/notes/cmos/notes.html); [MIT 6.004](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/). Mini-fichas e fotos extraídas dos currículos fornecidos. Fontes primárias da contextualização histórica: [dados/FONTES_CONTEXTO.md](dados/FONTES_CONTEXTO.md). Template UFC: Maurício Moreira Neto; [créditos](CREDITOS_TEMPLATE.md).
 
-Os diagramas de dispositivos e as analogias são qualitativos, sem resultados medidos ou simulados; as réguas de comprimentos indicam suas escalas. Os exemplos de tensões não definem um PDK. As legendas indicam as simplificações dos modelos. No gráfico histórico, referências de processo e nomes comerciais recentes são distinguidos; não se trata de uma medida uniforme do comprimento do transistor.
+Os diagramas de dispositivos e as analogias são qualitativos; as réguas indicam suas escalas. O roteiro prático reproduz as simulações e verificações registradas no Quick Start para gpdk045. As equações e os novos desenhos de W/L são didáticos; as tensões dos exemplos de chave ideal não substituem os parâmetros dos modelos do PDK. As legendas indicam as simplificações. No gráfico histórico, referências de processo e nomes comerciais recentes são distinguidos; não se trata de uma medida uniforme do comprimento do transistor.
 
 ## Ritmo dos três encontros
 
@@ -123,7 +124,7 @@ Cada encontro totaliza **120 minutos**, incluindo prática e pausa. A junção P
 | Aula 2 | 55 min | 5 min | 60 min: inversor/NAND/NOR | incluído nos 55 min |
 | Aula 3 | 5 min | 5 min | 95 min: layout e DRC/LVS | 15 min |
 
-Aula 1: apresentação/panorama (17 min), materiais/PN (9 min), MOSFET (15 min), inversor e desenho físico (7 min), fabricação/litografia/limites (9 min), atividade/próxima oficina/referências (8 min). Pausa ao final, antes das referências e da prática.
+Aula 1: apresentação/panorama (17 min), materiais/PN (9 min), MOSFET (15 min), CMOS, tecnologia e W/L (10 min), fabricação/litografia/limites (6 min), atividade/próxima oficina/referências (8 min). Pausa ao final, antes das referências e da prática.
 
 Aula 2: retomada (5 min), inversor/carga/atraso/energia (10 min), NAND (10 min), NOR e dualidade (10 min), desafio entre duplas (8 min), composição/ondas/referências (12 min). Pausa ao final, antes das referências e da prática.
 
